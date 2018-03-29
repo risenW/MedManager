@@ -8,11 +8,36 @@
     style="@style/Theme.Design.NoActionBar"
     tools:context=".SplashScreen">
 
+    <ImageView
+        android:layout_width="@dimen/login_logo_width"
+        android:layout_height="@dimen/login_logo_height"
+        android:src="@drawable/img_logo"
+        android:contentDescription="@string/app_name"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textSize="@dimen/login_textSize"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/login_app_name_padding"
+        android:text="@string/app_name"/>
+
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/btn_sign_in"
-        android:text="@string/common_signin_button_text_long"/>
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/img_sign_in"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_sign_up"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/img_sign_up"
+        />
 
 </LinearLayout>
 

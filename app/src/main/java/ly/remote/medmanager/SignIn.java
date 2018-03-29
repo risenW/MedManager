@@ -24,10 +24,13 @@ public class SignIn extends AppCompatActivity {
 
         btn_sign_in = (Button)findViewById(R.id.btn_sign_in);
         auth = FirebaseAuth.getInstance();
+        final Intent intent = new Intent(this, MainActivity.class);
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Strat Firebase-UI flow for google sign in
+                startActivity(intent);
+                finish();
+                //Start Firebase-UI flow for google sign in
 //                startActivityForResult(
 //                        AuthUI.getInstance()
 //                                .createSignInIntentBuilder()

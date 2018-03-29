@@ -28,7 +28,7 @@ public class SplashScreen extends AppCompatActivity {
 //        auth = FirebaseAuth.getInstance();
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.transition);
         splashImage.startAnimation(animation);
-        final Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, SignIn.class);
 //        final Intent signIn = new Intent(this, SignIn.class);
 
 

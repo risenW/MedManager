@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Profile"
+        android:orderInCategory="100"
+        android:id="@+id/profile"/>
+
+    <item android:title="About"
+        android:orderInCategory="100"
+        android:id="@+id/about"/>
+
+    <item android:title="Rate this App"
+        android:orderInCategory="100"
+        android:id="@+id/rate"/>
+
+    <item android:title="Exit"
+        android:orderInCategory="100"
+        android:id="@+id/exit"/>
+
+</menu>

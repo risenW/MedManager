@@ -5,6 +5,10 @@
     <dimen name="login_app_name_padding">20dp</dimen>
     <dimen name="login_textSize">18sp</dimen>
 
+    <dimen name="max_desc_height">150dp</dimen>
+    <dimen name="max_desc_width">300dp</dimen>
+
+
 
 
 </resources>

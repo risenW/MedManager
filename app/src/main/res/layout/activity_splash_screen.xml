@@ -8,9 +8,10 @@
     style="@style/Theme.Design.NoActionBar"
     tools:context=".SplashScreen">
 
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello There"/>
+        android:background="@drawable/img_logo"
+        android:id="@+id/splashImage"/>
 
 </LinearLayout>

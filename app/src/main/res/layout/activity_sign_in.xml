@@ -8,9 +8,11 @@
     style="@style/Theme.Design.NoActionBar"
     tools:context=".SplashScreen">
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello There"/>
+        android:layout_height="100dp"
+        android:id="@+id/btn_sign_in"
+        android:text="@string/common_signin_button_text_long"/>
 
 </LinearLayout>
+

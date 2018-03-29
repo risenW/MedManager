@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    style="@style/Theme.Design.NoActionBar"
     tools:context=".SplashScreen">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/img_logo"
-        android:id="@+id/splashImage"/>
+        android:id="@+id/splashImage"
+        android:contentDescription="@string/app_name"/>
 
 </LinearLayout>

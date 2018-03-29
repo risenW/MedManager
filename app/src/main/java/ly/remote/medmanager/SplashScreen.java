@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.WindowDecorActionBar;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,7 +26,9 @@ public class SplashScreen extends AppCompatActivity {
 
         splashImage = (ImageView)findViewById(R.id.splashImage);
 //        auth = FirebaseAuth.getInstance();
-        final Intent mainActivity = new Intent(this, MainActivity.class);
+        Animation animation = AnimationUtils.loadAnimation(this,R.anim.transition);
+        splashImage.startAnimation(animation);
+        final Intent intent = new Intent(this, MainActivity.class);
 //        final Intent signIn = new Intent(this, SignIn.class);
 
 
@@ -32,7 +36,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    sleep(6000);
+                    sleep(4000);
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -53,7 +57,7 @@ public class SplashScreen extends AppCompatActivity {
 //                                RC_SIGN_IN);
 
 //                    }
-                    startActivity(mainActivity);
+                    startActivity(intent);
                     SplashScreen.this.finish();
                 }
             }

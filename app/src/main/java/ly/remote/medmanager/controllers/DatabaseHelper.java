@@ -1,4 +1,4 @@
-package ly.remote.medmanager.model;
+package ly.remote.medmanager.controllers;
 
 import android.content.ContentValues;
 import android.content.Context;

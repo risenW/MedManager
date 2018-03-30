@@ -6,7 +6,11 @@
     <dimen name="login_textSize">18sp</dimen>
 
     <dimen name="max_desc_height">150dp</dimen>
-    <dimen name="max_desc_width">300dp</dimen>
+    <dimen name="max_desc_width">400dp</dimen>
+
+    <dimen name="img_reminder_height">60dp</dimen>
+    <dimen name="img_reminder_width">60dp</dimen>
+
 
 
 

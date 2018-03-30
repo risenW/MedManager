@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ly.remote.medmanager.About">
+    tools:context="ly.remote.medmanager.AboutActivity">
 
 </android.support.constraint.ConstraintLayout>

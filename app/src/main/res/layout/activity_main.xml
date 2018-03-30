@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/Theme.Design.NoActionBar"
-    tools:context=".SplashScreen">
+    tools:context=".SplashScreenActivity">
 
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--/>-->
-    <include layout="@layout/medication_card_view"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_view"
+        />
 </LinearLayout>

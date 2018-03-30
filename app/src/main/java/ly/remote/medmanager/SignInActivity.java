@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 
-public class SignIn extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private static final int RC_SIGN_IN = 123;
     private Button btn_sign_in;

@@ -3,7 +3,6 @@ package ly.remote.medmanager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.WindowDecorActionBar;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -11,9 +10,7 @@ import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Arrays;
-
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
     private ImageView splashImage;
     private FirebaseAuth auth;
     private static final int RC_SIGN_IN = 123;
@@ -28,8 +25,8 @@ public class SplashScreen extends AppCompatActivity {
 //        auth = FirebaseAuth.getInstance();
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.transition);
         splashImage.startAnimation(animation);
-        final Intent intent = new Intent(this, SignIn.class);
-//        final Intent signIn = new Intent(this, SignIn.class);
+        final Intent intent = new Intent(this, SignInActivity.class);
+//        final Intent signIn = new Intent(this, SignInActivity.class);
 
 
         Thread sleep_timer = new Thread(){
@@ -46,7 +43,7 @@ public class SplashScreen extends AppCompatActivity {
 //                    if(auth.getCurrentUser() != null){
 //                        //already signed in
 //                        startActivity(mainActivity);
-//                        SplashScreen.this.finish();
+//                        SplashScreenActivity.this.finish();
 //                    }else {
 //                        //not signed in
 //                          startActivityForResult(
@@ -58,7 +55,7 @@ public class SplashScreen extends AppCompatActivity {
 
 //                    }
                     startActivity(intent);
-                    SplashScreen.this.finish();
+                    SplashScreenActivity.this.finish();
                 }
             }
         };

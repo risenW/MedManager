@@ -24,15 +24,17 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="@string/sample_medication_name"
-               android:padding="10dp"
                android:textAllCaps="true"
                android:textStyle="bold"
-               android:id="@+id/med_name"/>
+               android:textColor="@color/colorPrimary"
+               android:id="@+id/med_name"
+               style="@style/cardViewTextStyle" />
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="@string/sample_month"
-               android:padding="10dp"
+               style="@style/cardViewTextStyle"
+               android:textColor="#FF0000"
                android:layout_alignParentEnd="true"
                android:textAlignment="textEnd"
                android:layout_toEndOf="@id/med_name"
@@ -42,18 +44,19 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="@string/sample_med_description"
-               android:padding="10dp"
+               style="@style/cardViewTextStyle"
                android:maxWidth="@dimen/max_desc_width"
                android:maxHeight="@dimen/max_desc_height"
                android:layout_below="@id/med_name"
                android:id="@+id/med_descrition"/>
 
            <Button
-               android:layout_width="60dp"
-               android:layout_height="60dp"
+               android:layout_width="@dimen/img_reminder_width"
+               android:layout_height="@dimen/img_reminder_height"
                android:background="@drawable/ic_alarm_on"
                android:layout_below="@id/med_month"
                android:layout_alignParentEnd="true"
+               android:layout_marginTop="20dp"
                android:id="@+id/btn_reminder"/>
 
        </RelativeLayout>

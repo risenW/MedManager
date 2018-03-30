@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/Theme.AppCompat.NoActionBar"
-    tools:context=".SplashScreenActivity">
+    tools:context=".views.SplashScreenActivity">
 
     <ImageView
         android:layout_width="match_parent"

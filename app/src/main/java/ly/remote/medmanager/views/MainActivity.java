@@ -1,4 +1,4 @@
-package ly.remote.medmanager;
+package ly.remote.medmanager.views;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import ly.remote.medmanager.R;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;

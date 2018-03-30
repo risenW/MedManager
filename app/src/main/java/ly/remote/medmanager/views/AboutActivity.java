@@ -1,7 +1,9 @@
-package ly.remote.medmanager;
+package ly.remote.medmanager.views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import ly.remote.medmanager.R;
 
 public class AboutActivity extends AppCompatActivity {
 

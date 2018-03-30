@@ -1,4 +1,4 @@
-package ly.remote.medmanager;
+package ly.remote.medmanager.views;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import ly.remote.medmanager.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private ImageView splashImage;

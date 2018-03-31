@@ -13,12 +13,16 @@
         android:layout_height="wrap_content"
         android:text="@string/med_title"
         style="@style/CustomHeaderTextStyle" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/sample_medication_name"
         android:textSize="20sp"
+        android:padding="20dp"
+        android:id="@+id/user_med_name"
         android:textAlignment="center"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,6 +34,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/sample_med_description"
         android:textSize="20sp"
+        android:id="@+id/user_med_description"
         android:textAlignment="center"/>
 
     <LinearLayout
@@ -48,6 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/create_med_icon_marginLeft"
+            android:id="@+id/user_selected_spinner_interval"
             android:entries="@array/hour_intervals"
             />
 
@@ -64,13 +70,15 @@
             android:layout_height="wrap_content"
             android:text="Start Date"
             android:layout_margin="10dp"
+            android:layout_gravity="center"
             style="@style/CustomHeaderTextStyle" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textSize="20sp"
+            android:id="@+id/user_selected_start_date"
             android:text="@string/sample_start_date"/>
 
         <Button
@@ -78,6 +86,7 @@
             android:layout_height="@dimen/start_date_icon_height"
             android:layout_marginLeft="@dimen/create_med_icon_marginLeft"
             android:layout_gravity="center"
+            android:id="@+id/btn_start_date"
             android:background="@drawable/ic_date_range"/>
 
     </LinearLayout>
@@ -93,13 +102,16 @@
             android:layout_height="wrap_content"
             android:text="End Date"
             android:layout_margin="10dp"
+            android:layout_gravity="center"
+
             style="@style/CustomHeaderTextStyle" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textSize="20sp"
+            android:id="@+id/user_selected_end_date"
             android:text="@string/sample_end_date"/>
 
         <Button
@@ -107,6 +119,7 @@
             android:layout_height="@dimen/start_date_icon_height"
             android:layout_marginLeft="@dimen/create_med_icon_marginLeft"
             android:layout_gravity="center"
+            android:id="@+id/btn_end_date"
             android:background="@drawable/ic_date_range"/>
 
     </LinearLayout>
@@ -129,6 +142,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/create_med_icon_marginLeft"
             android:entries="@array/remind_me"
+            android:id="@+id/user_selected_reminder_option"
             />
 
 
@@ -146,6 +160,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_save"
             android:layout_margin="10dp"
+            android:visibility="gone"
             android:text="@string/save"/>
 
         <Button

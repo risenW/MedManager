@@ -7,6 +7,8 @@
     <string name="sample_start_date">April 5th 2018</string>
     <string name="sample_end_date">June 20th 2018</string>
     <string name="save">Save</string>
+    <string name="Exit_text">Exit Application</string>
+    <string name="Delete_text">Delete this Medication</string>
 
 
     <string-array name="hour_intervals">

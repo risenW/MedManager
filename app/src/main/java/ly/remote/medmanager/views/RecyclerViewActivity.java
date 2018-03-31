@@ -1,8 +1,10 @@
 package ly.remote.medmanager.views;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,20 +12,46 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import ly.remote.medmanager.R;
 import ly.remote.medmanager.controllers.DatabaseHelper;
+import ly.remote.medmanager.controllers.Interfaces.MyItemOnClickListener;
+import ly.remote.medmanager.controllers.Interfaces.MyItemOnLongClickListener;
 import ly.remote.medmanager.controllers.MedicationAdapter;
 import ly.remote.medmanager.models.MedicationModel;
 
-public class RecyclerViewActivity extends AppCompatActivity {
+public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnClickListener,MyItemOnLongClickListener {
      RecyclerView recyclerView;
      RecyclerView.LayoutManager layoutManager;
      MedicationAdapter medicationAdapter;
      ArrayList<MedicationModel> medicationModelArrayList;
      private FloatingActionButton addMedication;
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.Exit_text);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                moveTaskToBack(true);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(1);
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +63,6 @@ public class RecyclerViewActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
-        //Populates the recycler view
         fillAdapter();
         final Intent intent =  new Intent(this,CreateMedicationActivity.class);
 
@@ -75,10 +101,59 @@ public class RecyclerViewActivity extends AppCompatActivity {
             medicationAdapter = new MedicationAdapter(medicationModelArrayList);
             recyclerView.setAdapter(medicationAdapter);
 
+            this.medicationAdapter.setClickListener(this);
+            this.medicationAdapter.setLongClickListener(this);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(this, "Clicked: " + position, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void OnItemLongClickListener(View view, final int position) {
+        Toast.makeText(this, "Long Clicked: " + position, Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.Delete_text);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               //Deletes from data base
+                DatabaseHelper databaseHelper = new DatabaseHelper(RecyclerViewActivity.this);
+                MedicationModel medicationModel = medicationModelArrayList.get(position);
+
+                if (medicationModel != null ){
+
+                    databaseHelper.open();
+                    databaseHelper.deleteMedicationByID(medicationModel.getIndex());   //Deletes from the database
+                    medicationModelArrayList.remove(position);                          //Removes deleted Item from the list
+                    medicationAdapter.notifyItemRemoved(position);
+                    medicationAdapter.notifyDataSetChanged();
+
+                    Toast.makeText(RecyclerViewActivity.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                    databaseHelper.close();
+
+                }
+
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+
+    }
+
 
 
     @Override

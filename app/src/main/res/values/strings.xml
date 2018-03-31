@@ -9,6 +9,8 @@
     <string name="remind_me">Remind Me</string>
     <string name="save">Save</string>
     <string name="edit">Edit</string>
+    <string name="Exit_text">Exit Application</string>
+    <string name="Delete_text">Delete this Medication</string>
 
     <string-array name="hour_intervals">
         <item>4</item>

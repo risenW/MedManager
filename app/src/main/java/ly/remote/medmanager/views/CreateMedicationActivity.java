@@ -1,5 +1,6 @@
 package ly.remote.medmanager.views;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,7 +21,6 @@ public class CreateMedicationActivity extends AppCompatActivity {
     private Spinner daily_interval, remind_me;
     private Button btn_start_date, btn_end_date, btn_save, btn_edit;
     public static int index;
-
     private DatabaseHelper databaseHelper;
     private RecyclerViewActivity recyclerViewObject;
     private static final String MY_PREF = "my_preference";
@@ -31,6 +31,14 @@ public class CreateMedicationActivity extends AppCompatActivity {
         super.onStart();
         //disable all views
         disableViews();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, RecyclerViewActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -80,6 +88,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
                    Log.d("Insertion","Medication Inserted");
                    Toast.makeText(CreateMedicationActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
                    databaseHelper.close();
+                   recyclerViewObject.medicationAdapter.notifyDataSetChanged();
 
                }catch (Exception e){
                    e.printStackTrace();

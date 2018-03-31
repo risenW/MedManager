@@ -3,4 +3,24 @@
     <string name="sample_medication_name">Panadol and Septrin</string>
     <string name="sample_med_description">This is my medication for back pain and fever blah blah blashh dd ggdgd dgdggd ggdgdg gdgdgdg dgdggdgd gdgdg</string>
     <string name="sample_month">March</string>
+    <string name="med_title">Name of Medication</string>
+    <string name="sample_start_date">April 5th 2018</string>
+    <string name="sample_end_date">June 20th 2018</string>
+    <string name="remind_me">Remind Me</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+
+    <string-array name="hour_intervals">
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>12</item>
+        <item>15</item>
+        <item>24</item>
+    </string-array>
+
+    <string-array name="remind_me">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 </resources>

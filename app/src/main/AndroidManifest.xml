@@ -19,7 +19,8 @@
         <activity android:name=".views.MainActivity" />
         <activity android:name=".views.SignInActivity" />
         <activity android:name=".views.ProfileActivity" />
-        <activity android:name=".views.AboutActivity"></activity>
+        <activity android:name=".views.AboutActivity" />
+        <activity android:name=".views.CreateMedicationActivity"></activity>
     </application>
 
 </manifest>

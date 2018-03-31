@@ -11,6 +11,11 @@
     <dimen name="img_reminder_height">60dp</dimen>
     <dimen name="img_reminder_width">60dp</dimen>
 
+    <dimen name="start_date_icon_height">40dp</dimen>
+    <dimen name="start_date_icon_width">40dp</dimen>
+
+    <dimen name="create_med_icon_marginLeft">100dp</dimen>
+
 
 
 

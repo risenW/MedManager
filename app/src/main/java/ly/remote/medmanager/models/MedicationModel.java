@@ -8,9 +8,9 @@ public class MedicationModel {
     private String med_name, med_desc, med_month, med_interval, med_start_date, med_end_date;
     private int index, med_reminder;
 
-    public MedicationModel(String med_name, String med_desc, String med_month,
-                             String med_interval, String med_start_date,
-                                 String med_end_date, int index, int med_reminder) {
+    public MedicationModel(int index, String med_name, String med_desc, String med_month,
+                             String med_interval, String med_start_date,     //TODO change interval to integer
+                                 String med_end_date, int med_reminder) {
 
         this.med_name = med_name;
         this.med_desc = med_desc;

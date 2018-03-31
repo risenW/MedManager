@@ -160,7 +160,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_save"
             android:layout_margin="10dp"
-            android:visibility="gone"
             android:text="@string/save"/>
 
         <Button

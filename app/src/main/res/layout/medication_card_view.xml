@@ -27,7 +27,7 @@
                android:textAllCaps="true"
                android:textStyle="bold"
                android:textColor="@color/colorPrimary"
-               android:id="@+id/med_name"
+               android:id="@+id/cardView_med_name"
                style="@style/cardViewTextStyle" />
            <TextView
                android:layout_width="wrap_content"
@@ -37,8 +37,8 @@
                android:textColor="#FF0000"
                android:layout_alignParentEnd="true"
                android:textAlignment="textEnd"
-               android:layout_toEndOf="@id/med_name"
-               android:id="@+id/med_month"/>
+               android:layout_toEndOf="@id/cardView_med_name"
+               android:id="@+id/cardView_med_month"/>
 
            <TextView
                android:layout_width="wrap_content"
@@ -47,17 +47,49 @@
                style="@style/cardViewTextStyle"
                android:maxWidth="@dimen/max_desc_width"
                android:maxHeight="@dimen/max_desc_height"
-               android:layout_below="@id/med_name"
-               android:id="@+id/med_descrition"/>
+               android:layout_below="@id/cardView_med_name"
+               android:id="@+id/cardView_med_descrition"/>
 
            <Button
                android:layout_width="@dimen/img_reminder_width"
                android:layout_height="@dimen/img_reminder_height"
                android:background="@drawable/ic_alarm_on"
-               android:layout_below="@id/med_month"
+               android:layout_below="@id/cardView_med_month"
                android:layout_alignParentEnd="true"
                android:layout_marginTop="20dp"
-               android:id="@+id/btn_reminder"/>
+               android:id="@+id/cardView_btn_reminder"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/cardView_start_date"
+               android:layout_below="@id/cardView_med_descrition"
+               style="@style/cardViewTextStyle"
+               android:hint="@string/sample_start_date"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/cardView_end_date"
+               android:layout_below="@id/cardView_med_descrition"
+               android:layout_toEndOf="@id/cardView_start_date"
+               style="@style/cardViewTextStyle"
+               android:hint="@string/sample_end_date"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/cardView_interval"
+               android:layout_below="@id/cardView_med_descrition"
+               android:layout_toEndOf="@id/cardView_end_date"
+               style="@style/cardViewTextStyle"
+               android:hint="6 hrs Daily"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/cardView_remind_me"
+               android:text="1"/>
 
 
 

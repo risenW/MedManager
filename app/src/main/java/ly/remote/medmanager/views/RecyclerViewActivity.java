@@ -1,6 +1,7 @@
 package ly.remote.medmanager.views;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,24 +11,34 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import ly.remote.medmanager.R;
+import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private FloatingActionButton addMedication;
+import ly.remote.medmanager.R;
+import ly.remote.medmanager.controllers.DatabaseHelper;
+import ly.remote.medmanager.controllers.MedicationAdapter;
+import ly.remote.medmanager.models.MedicationModel;
+
+public class RecyclerViewActivity extends AppCompatActivity {
+     RecyclerView recyclerView;
+     RecyclerView.LayoutManager layoutManager;
+     MedicationAdapter medicationAdapter;
+     ArrayList<MedicationModel> medicationModelArrayList;
+     private FloatingActionButton addMedication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        medicationModelArrayList = new ArrayList<>();
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        final Intent intent =  new Intent(this,CreateMedicationActivity.class);
 
+        //Populates the recycler view
+        fillAdapter();
+        final Intent intent =  new Intent(this,CreateMedicationActivity.class);
 
         addMedication = (FloatingActionButton)findViewById(R.id.add_mediction);
         addMedication.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +49,35 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void fillAdapter() {
+        try {
+            DatabaseHelper databaseHelper = new DatabaseHelper(this);
+            databaseHelper.open();
+            Cursor cursor = databaseHelper.getMedication();
+
+            if (cursor != null){
+                do{
+                    MedicationModel medicationModel = new MedicationModel(cursor.getInt(0),   //index
+                            cursor.getString(1), //name
+                            cursor.getString(2),  //description
+                            cursor.getString(3),  //month
+                            cursor.getString(4),   //interval
+                            cursor.getString(5),   //start date
+                            cursor.getString(6),   //end date
+                            cursor.getInt(7));  //remind me value
+                    medicationModelArrayList.add(medicationModel);
+                } while (cursor.moveToNext());
+            }
+
+            databaseHelper.close();
+            medicationAdapter = new MedicationAdapter(medicationModelArrayList);
+            recyclerView.setAdapter(medicationAdapter);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

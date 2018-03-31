@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by Risen on 3/30/2018.
@@ -47,11 +48,14 @@ public class DatabaseHelper {
     }
 
     public void open() throws SQLException{
-
+        medDatabaseHelper = new MedDatabaseHelper(context);
+        sqLiteDatabase = medDatabaseHelper.getReadableDatabase();
     }
 
     public void close(){
-
+        if (medDatabaseHelper != null) {
+            medDatabaseHelper.close();
+        }
     }
 
     //Inner SQLite class for Medication database
@@ -103,9 +107,9 @@ public class DatabaseHelper {
         Log.d(DEBUG_TAG, "One Row Inserted");
     }
 
-    public Cursor getCoinPair() {
+    public Cursor getMedication() {
         sqLiteDatabase = medDatabaseHelper.getReadableDatabase();
-        String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_INTERVAL,MED_START_DATE,MED_END_DATE,MED_REMINDER};
+        String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_INTERVAL,MED_START_DATE,MED_END_DATE,MED_REMINDER};  //TODO change interval to integer
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, columns, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
@@ -113,7 +117,7 @@ public class DatabaseHelper {
         return cursor;
     }
 
-    public void deleteMedByID(int index){
+    public void deleteMedicationByID(int index){
         sqLiteDatabase = medDatabaseHelper.getWritableDatabase();
         sqLiteDatabase.delete(TABLE_NAME,INDEX + "=?",new String[]{String.valueOf(index)});
         Log.d("DBHELPER","Deletion successful");

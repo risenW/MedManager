@@ -36,9 +36,10 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Re
         holder.med_name.setText(medModel.getMed_name());
         holder.med_desc.setText(medModel.getMed_desc());
         holder.med_month.setText(medModel.getMed_month());
-//        holder.med_interval.setText(medModel.getMed_interval());
-//        holder.med_start_date.setText(String.valueOf(medModel.getMed_start_date()));
-//        holder.med_end_date.setText(String.valueOf(medModel.getMed_end_date()));
+        holder.med_interval.setText(medModel.getMed_interval());
+        holder.med_start_date.setText(medModel.getMed_start_date());
+        holder.med_end_date.setText(medModel.getMed_end_date());
+        holder.med_remind_me.setText(String.valueOf(medModel.getMed_reminder()));
 
     }
 
@@ -48,33 +49,34 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Re
     }
 
     //View Holder inner class
-    public static class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
-        TextView med_name, med_desc, med_month; // med_interval, med_start_date, med_end_date;
+    public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
+        TextView med_name, med_desc, med_month, med_interval, med_start_date, med_end_date, med_remind_me;
 //        private MyItemClickListener itemClickListener;
 //        private MyItemLongClickListener itemLongClickListener;
 
-        public RecyclerViewHolder(View arg0) {
-            super(arg0);
+        public RecyclerViewHolder(View view) {
+            super(view);
 
-            med_name = (TextView)arg0.findViewById(R.id.med_name);
-            med_desc = (TextView)arg0.findViewById(R.id.med_descrition);
-            med_month = (TextView)arg0.findViewById(R.id.med_month);
-//            med_interval = (TextView)arg0.findViewById(R.id.med_name);
-//            med_start_date = (TextView)arg0.findViewById(R.id.med_name);
-//            med_end_date = (TextView)arg0.findViewById(R.id.med_name);
+            med_name = (TextView)view.findViewById(R.id.cardView_med_name);
+            med_desc = (TextView)view.findViewById(R.id.cardView_med_descrition);
+            med_month = (TextView)view.findViewById(R.id.cardView_med_month);
+            med_interval = (TextView)view.findViewById(R.id.cardView_interval);
+            med_start_date = (TextView)view.findViewById(R.id.cardView_start_date);
+            med_end_date = (TextView)view.findViewById(R.id.cardView_end_date);
+            med_remind_me = (TextView)view.findViewById(R.id.cardView_remind_me);
 
 
-
-        }
-
-        @Override
-        public void onClick(View v) {
 
         }
 
-        @Override
-        public boolean onLongClick(View v) {
-            return false;
-        }
+//        @Override
+//        public void onClick(View v) {
+//
+//        }
+//
+//        @Override
+//        public boolean onLongClick(View v) {
+//            return false;
+//        }
     }
 }

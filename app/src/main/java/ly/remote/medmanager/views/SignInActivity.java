@@ -22,7 +22,7 @@ public class SignInActivity extends AppCompatActivity {
 
         btn_sign_in = (Button)findViewById(R.id.btn_sign_in);
         auth = FirebaseAuth.getInstance();
-        final Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, RecyclerViewActivity.class);
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +48,7 @@ public class SignInActivity extends AppCompatActivity {
 //
 //            // Successfully signed in
 //            if (resultCode == RESULT_OK) {
-//                Intent intent = new Intent(this, MainActivity.class);
+//                Intent intent = new Intent(this, RecyclerViewActivity.class);
 //                startActivity(intent);
 //                finish();
 //            } else {

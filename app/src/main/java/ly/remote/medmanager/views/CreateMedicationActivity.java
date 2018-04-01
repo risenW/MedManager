@@ -77,12 +77,11 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
                    temp_med_name = med_name.getText().toString();
                    temp_med_desc = med_description.getText().toString();
-                   temp_med_interval = daily_interval.getSelectedItem().toString();  //TODO change interval to integer
+                   temp_med_interval = daily_interval.getSelectedItem().toString();
                    temp_med_month = "April";  //TODO Hardcoded value. Will add a month method later to get the current month"
                    temp_med_start_date = "April 5th";
                    temp_med_end_date = "June 4th";
-                   temp_remind_me = medCreationHelper.getBooleanValue(remind_me.getSelectedItem().toString());  //TODO hardcoded remind me value.  Change later
-
+                   temp_remind_me = medCreationHelper.getBooleanValue(remind_me.getSelectedItem().toString());
                    //Makes the insertion in database
                    databaseHelper.insertMedication(index,temp_med_name,temp_med_desc,temp_med_month,
                                                            temp_med_interval,temp_med_start_date,

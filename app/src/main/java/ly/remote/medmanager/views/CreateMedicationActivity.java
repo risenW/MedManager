@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import ly.remote.medmanager.R;
 import ly.remote.medmanager.controllers.DatabaseHelper;
+import ly.remote.medmanager.controllers.NewMedCreationHelper;
 
 public class CreateMedicationActivity extends AppCompatActivity {
     private EditText med_name, med_description;
@@ -23,6 +24,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
     public static int index;
     private DatabaseHelper databaseHelper;
     private RecyclerViewActivity recyclerViewObject;
+    private NewMedCreationHelper medCreationHelper;
     private static final String MY_PREF = "my_preference";
     private final String INDEX_VALUE = "indexValue";   //Key for saving in preference
 
@@ -54,14 +56,15 @@ public class CreateMedicationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Enable Views and buttons
                 enableViews();
+                btn_save.setVisibility(View.VISIBLE);
+                btn_edit.setVisibility(View.GONE);
             }
         });
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Disable all views
-//                disableViews();
+                medCreationHelper = new NewMedCreationHelper();
                try {
                    Toast.makeText(CreateMedicationActivity.this, "Saving", Toast.LENGTH_SHORT).show();
 
@@ -74,11 +77,11 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
                    temp_med_name = med_name.getText().toString();
                    temp_med_desc = med_description.getText().toString();
-                   temp_med_interval = "6";  //TODO change interval to integer
+                   temp_med_interval = daily_interval.getSelectedItem().toString();  //TODO change interval to integer
                    temp_med_month = "April";  //TODO Hardcoded value. Will add a month method later to get the current month"
                    temp_med_start_date = "April 5th";
                    temp_med_end_date = "June 4th";
-                   temp_remind_me = 1;  //TODO hardcoded remind me value.  Change later
+                   temp_remind_me = medCreationHelper.getBooleanValue(remind_me.getSelectedItem().toString());  //TODO hardcoded remind me value.  Change later
 
                    //Makes the insertion in database
                    databaseHelper.insertMedication(index,temp_med_name,temp_med_desc,temp_med_month,
@@ -96,6 +99,10 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
                 //Saves the current index
                 saveIndexInPref();
+                //disable all views
+                disableViews();
+                btn_edit.setVisibility(View.VISIBLE);
+                btn_save.setVisibility(View.GONE);
             }
         });
 

@@ -23,10 +23,24 @@
         android:id="@+id/user_med_name"
         android:textAlignment="center"/>
 
+    <!--//Hidden field to hold the med month and Id-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample_month"
+        android:id="@+id/view_med_month"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_id"
+        android:id="@+id/view_med_id"/>
+    <!--//End of Hidden field to hold the med month-->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Description"
+        android:text="@string/description_header"
         style="@style/CustomHeaderTextStyle" />
 
     <EditText
@@ -46,14 +60,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Daily Intervals"
+            android:text="@string/daily_intervals_header"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             style="@style/CustomHeaderTextStyle" />
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/create_med_icon_marginLeft"
+            android:layout_marginStart="@dimen/create_med_icon_marginLeft"
             android:id="@+id/user_selected_spinner_interval"
             android:entries="@array/hour_intervals"
             />
@@ -69,7 +83,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start Date"
+            android:text="@string/start_date_header"
             android:layout_margin="10dp"
             android:layout_gravity="center"
             style="@style/CustomHeaderTextStyle" />
@@ -85,7 +99,7 @@
         <Button
             android:layout_width="@dimen/start_date_icon_width"
             android:layout_height="@dimen/start_date_icon_height"
-            android:layout_marginLeft="@dimen/create_med_icon_marginLeft"
+            android:layout_marginStart="@dimen/create_med_icon_marginLeft"
             android:layout_gravity="center"
             android:id="@+id/btn_start_date"
             android:background="@drawable/ic_date_range"/>
@@ -101,7 +115,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="End Date"
+            android:text="@string/end_date_header"
             android:layout_margin="10dp"
             android:layout_gravity="center"
 
@@ -118,7 +132,7 @@
         <Button
             android:layout_width="@dimen/start_date_icon_width"
             android:layout_height="@dimen/start_date_icon_height"
-            android:layout_marginLeft="@dimen/create_med_icon_marginLeft"
+            android:layout_marginStart="@dimen/create_med_icon_marginLeft"
             android:layout_gravity="center"
             android:id="@+id/btn_end_date"
             android:background="@drawable/ic_date_range"/>
@@ -142,7 +156,7 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/create_med_icon_marginLeft"
+            android:layout_marginStart="@dimen/create_med_icon_marginLeft"
             android:entries="@array/remind_me"
             android:id="@+id/user_selected_reminder_option"
             />
@@ -162,14 +176,15 @@
             android:layout_height="@dimen/img_reminder_height"
             android:id="@+id/btn_save"
             android:layout_margin="50dp"
-            android:text="@string/save"
             android:visibility="gone"
+            style="?android:attr/buttonBarButtonStyle"
             android:background="@drawable/ic_save"/>
 
         <Button
             android:layout_width="@dimen/img_reminder_width"
             android:layout_height="@dimen/img_reminder_height"
             android:id="@+id/btn_edit"
+            style="?android:attr/buttonBarButtonStyle"
             android:background="@drawable/ic_edit"
             />
 

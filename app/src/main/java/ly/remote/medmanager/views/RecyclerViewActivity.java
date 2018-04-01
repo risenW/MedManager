@@ -28,7 +28,20 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
      RecyclerView.LayoutManager layoutManager;
      MedicationAdapter medicationAdapter;
      ArrayList<MedicationModel> medicationModelArrayList;
-     private FloatingActionButton addMedication;
+     FloatingActionButton addMedication;
+
+    //Intent Keys
+    public final String INDEX = "index";
+    public final String MED_NAME = "med_name";
+    public final String MED_DESC = "med_desc";
+    public final String MED_MONTH = "med_month";
+    public final String MED_INTERVAL = "med_interval";
+    public final String MED_START_DATE = "med_start_date";
+    public final String MED_END_DATE = "med_end_date";
+    public final String MED_REMINDER = "med_reminder";
+    public final String NEW_MEDICATION = "new_medication";
+
+
 
     @Override
     public void onBackPressed() {
@@ -65,6 +78,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
         recyclerView.setLayoutManager(layoutManager);
         fillAdapter();
         final Intent intent =  new Intent(this,CreateMedicationActivity.class);
+//        intent.putExtra("UPDATE", "No");
 
         addMedication = (FloatingActionButton)findViewById(R.id.add_mediction);
         addMedication.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +126,23 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "Clicked: " + position, Toast.LENGTH_SHORT).show();
+        MedicationModel medicationModel =  medicationModelArrayList.get(position);
+        //start the CreateMedicationActivity with the clicked list item
+        if (medicationModel != null){
+
+            Intent intent = new Intent(RecyclerViewActivity.this, CreateMedicationActivity.class);
+            intent.putExtra(NEW_MEDICATION, "No");
+            intent.putExtra(INDEX, position);
+            intent.putExtra(MED_NAME, medicationModel.getMed_name());
+            intent.putExtra(MED_DESC, medicationModel.getMed_desc());
+            intent.putExtra(MED_MONTH, medicationModel.getMed_month());
+            intent.putExtra(MED_INTERVAL, medicationModel.getMed_interval());
+            intent.putExtra(MED_START_DATE, medicationModel.getMed_start_date());
+            intent.putExtra(MED_END_DATE, medicationModel.getMed_end_date());
+            intent.putExtra(MED_REMINDER, medicationModel.getMed_reminder());
+
+            startActivity(intent);
+        }
 
     }
 

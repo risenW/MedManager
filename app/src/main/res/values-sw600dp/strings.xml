@@ -2,7 +2,7 @@
 <resources>
     <string name="sample_month">March</string>
     <string name="sample_medication_name">Panadol and Septrin</string>
-    <string name="sample_med_description">This is my medication for back pain and fever blah blah blashh dd ggdgd dgdggd ggdgdg gdgdgdg dgdggdgd gdgdg</string>
+    <string name="sample_med_description">This is my medication for back pain and fever blah blashh dd ggdgd dgdggd ggdgdg gdgdgdg dgdggdgd gdgdg</string>
     <string name="med_title">Name of Medication</string>
     <string name="sample_start_date">April 5th 2018</string>
     <string name="sample_end_date">June 20th 2018</string>
@@ -11,6 +11,11 @@
     <string name="Delete_text">Delete this Medication</string>
     <string name="Yes">Yes</string>
     <string name="No">No</string>
+    <string name="default_id">0</string>
+    <string name="description_header">Description</string>
+    <string name="daily_intervals_header">Daily Intervals</string>
+    <string name="start_date_header">Start Date</string>
+    <string name="end_date_header">End Date</string>
 
 
     <string-array name="hour_intervals">

@@ -1,194 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_splash_screen"
+<ScrollView android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    style="@style/Theme.Design.NoActionBar"
-    tools:context=".views.SplashScreenActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/med_title"
-        style="@style/CustomHeaderTextStyle" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/sample_medication_name"
-        android:textSize="20sp"
-        android:padding="20dp"
-        android:id="@+id/user_med_name"
-        android:textAlignment="center"/>
-
-    <!--//Hidden field to hold the med month and Id-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sample_month"
-        android:id="@+id/view_med_month"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/default_id"
-        android:id="@+id/view_med_id"/>
-    <!--//End of Hidden field to hold the med month-->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/description_header"
-        style="@style/CustomHeaderTextStyle" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/sample_med_description"
-        android:textSize="20sp"
-        android:id="@+id/user_med_description"
-        android:textAlignment="center"/>
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <LinearLayout
+        android:id="@+id/activity_splash_screen"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        style="@style/Theme.Design.NoActionBar">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/daily_intervals_header"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            style="@style/CustomHeaderTextStyle" />
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/create_med_icon_marginLeft"
-            android:id="@+id/user_selected_spinner_interval"
-            android:entries="@array/hour_intervals"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/start_date_header"
-            android:layout_margin="10dp"
-            android:layout_gravity="center"
+            android:text="@string/med_title"
             style="@style/CustomHeaderTextStyle" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="20sp"
-            android:id="@+id/user_selected_start_date"
-            android:text="@string/sample_start_date"/>
+            android:hint="@string/sample_medication_name"
+            android:textSize="18sp"
+            android:padding="20dp"
+            android:id="@+id/user_med_name"
+            android:textAlignment="center"/>
 
-        <Button
-            android:layout_width="@dimen/start_date_icon_width"
-            android:layout_height="@dimen/start_date_icon_height"
-            android:layout_marginStart="@dimen/create_med_icon_marginLeft"
-            android:layout_gravity="center"
-            android:id="@+id/btn_start_date"
-            android:background="@drawable/ic_date_range"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        <!--//Hidden field to hold the med month and Id-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/sample_month"
+            android:id="@+id/view_med_month"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/end_date_header"
-            android:layout_margin="10dp"
-            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/default_id"
+            android:id="@+id/view_med_id"/>
+        <!--//End of Hidden field to hold the med month-->
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/description_header"
             style="@style/CustomHeaderTextStyle" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="20sp"
-            android:id="@+id/user_selected_end_date"
-            android:text="@string/sample_end_date"/>
+            android:hint="@string/sample_med_description"
+            android:textSize="18sp"
+            android:id="@+id/user_med_description"
+            android:textAlignment="center"/>
 
-        <Button
-            android:layout_width="@dimen/start_date_icon_width"
-            android:layout_height="@dimen/start_date_icon_height"
-            android:layout_marginStart="@dimen/create_med_icon_marginLeft"
-            android:layout_gravity="center"
-            android:id="@+id/btn_end_date"
-            android:background="@drawable/ic_date_range"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/remind_me"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            style="@style/CustomHeaderTextStyle" />
+            android:orientation="horizontal">
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/create_med_icon_marginLeft"
-            android:entries="@array/remind_me"
-            android:id="@+id/user_selected_reminder_option"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/daily_intervals_header"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                style="@style/CustomHeaderTextStyle" />
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/create_med_icon_marginLeft"
+                android:id="@+id/user_selected_spinner_interval"
+                android:entries="@array/hour_intervals"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_date_header"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                style="@style/CustomHeaderTextStyle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:id="@+id/user_selected_start_date"
+                android:text="@string/sample_start_date"/>
+
+            <Button
+                android:layout_width="@dimen/start_date_icon_width"
+                android:layout_height="@dimen/start_date_icon_height"
+                android:layout_marginStart="@dimen/create_med_icon_marginLeft"
+                android:layout_gravity="center"
+                android:id="@+id/btn_start_date"
+                android:background="@drawable/ic_date_range"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/end_date_header"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+
+                style="@style/CustomHeaderTextStyle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:id="@+id/user_selected_end_date"
+                android:text="@string/sample_end_date"/>
+
+            <Button
+                android:layout_width="@dimen/start_date_icon_width"
+                android:layout_height="@dimen/start_date_icon_height"
+                android:layout_marginStart="@dimen/create_med_icon_marginLeft"
+                android:layout_gravity="center"
+                android:id="@+id/btn_end_date"
+                android:background="@drawable/ic_date_range"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/remind_me"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                style="@style/CustomHeaderTextStyle" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/create_med_icon_marginLeft"
+                android:entries="@array/remind_me"
+                android:id="@+id/user_selected_reminder_option"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="@dimen/img_reminder_width"
+                android:layout_height="@dimen/img_reminder_height"
+                android:id="@+id/btn_save"
+                android:visibility="gone"
+                android:textAllCaps="false"
+                android:text="@string/save"
+                android:textColor="@color/colorPrimary"
+                android:background="@android:color/white"
+                android:textSize="@dimen/cardViewTextSize"
+                />
+
+            <Button
+                android:layout_width="@dimen/img_reminder_width"
+                android:layout_height="@dimen/img_reminder_height"
+                android:id="@+id/btn_edit"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:background="@android:color/white"
+                android:textSize="@dimen/cardViewTextSize"
+                android:text="@string/edit"
+                />
+
+
+        </LinearLayout>
+
 
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="@dimen/img_reminder_width"
-            android:layout_height="@dimen/img_reminder_height"
-            android:id="@+id/btn_save"
-            android:layout_margin="50dp"
-            android:visibility="gone"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/ic_save"/>
-
-        <Button
-            android:layout_width="@dimen/img_reminder_width"
-            android:layout_height="@dimen/img_reminder_height"
-            android:id="@+id/btn_edit"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/ic_edit"
-            />
+</ScrollView>
 
 
-    </LinearLayout>
-
-</LinearLayout>

@@ -19,7 +19,7 @@ import ly.remote.medmanager.controllers.NewMedCreationHelper;
 
 public class CreateMedicationActivity extends AppCompatActivity {
 
-    private EditText editext_med_name, editText_med_description;
+    private EditText editText_med_name, editText_med_description;
     private TextView view_start_date, view_end_date, view_med_month, view_med_id;
     private Spinner spinner_daily_interval, spinner_remind_me;
     private Button btn_start_date, btn_end_date, btn_save, btn_edit;
@@ -123,7 +123,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
                        String temp_med_name, temp_med_desc, temp_med_month, temp_med_interval, temp_med_start_date, temp_med_end_date;
                        int temp_remind_me;
 
-                       temp_med_name = editext_med_name.getText().toString();
+                       temp_med_name = editText_med_name.getText().toString();
                        temp_med_desc = editText_med_description.getText().toString();
                        temp_med_interval = spinner_daily_interval.getSelectedItem().toString();
                        temp_med_month = view_med_month.getText().toString();
@@ -162,7 +162,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
     public void initializeViews(){
 
-        editext_med_name = (EditText)findViewById(R.id.user_med_name);
+        editText_med_name = (EditText)findViewById(R.id.user_med_name);
         editText_med_description = (EditText)findViewById(R.id.user_med_description);
         view_med_month = (TextView)findViewById(R.id.view_med_month);
         view_med_id = (TextView)findViewById(R.id.view_med_id);
@@ -182,7 +182,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
     public void enableViews(){
 
-        editext_med_name.setEnabled(true);
+        editText_med_name.setEnabled(true);
         editText_med_description.setEnabled(true);
         spinner_daily_interval.setEnabled(true);
         view_start_date.setEnabled(true);
@@ -193,7 +193,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
     public void disableViews(){
 
-        editext_med_name.setEnabled(false);
+        editText_med_name.setEnabled(false);
         editText_med_description.setEnabled(false);
         spinner_daily_interval.setEnabled(false);
         view_start_date.setEnabled(false);
@@ -206,25 +206,28 @@ public class CreateMedicationActivity extends AppCompatActivity {
     public void get_extras_and_populate_views(){
         Bundle extras = getIntent().getExtras();
         String new_medication, med_name, med_desc, med_month, med_interval, med_start_date, med_end_date, med_remind_me;
+        int med_id;
 
+        med_id = extras.getInt(recyclerViewObject.INDEX);
         new_medication = extras.getString(recyclerViewObject.NEW_MEDICATION);
         med_name = extras.getString(recyclerViewObject.MED_NAME);
         med_desc = extras.getString(recyclerViewObject.MED_DESC);
         med_month = extras.getString(recyclerViewObject.MED_MONTH);
-        med_interval = extras.getString(recyclerViewObject.MED_INTERVAL);  //TODO Display in Create Activity
+        med_interval = extras.getString(recyclerViewObject.MED_INTERVAL);
         med_start_date = extras.getString(recyclerViewObject.MED_START_DATE);
         med_end_date = extras.getString(recyclerViewObject.MED_END_DATE);
         med_remind_me = extras.getString(recyclerViewObject.MED_REMINDER);
 
         if (new_medication.equals("No")){
             Update = "Yes";
-            editext_med_name.setText(med_name);
+            view_med_id.setText(med_id);
+            editText_med_name.setText(med_name);
             editText_med_description.setText(med_desc);
             view_med_month.setText(med_month);
             view_start_date.setText(med_start_date);
             view_end_date.setText(med_end_date);
-//            spinner_remind_me.setSelection(medCreationHelper.get_selected_reminder_spinner_item(med_remind_me));
-//            spinner_daily_interval.setSelection(medCreationHelper.get_selected_interval_spinner_item(med_interval));
+            spinner_remind_me.setSelection(medCreationHelper.get_selected_reminder_spinner_item(med_remind_me));
+            spinner_daily_interval.setSelection(medCreationHelper.get_selected_interval_spinner_item(med_interval));
 
         }else {
             Update = "No";

@@ -77,13 +77,25 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         fillAdapter();
-        final Intent intent =  new Intent(this,CreateMedicationActivity.class);
-//        intent.putExtra("UPDATE", "No");
-
         addMedication = (FloatingActionButton)findViewById(R.id.add_mediction);
+        final Intent intent =  new Intent(this,CreateMedicationActivity.class);
+
+
         addMedication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent intent = new Intent(RecyclerViewActivity.this, CreateMedicationActivity.class);
+                intent.putExtra(INDEX,0);
+                intent.putExtra(NEW_MEDICATION, "Yes");
+                intent.putExtra(MED_NAME, R.string.sample_medication_name);
+                intent.putExtra(MED_DESC, R.string.sample_med_description);
+                intent.putExtra(MED_MONTH, R.string.sample_month);
+                intent.putExtra(MED_INTERVAL, 6);
+                intent.putExtra(MED_START_DATE, R.string.sample_start_date);
+                intent.putExtra(MED_END_DATE, R.string.sample_end_date);
+                intent.putExtra(MED_END_DATE, 0);
+
                 startActivity(intent);
             }
         });
@@ -132,7 +144,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
 
             Intent intent = new Intent(RecyclerViewActivity.this, CreateMedicationActivity.class);
             intent.putExtra(NEW_MEDICATION, "No");
-            intent.putExtra(INDEX, position);
+            intent.putExtra(INDEX, medicationModel.getIndex());
             intent.putExtra(MED_NAME, medicationModel.getMed_name());
             intent.putExtra(MED_DESC, medicationModel.getMed_desc());
             intent.putExtra(MED_MONTH, medicationModel.getMed_month());

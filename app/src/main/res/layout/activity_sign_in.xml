@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:layout_gravity="center"
     style="@style/Theme.Design.NoActionBar"
     tools:context=".views.SplashScreenActivity">
 
@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-smallcaps"
         android:textSize="@dimen/login_textSize"
+        android:textStyle="bold"
         android:layout_gravity="center_horizontal"
         android:padding="@dimen/login_app_name_padding"
         android:text="@string/app_name"/>
@@ -29,17 +30,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_sign_in"
-        android:layout_margin="40dp"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:text="@string/common_signin_button_text_long"
+        android:layout_margin="@dimen/login_app_name_padding"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/img_sign_in"
+        android:background="@drawable/common_google_signin_btn_text_light_normal"
         />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_sign_up"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/img_sign_up"
-        />
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/btn_sign_up"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--/>-->
 
 </LinearLayout>
 

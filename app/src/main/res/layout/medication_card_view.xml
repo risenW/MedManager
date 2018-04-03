@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent">
-
     <android.support.v7.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,8 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="5dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="3dp"
         android:gravity="center"
         >
 
@@ -34,7 +29,7 @@
                android:layout_height="wrap_content"
                android:text="@string/sample_month"
                style="@style/cardViewTextStyle"
-               android:textColor="#FF0000"
+               android:textColor="@color/colorRed"
                android:layout_alignParentEnd="true"
                android:textAlignment="textEnd"
                android:layout_toEndOf="@id/cardView_med_name"
@@ -50,10 +45,11 @@
                android:layout_below="@id/cardView_med_name"
                android:id="@+id/cardView_med_descrition"/>
 
-           <Button
-               android:layout_width="@dimen/img_reminder_width"
-               android:layout_height="@dimen/img_reminder_height"
-               android:background="@drawable/ic_alarm_on"
+           <ImageButton
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_alarm_off"
+               android:background="@android:color/white"
                android:layout_below="@id/cardView_med_month"
                android:layout_alignParentEnd="true"
                android:layout_marginTop="20dp"
@@ -65,14 +61,27 @@
                android:id="@+id/cardView_start_date"
                android:layout_below="@id/cardView_med_descrition"
                style="@style/cardViewTextStyle"
+               android:textSize="@dimen/cardViewTextSize"
                android:hint="@string/sample_start_date"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/to_text"
+               android:layout_margin="0dp"
+               style="@style/cardViewTextStyle"
+               android:textColor="@color/colorPrimary"
+               android:textSize="@dimen/cardViewTextSize"
+               android:layout_below="@id/cardView_med_descrition"
+               android:layout_toEndOf="@id/cardView_start_date"
+               android:text="to"/>
 
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:id="@+id/cardView_end_date"
                android:layout_below="@id/cardView_med_descrition"
-               android:layout_toEndOf="@id/cardView_start_date"
+               android:layout_toEndOf="@id/to_text"
+               android:textSize="@dimen/cardViewTextSize"
                style="@style/cardViewTextStyle"
                android:hint="@string/sample_end_date"/>
 
@@ -82,7 +91,11 @@
                android:id="@+id/cardView_interval"
                android:layout_below="@id/cardView_med_descrition"
                android:layout_toEndOf="@id/cardView_end_date"
+               android:textColor="@color/colorRed"
+               android:layout_alignParentEnd="true"
+               android:gravity="center"
                style="@style/cardViewTextStyle"
+               android:textSize="@dimen/cardViewTextSize"
                android:hint="6 hrs Daily"/>
 
            <TextView
@@ -96,8 +109,3 @@
        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
-
-
-
-
-</LinearLayout>

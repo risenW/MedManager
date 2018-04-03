@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    style="@style/Theme.AppCompat.NoActionBar"
     tools:context=".views.SplashScreenActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/img_logo"
+        android:fitsSystemWindows="true"
         android:id="@+id/splashImage"
         android:contentDescription="@string/app_name"/>
 

@@ -4,6 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,6 +48,10 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Re
         holder.med_end_date.setText(medModel.getMed_end_date());
         holder.med_remind_me.setText(String.valueOf(medModel.getMed_reminder()));
 
+        if (medModel.getMed_reminder() == 1){
+            holder.med_reminder_set_icon.setImageResource(R.drawable.ic_alarm_on);
+        }
+
     }
 
     //item listeners for Adapter
@@ -65,6 +72,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Re
     //View Holder inner class
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView med_name, med_desc, med_month, med_interval, med_start_date, med_end_date, med_remind_me;
+        ImageButton med_reminder_set_icon;
         private MyItemOnClickListener itemClickListener;
         private MyItemOnLongClickListener itemLongClickListener;
 
@@ -78,6 +86,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Re
             med_start_date = (TextView)arg0.findViewById(R.id.cardView_start_date);
             med_end_date = (TextView)arg0.findViewById(R.id.cardView_end_date);
             med_remind_me = (TextView)arg0.findViewById(R.id.cardView_remind_me);
+            med_reminder_set_icon = (ImageButton)arg0.findViewById(R.id.cardView_btn_reminder);
             this.itemClickListener = clickListener;
             this.itemLongClickListener = longClickListener;
             arg0.setOnClickListener(this);

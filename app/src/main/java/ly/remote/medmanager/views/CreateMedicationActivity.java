@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,9 +19,10 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import ly.remote.medmanager.R;
+import ly.remote.medmanager.controllers.alarmManager.AlarmReceiver;
+import ly.remote.medmanager.controllers.alarmManager.LocalData;
 import ly.remote.medmanager.controllers.DatabaseHelper;
 import ly.remote.medmanager.controllers.NewMedCreationHelper;
-import ly.remote.medmanager.controllers.alarmManager.AlarmReceiver;
 
 public class CreateMedicationActivity extends AppCompatActivity {
 
@@ -37,11 +37,10 @@ public class CreateMedicationActivity extends AppCompatActivity {
     private static final String MY_PREF = "my_preference";
     private final String INDEX_VALUE = "indexValue";   //Key for saving in preference
     private String Update;
-
+    LocalData localData;
     private static final int PENDING_REQUEST_CODE = 100;
-
-
     DatePickerDialog datePickerDialog;
+    int hour, min; //Time for setting Alarm
 
     @Override
     protected void onStart() {
@@ -66,6 +65,10 @@ public class CreateMedicationActivity extends AppCompatActivity {
         //Initializes all views and disables editing.
         initializeViews();
         get_extras_and_populate_views();
+
+        hour = localData.get_hour();
+        min = localData.get_min();
+
 
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,8 +265,8 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,9); //TODO Get time from users
-        calendar.set(Calendar.MINUTE,34);
+        calendar.set(Calendar.HOUR_OF_DAY,21); //TODO Get time from users
+        calendar.set(Calendar.MINUTE,15);
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_FIFTEEN_MINUTES,pendingIntent);  //TODO remove hardcoded interval of 60000
     }

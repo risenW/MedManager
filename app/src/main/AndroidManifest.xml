@@ -23,7 +23,6 @@
         <activity android:name=".views.ProfileActivity" />
         <activity android:name=".views.AboutActivity" />
         <activity android:name=".views.CreateMedicationActivity" />
-        <receiver android:name=".controllers.alarmManager.AlarmReceiver" />
         <activity android:name=".views.ShowNotificationActivity"/>
     </application>
 

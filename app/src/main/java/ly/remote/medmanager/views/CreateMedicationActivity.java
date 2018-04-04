@@ -265,7 +265,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY,9); //TODO Get time from users
         calendar.set(Calendar.MINUTE,34);
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60,pendingIntent);  //TODO remove hardcoded interval of 60000
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_FIFTEEN_MINUTES,pendingIntent);  //TODO remove hardcoded interval of 60000
     }
 
     public int getSavedIndex(){

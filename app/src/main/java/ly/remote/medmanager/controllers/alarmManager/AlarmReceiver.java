@@ -18,27 +18,32 @@ import ly.remote.medmanager.views.ShowNotificationActivity;
  */
 
 public class AlarmReceiver extends BroadcastReceiver {
+    private static int NOTIFICATION_ID = 100;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent repeating_intent = new Intent(context, ShowNotificationActivity.class);
         repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        sendNotification("Title", "Hello there", repeating_intent,23, context);
+
+    }
+
+    private void sendNotification(String title, String message,Intent intent, int pushId, Context context) {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,100, repeating_intent,PendingIntent.FLAG_UPDATE_CURRENT);
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setContentIntent(pendingIntent)
-                .setContentTitle("Hello there")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentText("Take your med now")
+                .setContentTitle(title)
+                .setContentText(message)
                 .setSound(alarmSound)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
 
-        notificationManager.notify(100,builder.build());
+        if (intent != null){
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, pushId,intent,PendingIntent.FLAG_ONE_SHOT);
+            builder.setContentIntent(pendingIntent);
+        }
 
-
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_ID,builder.build());
     }
 }

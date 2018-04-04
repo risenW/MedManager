@@ -1,6 +1,8 @@
 package ly.remote.medmanager.views;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +15,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
+
 import ly.remote.medmanager.R;
 import ly.remote.medmanager.controllers.DatabaseHelper;
 import ly.remote.medmanager.controllers.NewMedCreationHelper;
+import ly.remote.medmanager.controllers.alarmManager.AlarmReceiver;
 
 public class CreateMedicationActivity extends AppCompatActivity {
 
@@ -30,6 +36,9 @@ public class CreateMedicationActivity extends AppCompatActivity {
     private static final String MY_PREF = "my_preference";
     private final String INDEX_VALUE = "indexValue";   //Key for saving in preference
     private String Update;
+
+    private static final int PENDING_REQUEST_CODE = 100;
+
 
     DatePickerDialog datePickerDialog;
 
@@ -112,45 +121,14 @@ public class CreateMedicationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 medCreationHelper = new NewMedCreationHelper();
                if (Update.equals("No")){
-                   //New Medication to be inserted in database
-                   try {
-                       Toast.makeText(CreateMedicationActivity.this, "Saving", Toast.LENGTH_SHORT).show();
-
-                       index = getSavedIndex();  //Index is used when deleting an item from the database
-                       index++;
-                       //Saves to database
-                       databaseHelper.open();
-                       String temp_med_name, temp_med_desc, temp_med_month, temp_med_interval, temp_med_start_date, temp_med_end_date;
-                       int temp_remind_me;
-
-                       temp_med_name = editText_med_name.getText().toString();
-                       temp_med_desc = editText_med_description.getText().toString();
-                       temp_med_interval = spinner_daily_interval.getSelectedItem().toString();
-                       temp_med_month = view_med_month.getText().toString();
-                       temp_med_start_date = view_start_date.getText().toString();
-                       temp_med_end_date = view_end_date.getText().toString();
-                       temp_remind_me = medCreationHelper.getBooleanValue(spinner_remind_me.getSelectedItem().toString());
-                       //Makes the insertion in database
-                       databaseHelper.insertMedication(index,temp_med_name,temp_med_desc,temp_med_month,
-                               temp_med_interval,temp_med_start_date,
-                               temp_med_end_date,temp_remind_me);
-
-                       Log.d("Insertion","Medication Inserted");
-                       Toast.makeText(CreateMedicationActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
-                       databaseHelper.close();
-                       recyclerViewObject.medicationAdapter.notifyDataSetChanged();
-
-                   }catch (Exception e){
-                       e.printStackTrace();
-                   }
+                   //Method to save a New Medication in database
+                   save_in_database();
 
                }else {
                    //Update is to be performed
                    Toast.makeText(CreateMedicationActivity.this, "Updating", Toast.LENGTH_SHORT).show(); //TODO Make a database update
                }
 
-                //Saves the current index
-                saveIndexInPref();
                 //disable all views
                 disableViews();
                 btn_edit.setVisibility(View.VISIBLE);
@@ -205,8 +183,8 @@ public class CreateMedicationActivity extends AppCompatActivity {
     //Method to get the extras from the RecyclerView list Intent and populate the Create new Medication view
     public void get_extras_and_populate_views(){
         Bundle extras = getIntent().getExtras();
-        String new_medication, med_name, med_desc, med_month, med_interval, med_start_date, med_end_date, med_remind_me;
-        int med_id;
+        String new_medication, med_name, med_desc, med_month, med_interval, med_start_date, med_end_date;
+        int med_id, med_remind_me;
 
         med_id = extras.getInt(recyclerViewObject.INDEX);
         new_medication = extras.getString(recyclerViewObject.NEW_MEDICATION);
@@ -216,23 +194,77 @@ public class CreateMedicationActivity extends AppCompatActivity {
         med_interval = extras.getString(recyclerViewObject.MED_INTERVAL);
         med_start_date = extras.getString(recyclerViewObject.MED_START_DATE);
         med_end_date = extras.getString(recyclerViewObject.MED_END_DATE);
-        med_remind_me = extras.getString(recyclerViewObject.MED_REMINDER);
+        med_remind_me = extras.getInt(recyclerViewObject.MED_REMINDER);
 
         if (new_medication.equals("No")){
             Update = "Yes";
-            view_med_id.setText(med_id);
+            view_med_id.setText(med_id + "");
             editText_med_name.setText(med_name);
             editText_med_description.setText(med_desc);
             view_med_month.setText(med_month);
             view_start_date.setText(med_start_date);
             view_end_date.setText(med_end_date);
-            spinner_remind_me.setSelection(medCreationHelper.get_selected_reminder_spinner_item(med_remind_me));
-            spinner_daily_interval.setSelection(medCreationHelper.get_selected_interval_spinner_item(med_interval));
+            spinner_remind_me.setSelection(med_remind_me);
+//            spinner_daily_interval.setSelection(medCreationHelper.get_selected_interval_spinner_item(med_interval));
 
         }else {
             Update = "No";
 
         }
+    }
+
+    public void save_in_database(){
+
+        try {
+            Toast.makeText(CreateMedicationActivity.this, "Saving", Toast.LENGTH_SHORT).show();
+
+            index = getSavedIndex();  //Index is used when deleting an item from the database
+            index++;
+            //Saves to database
+            databaseHelper.open();
+            String temp_med_name, temp_med_desc, temp_med_month, temp_med_interval, temp_med_start_date, temp_med_end_date;
+            int temp_remind_me;
+
+            temp_med_name = editText_med_name.getText().toString();
+            temp_med_desc = editText_med_description.getText().toString();
+            temp_med_interval = spinner_daily_interval.getSelectedItem().toString();
+            temp_med_month = view_med_month.getText().toString();
+            temp_med_start_date = view_start_date.getText().toString();
+            temp_med_end_date = view_end_date.getText().toString();
+            temp_remind_me = medCreationHelper.getBooleanValue(spinner_remind_me.getSelectedItem().toString());
+            //Makes the insertion in database
+            databaseHelper.insertMedication(index,temp_med_name,temp_med_desc,temp_med_month,
+                    temp_med_interval,temp_med_start_date,
+                    temp_med_end_date,temp_remind_me);
+
+            databaseHelper.close();
+
+            //call Alarm scheduler with entered interval and start time.
+            start_alarm();
+            Log.d("Insertion","Medication Inserted");
+            Toast.makeText(CreateMedicationActivity.this, "Saved Successfully and Alarm started", Toast.LENGTH_LONG).show();
+
+            recyclerViewObject.medicationAdapter.notifyDataSetChanged();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //Saves the current index
+        saveIndexInPref();
+
+    }
+
+    public void start_alarm(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,8);
+        calendar.set(Calendar.MINUTE,20 );
+
+        Intent intent = new Intent(getApplicationContext(),AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), PENDING_REQUEST_CODE,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),60000,pendingIntent);
     }
 
     public int getSavedIndex(){

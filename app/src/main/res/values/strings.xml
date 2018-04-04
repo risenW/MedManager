@@ -29,7 +29,7 @@
     </string-array>
 
     <string-array name="remind_me">
-        <item>Yes</item>
         <item>No</item>
+        <item>Yes</item>
     </string-array>
 </resources>

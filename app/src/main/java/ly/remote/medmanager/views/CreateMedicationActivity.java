@@ -258,12 +258,12 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(getApplicationContext(),AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,intent,0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,8); //TODO Get time from users
-        calendar.set(Calendar.MINUTE,56 );
+        calendar.set(Calendar.HOUR_OF_DAY,9); //TODO Get time from users
+        calendar.set(Calendar.MINUTE,34);
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60,pendingIntent);  //TODO remove hardcoded interval of 60000
     }

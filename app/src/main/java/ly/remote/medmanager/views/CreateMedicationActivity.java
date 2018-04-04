@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -120,9 +121,13 @@ public class CreateMedicationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 medCreationHelper = new NewMedCreationHelper();
+
                if (Update.equals("No")){
-                   //Method to save a New Medication in database
-                   save_in_database();
+
+                   save_in_database();    //Method to save a New Medication in database
+                   start_alarm();        //call Alarm scheduler with entered interval and start time.
+                   Log.d("Insertion","Medication Inserted");
+                   Toast.makeText(CreateMedicationActivity.this, "Saved Successfully and Alarm started", Toast.LENGTH_LONG).show();
 
                }else {
                    //Update is to be performed
@@ -238,12 +243,6 @@ public class CreateMedicationActivity extends AppCompatActivity {
                     temp_med_end_date,temp_remind_me);
 
             databaseHelper.close();
-
-            //call Alarm scheduler with entered interval and start time.
-            start_alarm();
-            Log.d("Insertion","Medication Inserted");
-            Toast.makeText(CreateMedicationActivity.this, "Saved Successfully and Alarm started", Toast.LENGTH_LONG).show();
-
             recyclerViewObject.medicationAdapter.notifyDataSetChanged();
 
         }catch (Exception e){
@@ -256,15 +255,17 @@ public class CreateMedicationActivity extends AppCompatActivity {
     }
 
     public void start_alarm(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,8);
-        calendar.set(Calendar.MINUTE,20 );
-
-        Intent intent = new Intent(getApplicationContext(),AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), PENDING_REQUEST_CODE,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),60000,pendingIntent);
+        Intent intent = new Intent(getApplicationContext(),AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,intent,0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY,8); //TODO Get time from users
+        calendar.set(Calendar.MINUTE,56 );
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000 * 60,pendingIntent);  //TODO remove hardcoded interval of 60000
     }
 
     public int getSavedIndex(){

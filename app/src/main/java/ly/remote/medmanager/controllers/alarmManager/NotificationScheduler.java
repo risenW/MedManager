@@ -28,20 +28,13 @@ public class NotificationScheduler {
     public static final int DAILY_REMINDER_REQUEST_CODE=100;
     public static final String TAG="NotificationScheduler";
 
-    public static void setReminder(Context context,Class<?> cls,int hour, int min)
-    {
-//        Calendar calendar = Calendar.getInstance();
-
+    public static void setReminder(Context context,Class<?> cls,int hour, int min) {
         Calendar setcalendar = Calendar.getInstance();
         setcalendar.set(Calendar.HOUR_OF_DAY, hour);
         setcalendar.set(Calendar.MINUTE, min);
         setcalendar.set(Calendar.SECOND, 0);
 
-        // cancel already scheduled reminders
-//        cancelReminder(context,cls);
-
         // Enable a receiver
-
         ComponentName receiver = new ComponentName(context, cls);
         PackageManager pm = context.getPackageManager();
 
@@ -57,8 +50,7 @@ public class NotificationScheduler {
 
     }
 
-    public static void cancelReminder(Context context,Class<?> cls)
-    {
+    public static void cancelReminder(Context context,Class<?> cls) {
         // Disable a receiver
 
         ComponentName receiver = new ComponentName(context, cls);
@@ -75,8 +67,8 @@ public class NotificationScheduler {
         pendingIntent.cancel();
     }
 
-    public static void showNotification(Context context, Class<?> cls, String title, String content)
-    {
+    public static void showNotification(Context context, Class<?> cls, String title, String content) {
+
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         Intent notificationIntent = new Intent(context, cls);

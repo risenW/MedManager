@@ -1,8 +1,6 @@
 package ly.remote.medmanager.views;
 
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -16,13 +14,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
-
 import ly.remote.medmanager.R;
 import ly.remote.medmanager.controllers.alarmManager.AlarmReceiver;
 import ly.remote.medmanager.controllers.DatabaseHelper;
 import ly.remote.medmanager.controllers.NewMedCreationHelper;
 import ly.remote.medmanager.controllers.alarmManager.NotificationScheduler;
+import ly.remote.medmanager.models.LocalData;
 
 public class CreateMedicationActivity extends AppCompatActivity {
 
@@ -30,16 +27,18 @@ public class CreateMedicationActivity extends AppCompatActivity {
     private TextView view_start_date, view_end_date, view_med_month, view_med_id;
     private Spinner spinner_daily_interval, spinner_remind_me;
     private Button btn_start_date, btn_end_date, btn_save, btn_edit;
-    public static int index;
-    private DatabaseHelper databaseHelper;
-    private RecyclerViewActivity recyclerViewObject;
-    private NewMedCreationHelper medCreationHelper;
+    private static int index;
     private static final String MY_PREF = "my_preference";
     private final String INDEX_VALUE = "indexValue";   //Key for saving in preference
     private String Update;
     private static final int PENDING_REQUEST_CODE = 100;
-    DatePickerDialog datePickerDialog;
+    private DatePickerDialog datePickerDialog;
     int hour, min; //Time for setting Alarm
+
+    private DatabaseHelper databaseHelper;
+    private RecyclerViewActivity recyclerViewObject;
+    private NewMedCreationHelper medCreationHelper;
+    private LocalData localData;
 
     @Override
     protected void onStart() {
@@ -62,7 +61,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_medication);
 
         //Initializes all views and disables editing.
-        initializeViews();
+        initializeViewsAndObjects();
         get_extras_and_populate_views();
 
 
@@ -142,7 +141,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
     }
 
-    public void initializeViews(){
+    public void initializeViewsAndObjects(){
 
         editText_med_name = (EditText)findViewById(R.id.user_med_name);
         editText_med_description = (EditText)findViewById(R.id.user_med_description);
@@ -159,6 +158,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         recyclerViewObject = new RecyclerViewActivity();
         databaseHelper = new DatabaseHelper(this);
         medCreationHelper = new NewMedCreationHelper();
+        localData = new LocalData(CreateMedicationActivity.this);
 
     }
 
@@ -222,7 +222,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         try {
             Toast.makeText(CreateMedicationActivity.this, "Saving", Toast.LENGTH_SHORT).show();
 
-            index = getSavedIndex();  //Index is used when deleting an item from the database
+            index = localData.getSavedIndexFromPref();  //Index is used when deleting an item from the database
             index++;
             //Saves to database
             databaseHelper.open();
@@ -250,7 +250,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         }
 
         //Saves the current index
-        saveIndexInPref();
+        localData.saveIndexInPref(index);
 
     }
 
@@ -259,21 +259,21 @@ public class CreateMedicationActivity extends AppCompatActivity {
 //
 //    }
 
-    public int getSavedIndex(){
-        SharedPreferences sharedPreferences = getSharedPreferences(MY_PREF,0);
-        int savedIndex = sharedPreferences.getInt(INDEX_VALUE,-1);
-        Log.d("Returned Index:", "" + savedIndex);
-        return savedIndex;
-    }
+//    public int getSavedIndex(){
+//        SharedPreferences sharedPreferences = getSharedPreferences(MY_PREF,0);
+//        int savedIndex = sharedPreferences.getInt(INDEX_VALUE,-1);
+//        Log.d("Returned Index:", "" + savedIndex);
+//        return savedIndex;
+//    }
 
-    public void saveIndexInPref(){
-
-        SharedPreferences preferences = getSharedPreferences(MY_PREF, 0);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(INDEX_VALUE,index);
-        editor.apply();
-        Log.d("Saved Index", "" + index);
-    }
+//    public void saveIndexInPref(){
+//
+//        SharedPreferences preferences = getSharedPreferences(MY_PREF, 0);
+//        SharedPreferences.Editor editor = preferences.edit();
+//        editor.putInt(INDEX_VALUE,index);
+//        editor.apply();
+//        Log.d("Saved Index", "" + index);
+//    }
 
 
 }

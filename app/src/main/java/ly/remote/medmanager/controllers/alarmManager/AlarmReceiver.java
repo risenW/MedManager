@@ -3,8 +3,11 @@ package ly.remote.medmanager.controllers.alarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.os.Bundle;
 
+import ly.remote.medmanager.controllers.DatabaseHelper;
 import ly.remote.medmanager.views.ShowNotificationActivity;
 
 /**
@@ -12,8 +15,9 @@ import ly.remote.medmanager.views.ShowNotificationActivity;
  */
 
 public class AlarmReceiver extends BroadcastReceiver{
-
+    DatabaseHelper databaseHelper;
     String TAG = "AlarmReceiver";
+    private String med_title, med_desc;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -27,12 +31,23 @@ public class AlarmReceiver extends BroadcastReceiver{
 //                return;
 //            }
 //        }
+        Bundle extras = intent.getExtras();
+        int med_id = extras.getInt(NotificationScheduler.MED_ID_EXTRA_KEY);
 
-        Log.d(TAG, "onReceive: ");
+//        try {
+//            databaseHelper.open();
+//            Cursor cursor = databaseHelper.getMedicationById(med_id);
+//            if (cursor != null){
+//                med_title = cursor.getString(1);
+//                med_desc = cursor.getString(2);
+//            }
+//        }catch (SQLException e){
+//            e.printStackTrace();
+//        }
+
 
         //Trigger the notification
-        NotificationScheduler.showNotification(context, ShowNotificationActivity.class,
-                "You have 5 unwatched videos", "Watch them now?");
+        NotificationScheduler.showNotification(context, ShowNotificationActivity.class,"TESTING", med_id, med_id + "th row");
 
     }
 }

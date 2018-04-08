@@ -2,10 +2,8 @@ package ly.remote.medmanager.views;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -124,11 +122,11 @@ public class CreateMedicationActivity extends AppCompatActivity {
                if (Update.equals("No")){
 
                    save_in_database();    //Method to save a New Medication in database
-                   NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,11,0);
                    Toast.makeText(CreateMedicationActivity.this, "Saved Successfully and Alarm started", Toast.LENGTH_LONG).show();
 
                }else {
                    //Update is to be performed
+                   update_medication();
                    Toast.makeText(CreateMedicationActivity.this, "Updating", Toast.LENGTH_SHORT).show(); //TODO Make a database update
                }
 
@@ -237,9 +235,14 @@ public class CreateMedicationActivity extends AppCompatActivity {
             temp_med_end_date = view_end_date.getText().toString();
             temp_remind_me = medCreationHelper.getBooleanValue(spinner_remind_me.getSelectedItem().toString());
             //Makes the insertion in database
-            databaseHelper.insertMedication(index,temp_med_name,temp_med_desc,temp_med_month,
+            databaseHelper.saveMedication(index,temp_med_name,temp_med_desc,temp_med_month,
                     temp_med_interval,temp_med_start_date,
                     temp_med_end_date,temp_remind_me);
+
+            //Activate reminder if user selects yes
+            if (temp_remind_me == 1){
+                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,23,0);
+            }
 
             databaseHelper.close();
             recyclerViewObject.medicationAdapter.notifyDataSetChanged();
@@ -253,27 +256,39 @@ public class CreateMedicationActivity extends AppCompatActivity {
         localData.saveIndexInPref(index);
 
     }
-
-//    public void start_alarm(){
-//        notificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,10,00);
 //
-//    }
-
-//    public int getSavedIndex(){
-//        SharedPreferences sharedPreferences = getSharedPreferences(MY_PREF,0);
-//        int savedIndex = sharedPreferences.getInt(INDEX_VALUE,-1);
-//        Log.d("Returned Index:", "" + savedIndex);
-//        return savedIndex;
-//    }
-
-//    public void saveIndexInPref(){
+    private void update_medication() {
+        try {
+            Toast.makeText(CreateMedicationActivity.this, "Updating Medication", Toast.LENGTH_SHORT).show();
+            int id = Integer.parseInt(view_med_id.getText().toString());
+            NotificationScheduler.cancelReminder(CreateMedicationActivity.this,AlarmReceiver.class,id);
+//            databaseHelper.open();
+//            String temp_med_name, temp_med_desc, temp_med_month, temp_med_interval, temp_med_start_date, temp_med_end_date;
+//            int temp_remind_me;
 //
-//        SharedPreferences preferences = getSharedPreferences(MY_PREF, 0);
-//        SharedPreferences.Editor editor = preferences.edit();
-//        editor.putInt(INDEX_VALUE,index);
-//        editor.apply();
-//        Log.d("Saved Index", "" + index);
-//    }
+//            temp_med_name = editText_med_name.getText().toString();
+//            temp_med_desc = editText_med_description.getText().toString();
+//            temp_med_interval = spinner_daily_interval.getSelectedItem().toString();
+//            temp_med_month = view_med_month.getText().toString();
+//            temp_med_start_date = view_start_date.getText().toString();
+//            temp_med_end_date = view_end_date.getText().toString();
+//            temp_remind_me = medCreationHelper.getBooleanValue(spinner_remind_me.getSelectedItem().toString());
+//            //Makes the update in database
+//
+//
+//            //Activate reminder if user selects yes
+//            if (temp_remind_me == 0){
+//                NotificationScheduler.cancelReminder(CreateMedicationActivity.this,AlarmReceiver.class,id);
+//            }
+//
+//            databaseHelper.close();
+//            recyclerViewObject.medicationAdapter.notifyDataSetChanged();
 
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 
 }

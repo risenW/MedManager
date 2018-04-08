@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 /**
  * Created by Risen on 3/30/2018.
+ * Database helper methods goes here
  */
 
 public class DatabaseHelper {
@@ -61,7 +62,7 @@ public class DatabaseHelper {
     //Inner SQLite class for Medication database
     private static class MedDatabaseHelper extends SQLiteOpenHelper{
         //Constructor
-        public MedDatabaseHelper(Context context) {
+        private MedDatabaseHelper(Context context) {
             super(context,DB_NAME, null, DB_VERSION);
             Log.d(DEBUG_TAG, "database created...");
 
@@ -83,14 +84,14 @@ public class DatabaseHelper {
         }
     }
 
-    public void insertMedication(int index,
-                                 String Med_name,
-                                 String Med_desc,
-                                 String Med_month,
-                                 String Med_interval,
-                                 String Med_start_date,
-                                 String Med_end_date,
-                                 int Med_reminder){
+    public void saveMedication(int index,
+                               String Med_name,
+                               String Med_desc,
+                               String Med_month,
+                               String Med_interval,
+                               String Med_start_date,
+                               String Med_end_date,
+                               int Med_reminder){
 
         sqLiteDatabase = medDatabaseHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -115,6 +116,39 @@ public class DatabaseHelper {
             cursor.moveToFirst();
         }
         return cursor;
+    }
+
+    public Cursor getMedicationById(int index){
+        sqLiteDatabase = medDatabaseHelper.getReadableDatabase();
+        String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_INTERVAL,MED_START_DATE,MED_END_DATE,MED_REMINDER};  //TODO change interval to integer
+        Cursor cursor = sqLiteDatabase.query(TABLE_NAME,columns,INDEX + "=" + index,null,null,null,null,null);
+        return cursor;
+    }
+
+    public void updateMedById(
+            int index,
+            String Med_name,
+            String Med_desc,
+            String Med_month,
+            String Med_interval,
+            String Med_start_date,
+            String Med_end_date,
+            int Med_reminder
+    ){
+
+        sqLiteDatabase = medDatabaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(MED_NAME, Med_name);
+        values.put(MED_DESC, Med_desc);
+        values.put(MED_MONTH, Med_month);
+        values.put(MED_INTERVAL, Med_interval);
+        values.put(MED_START_DATE,Med_start_date );
+        values.put(MED_END_DATE, Med_end_date);
+        values.put(MED_REMINDER, Med_reminder);
+
+        sqLiteDatabase.update(TABLE_NAME,values,INDEX + "=" + index,null);
+        Log.d(DEBUG_TAG, "Updated Successfully");
+
     }
 
     public void deleteMedicationByID(int index){

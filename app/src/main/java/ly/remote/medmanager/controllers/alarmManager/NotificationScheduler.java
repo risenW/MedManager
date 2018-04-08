@@ -13,6 +13,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import ly.remote.medmanager.R;
@@ -25,10 +26,12 @@ import static android.content.Context.ALARM_SERVICE;
 
 public class NotificationScheduler {
 
-    public static final int DAILY_REMINDER_REQUEST_CODE=100;
+    public static final String MED_ID_EXTRA_KEY = "MedicationIdExtraKey";
+    public static final String MED_TITLE_EXTRA_KEY = "MedicationTitle";
+    public static final String MED_DESCRIPTION_KEY = "MedicationDescription";
     public static final String TAG="NotificationScheduler";
 
-    public static void setReminder(Context context,Class<?> cls,int hour, int min) {
+    public static void setReminder(Context context,Class<?> cls,int pendingRequestID,int hour, int min) {
         Calendar setcalendar = Calendar.getInstance();
         setcalendar.set(Calendar.HOUR_OF_DAY, hour);
         setcalendar.set(Calendar.MINUTE, min);
@@ -42,43 +45,45 @@ public class NotificationScheduler {
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
 
-
-        Intent intent1 = new Intent(context, cls);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, DAILY_REMINDER_REQUEST_CODE, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent(context, cls);
+        intent.putExtra(MED_ID_EXTRA_KEY,pendingRequestID);   //The request ID is the medication row ID in database.
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, pendingRequestID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, setcalendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, setcalendar.getTimeInMillis(),60000, pendingIntent);
 
     }
 
-    public static void cancelReminder(Context context,Class<?> cls) {
+    public static void cancelReminder(Context context,Class<?> cls, int pendingRequestID) {
         // Disable a receiver
 
-        ComponentName receiver = new ComponentName(context, cls);
-        PackageManager pm = context.getPackageManager();
+//        ComponentName receiver = new ComponentName(context, cls);
+//        PackageManager pm = context.getPackageManager();
+//
+//        pm.setComponentEnabledSetting(receiver,
+//                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+//                PackageManager.DONT_KILL_APP);
 
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP);
-
-        Intent intent1 = new Intent(context, cls);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, DAILY_REMINDER_REQUEST_CODE, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent(context, cls);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, pendingRequestID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         am.cancel(pendingIntent);
         pendingIntent.cancel();
     }
 
-    public static void showNotification(Context context, Class<?> cls, String title, String content) {
+    public static void showNotification(Context context, Class<?> cls, String title,int pendingId, String content) {
 
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         Intent notificationIntent = new Intent(context, cls);
+        notificationIntent.putExtra(MED_TITLE_EXTRA_KEY,title);
+        notificationIntent.putExtra(MED_DESCRIPTION_KEY,content);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(cls);
         stackBuilder.addNextIntent(notificationIntent);
 
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent(DAILY_REMINDER_REQUEST_CODE, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(pendingId, PendingIntent.FLAG_UPDATE_CURRENT); //TODO remove hardcoded 100
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
@@ -90,7 +95,7 @@ public class NotificationScheduler {
                 .setContentIntent(pendingIntent).build();
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(DAILY_REMINDER_REQUEST_CODE, notification);
+        notificationManager.notify(pendingId, notification);
 
     }
 }

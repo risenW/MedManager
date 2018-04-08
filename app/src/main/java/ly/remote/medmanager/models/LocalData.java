@@ -25,7 +25,7 @@ public class LocalData {
     }
 
     public int getSavedIndexFromPref(){
-        return appSharedPreferences.getInt(INDEX_VALUE,-1);  //Default is -1, So that the index starts counting from Zero when it is a new user
+        return appSharedPreferences.getInt(INDEX_VALUE,0);  //Default is 0, So that the index starts counting from one when it is a new user
     }
 
     public void saveIndexInPref(int index){

@@ -20,9 +20,9 @@ import java.util.Calendar;
 
 import ly.remote.medmanager.R;
 import ly.remote.medmanager.controllers.alarmManager.AlarmReceiver;
-import ly.remote.medmanager.controllers.alarmManager.LocalData;
 import ly.remote.medmanager.controllers.DatabaseHelper;
 import ly.remote.medmanager.controllers.NewMedCreationHelper;
+import ly.remote.medmanager.controllers.alarmManager.NotificationScheduler;
 
 public class CreateMedicationActivity extends AppCompatActivity {
 
@@ -37,7 +37,6 @@ public class CreateMedicationActivity extends AppCompatActivity {
     private static final String MY_PREF = "my_preference";
     private final String INDEX_VALUE = "indexValue";   //Key for saving in preference
     private String Update;
-    LocalData localData;
     private static final int PENDING_REQUEST_CODE = 100;
     DatePickerDialog datePickerDialog;
     int hour, min; //Time for setting Alarm
@@ -66,8 +65,6 @@ public class CreateMedicationActivity extends AppCompatActivity {
         initializeViews();
         get_extras_and_populate_views();
 
-        hour = localData.get_hour();
-        min = localData.get_min();
 
 
         btn_edit.setOnClickListener(new View.OnClickListener() {
@@ -128,8 +125,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
                if (Update.equals("No")){
 
                    save_in_database();    //Method to save a New Medication in database
-                   start_alarm();        //call Alarm scheduler with entered interval and start time.
-                   Log.d("Insertion","Medication Inserted");
+                   NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,11,0);
                    Toast.makeText(CreateMedicationActivity.this, "Saved Successfully and Alarm started", Toast.LENGTH_LONG).show();
 
                }else {
@@ -248,6 +244,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
             databaseHelper.close();
             recyclerViewObject.medicationAdapter.notifyDataSetChanged();
 
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -257,19 +254,10 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
     }
 
-    public void start_alarm(){
-
-        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(getApplicationContext(),AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,21); //TODO Get time from users
-        calendar.set(Calendar.MINUTE,15);
-
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_FIFTEEN_MINUTES,pendingIntent);  //TODO remove hardcoded interval of 60000
-    }
+//    public void start_alarm(){
+//        notificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,10,00);
+//
+//    }
 
     public int getSavedIndex(){
         SharedPreferences sharedPreferences = getSharedPreferences(MY_PREF,0);

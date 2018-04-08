@@ -24,6 +24,7 @@
         <activity android:name=".views.AboutActivity" />
         <activity android:name=".views.CreateMedicationActivity" />
         <activity android:name=".views.ShowNotificationActivity"/>
+        <receiver android:name=".controllers.alarmManager.AlarmReceiver"/>
     </application>
 
 </manifest>

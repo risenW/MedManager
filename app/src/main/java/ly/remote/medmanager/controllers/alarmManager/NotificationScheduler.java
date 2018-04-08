@@ -30,7 +30,7 @@ public class NotificationScheduler {
 
     public static void setReminder(Context context,Class<?> cls,int hour, int min)
     {
-        Calendar calendar = Calendar.getInstance();
+//        Calendar calendar = Calendar.getInstance();
 
         Calendar setcalendar = Calendar.getInstance();
         setcalendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -38,10 +38,7 @@ public class NotificationScheduler {
         setcalendar.set(Calendar.SECOND, 0);
 
         // cancel already scheduled reminders
-        cancelReminder(context,cls);
-
-        if(setcalendar.before(calendar))
-            setcalendar.add(Calendar.DATE,1);
+//        cancelReminder(context,cls);
 
         // Enable a receiver
 
@@ -56,7 +53,7 @@ public class NotificationScheduler {
         Intent intent1 = new Intent(context, cls);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, DAILY_REMINDER_REQUEST_CODE, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, setcalendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, setcalendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
     }
 
@@ -97,7 +94,7 @@ public class NotificationScheduler {
                 .setContentText(content)
                 .setAutoCancel(true)
                 .setSound(alarmSound)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent).build();
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

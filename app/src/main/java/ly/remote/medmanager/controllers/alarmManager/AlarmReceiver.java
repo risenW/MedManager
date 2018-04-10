@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.util.Log;
 
 import ly.remote.medmanager.controllers.DatabaseHelper;
+import ly.remote.medmanager.models.LocalData;
 import ly.remote.medmanager.views.ShowNotificationActivity;
 
 /**
@@ -21,19 +23,19 @@ public class AlarmReceiver extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO Auto-generated method stub
 
-//        if (intent.getAction() != null && context != null) {
-//            if (intent.getAction().equalsIgnoreCase(Intent.ACTION_BOOT_COMPLETED)) {
-//                // Set the alarm here.
-//                Log.d(TAG, "onReceive: BOOT_COMPLETED");
-////                NotificationScheduler.setReminder(context, AlarmReceiver.class, localData.get_hour(), localData.get_min());
-//                return;
-//            }
-//        }
         Bundle extras = intent.getExtras();
         int med_id = extras.getInt(NotificationScheduler.MED_ID_EXTRA_KEY);
         databaseHelper = new DatabaseHelper(context);
+
+        if (intent.getAction() != null && context != null) {
+            if (intent.getAction().equalsIgnoreCase(Intent.ACTION_BOOT_COMPLETED)) {
+                // Reset the alarm here after phoe reboot.
+                Log.d(TAG, "onReceive: BOOT_COMPLETED");
+                NotificationScheduler.setReminder(context, AlarmReceiver.class, med_id,10,0, 60000);  //TODO set user enabled time and Interval
+                return;
+            }
+        }
 
         //Get the medication details from the database and pass it to the notification scheduler
         try {

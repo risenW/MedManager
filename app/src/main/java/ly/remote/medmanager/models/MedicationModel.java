@@ -5,17 +5,17 @@ package ly.remote.medmanager.models;
  */
 
 public class MedicationModel {
-    private String med_name, med_desc, med_month, med_interval, med_start_date, med_end_date;
+    private String med_name, med_desc, med_month, med_dosage, med_start_date, med_end_date;
     private int index, med_reminder;
 
     public MedicationModel(int index, String med_name, String med_desc, String med_month,
-                             String med_interval, String med_start_date,     //TODO change interval to integer
+                             String med_dosage, String med_start_date,     //TODO change interval to integer
                                  String med_end_date, int med_reminder) {
 
         this.med_name = med_name;
         this.med_desc = med_desc;
         this.med_month = med_month;
-        this.med_interval = med_interval;
+        this.med_dosage = med_dosage;
         this.med_start_date = med_start_date;
         this.med_end_date = med_end_date;
         this.index = index;
@@ -46,12 +46,12 @@ public class MedicationModel {
         this.med_month = med_month;
     }
 
-    public String getMed_interval() {
-        return med_interval;
+    public String getMed_dosage() {
+        return med_dosage;
     }
 
-    public void setMed_interval(String med_interval) {
-        this.med_interval = med_interval;
+    public void setMed_dosage(String med_dosage) {
+        this.med_dosage = med_dosage;
     }
 
     public String getMed_start_date() {

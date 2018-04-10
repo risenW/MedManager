@@ -19,6 +19,44 @@ public class NewMedCreationHelper {
 
     }
 
+    public int getIntervalFromDosage(int dosage){
+        int tempDosage = dosage;
+        switch (tempDosage){
+            case 0:
+                tempDosage = 86400;  // 1x daily. Alarm interval is once every 24 hours coverted to seconds
+                break;
+            case 1:
+                tempDosage =  43200;  // 2x daily. Alarm interval is once every 12 hours
+                break;
+            case 3:
+                tempDosage = 21600;  // 3x daily. Alarm interval is once every 6 hours
+                break;
+            default:
+                tempDosage = 86400;
+                break;
+        }
+        return tempDosage;
+    }
+
+    public int getDosageSpinnerIdFromText(String text){
+        int tempId = 0;
+        switch (text){
+            case "1x daily":
+                tempId = 0;
+                break;
+            case "2x daily":
+                tempId = 1;
+                break;
+            case "3x daily":
+                tempId = 2;
+                break;
+            default:
+                tempId = 0;
+                break;
+        }
+        return tempId;
+    }
+
     public String constructDateFromNumbers(int mDay, int mMonth, int mYear){
         return getMonth(mMonth) + " " + mDay + " " + mYear;
     }

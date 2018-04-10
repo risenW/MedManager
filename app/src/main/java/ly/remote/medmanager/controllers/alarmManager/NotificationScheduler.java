@@ -31,7 +31,7 @@ public class NotificationScheduler {
     public static final String MED_DESCRIPTION_KEY = "MedicationDescription";
     public static final String TAG="NotificationScheduler";
 
-    public static void setReminder(Context context,Class<?> cls,int pendingRequestID,int hour, int min) {
+    public static void setReminder(Context context,Class<?> cls,int pendingRequestID,int hour, int min,int interval) {
         Calendar setcalendar = Calendar.getInstance();
         setcalendar.set(Calendar.HOUR_OF_DAY, hour);
         setcalendar.set(Calendar.MINUTE, min);
@@ -49,19 +49,19 @@ public class NotificationScheduler {
         intent.putExtra(MED_ID_EXTRA_KEY,pendingRequestID);   //The request ID is the medication row ID in database.
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, pendingRequestID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, setcalendar.getTimeInMillis(),60000, pendingIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, setcalendar.getTimeInMillis(),interval, pendingIntent);
 
     }
 
     public static void cancelReminder(Context context,Class<?> cls, int pendingRequestID) {
-        // Disable a receiver
+//         Disable a receiver
 
-//        ComponentName receiver = new ComponentName(context, cls);
-//        PackageManager pm = context.getPackageManager();
-//
-//        pm.setComponentEnabledSetting(receiver,
-//                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-//                PackageManager.DONT_KILL_APP);
+        ComponentName receiver = new ComponentName(context, cls);
+        PackageManager pm = context.getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
 
         Intent intent = new Intent(context, cls);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, pendingRequestID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -83,7 +83,7 @@ public class NotificationScheduler {
         stackBuilder.addParentStack(cls);
         stackBuilder.addNextIntent(notificationIntent);
 
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent(pendingId, PendingIntent.FLAG_UPDATE_CURRENT); //TODO remove hardcoded 100
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(pendingId, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 

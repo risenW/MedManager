@@ -23,8 +23,8 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
     private EditText editText_med_name, editText_med_description;
     private TextView view_start_date, view_end_date, view_med_month, view_med_id;
-    private Spinner spinner_daily_interval, spinner_remind_me;
-    private Button btn_start_date, btn_end_date, btn_save, btn_edit;
+    private Spinner spinner_daily_interval, spinner_remind_me,spinner_dosage;
+    private Button btn_start_date, btn_end_date, btn_save, btn_edit, btn_pick_time;
     private static int index;
     private static final String MY_PREF = "my_preference";
     private final String INDEX_VALUE = "indexValue";   //Key for saving in preference
@@ -71,6 +71,13 @@ public class CreateMedicationActivity extends AppCompatActivity {
                 enableViews();
                 btn_save.setVisibility(View.VISIBLE);
                 btn_edit.setVisibility(View.GONE);
+            }
+        });
+
+        btn_pick_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -147,10 +154,12 @@ public class CreateMedicationActivity extends AppCompatActivity {
         view_end_date = (TextView) findViewById(R.id.user_selected_end_date);
         spinner_daily_interval = (Spinner)findViewById(R.id.user_selected_spinner_interval);
         spinner_remind_me = (Spinner)findViewById(R.id.user_selected_reminder_option);
+        spinner_dosage = (Spinner)findViewById(R.id.user_selected_dosage);
         btn_start_date = (Button)findViewById(R.id.btn_start_date);
         btn_end_date = (Button)findViewById(R.id.btn_end_date);
         btn_save = (Button)findViewById(R.id.btn_save);
         btn_edit = (Button)findViewById(R.id.btn_edit);
+        btn_pick_time = (Button)findViewById(R.id.btn_pick_time);
         recyclerViewObject = new RecyclerViewActivity();
         databaseHelper = new DatabaseHelper(this);
         medCreationHelper = new NewMedCreationHelper();
@@ -167,6 +176,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         view_end_date.setEnabled(true);
         spinner_daily_interval.setEnabled(true);
         spinner_remind_me.setEnabled(true);
+        spinner_dosage.setEnabled(true);
     }
 
     public void disableViews(){
@@ -178,12 +188,14 @@ public class CreateMedicationActivity extends AppCompatActivity {
         view_end_date.setEnabled(false);
         spinner_daily_interval.setEnabled(false);
         spinner_remind_me.setEnabled(false);
+        spinner_dosage.setEnabled(false);
+
     }
 
     //Method to get the extras from the RecyclerView list Intent and populate the Create new Medication view
     public void get_extras_and_populate_views(){
         Bundle extras = getIntent().getExtras();
-        String new_medication, med_name, med_desc, med_month, med_interval, med_start_date, med_end_date;
+        String new_medication, med_name, med_desc, med_month, med_dosage, med_start_date, med_end_date;
         int med_id, med_remind_me;
 
         med_id = extras.getInt(recyclerViewObject.INDEX);
@@ -191,7 +203,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         med_name = extras.getString(recyclerViewObject.MED_NAME);
         med_desc = extras.getString(recyclerViewObject.MED_DESC);
         med_month = extras.getString(recyclerViewObject.MED_MONTH);
-        med_interval = extras.getString(recyclerViewObject.MED_INTERVAL);
+        med_dosage = extras.getString(recyclerViewObject.MED_DOSAGE);
         med_start_date = extras.getString(recyclerViewObject.MED_START_DATE);
         med_end_date = extras.getString(recyclerViewObject.MED_END_DATE);
         med_remind_me = extras.getInt(recyclerViewObject.MED_REMINDER);
@@ -205,7 +217,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
             view_start_date.setText(med_start_date);
             view_end_date.setText(med_end_date);
             spinner_remind_me.setSelection(med_remind_me);
-//            spinner_daily_interval.setSelection(medCreationHelper.get_selected_interval_spinner_item(med_interval));
+            spinner_dosage.setSelection(medCreationHelper.getDosageSpinnerIdFromText(med_dosage));
 
         }else {
             Update = "No";
@@ -216,33 +228,35 @@ public class CreateMedicationActivity extends AppCompatActivity {
     public void save_in_database(){
 
         try {
-            Toast.makeText(CreateMedicationActivity.this, "Saving", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateMedicationActivity.this, R.string.saving, Toast.LENGTH_SHORT).show();
 
             index = localData.getSavedIndexFromPref();  //Index is used when deleting an item from the database
             index++;
             //Saves to database
             databaseHelper.open();
-            String temp_med_name, temp_med_desc, temp_med_month, temp_med_interval, temp_med_start_date, temp_med_end_date;
-            int temp_remind_me;
+            String temp_med_name, temp_med_desc, temp_med_month,temp_med_start_date, temp_med_end_date,temp_med_dosage;
+            int temp_remind_me,dosage_interval;
 
             temp_med_name = editText_med_name.getText().toString();
             temp_med_desc = editText_med_description.getText().toString();
-            temp_med_interval = spinner_daily_interval.getSelectedItem().toString();
+            temp_med_dosage = spinner_dosage.getSelectedItem().toString();
             temp_med_month = view_med_month.getText().toString();
             temp_med_start_date = view_start_date.getText().toString();
             temp_med_end_date = view_end_date.getText().toString();
             temp_remind_me = medCreationHelper.getBooleanValue(spinner_remind_me.getSelectedItem().toString());
+
+            dosage_interval = medCreationHelper.getIntervalFromDosage(spinner_dosage.getSelectedItemPosition());
             //Makes the insertion in database
             databaseHelper.saveMedication(index,temp_med_name,temp_med_desc,temp_med_month,
-                    temp_med_interval,temp_med_start_date,
+                    temp_med_dosage,temp_med_start_date,
                     temp_med_end_date,temp_remind_me);
 
             //Activate reminder if user selects yes
             if (temp_remind_me == 1){
-                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,10,0);
+                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,10,LocalData.DEFAULT_MIN,dosage_interval);
             }
             databaseHelper.close();
-            Toast.makeText(CreateMedicationActivity.this, "Saved Successfully and Alarm started", Toast.LENGTH_LONG).show();
+            Toast.makeText(CreateMedicationActivity.this, R.string.saved_successfully, Toast.LENGTH_LONG).show();
             recyclerViewObject.medicationAdapter.notifyDataSetChanged();
 
 
@@ -257,28 +271,30 @@ public class CreateMedicationActivity extends AppCompatActivity {
 //
     private void update_medication() {
         try {
-            Toast.makeText(CreateMedicationActivity.this, "Updating", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateMedicationActivity.this, R.string.updating, Toast.LENGTH_SHORT).show();
             int id = Integer.parseInt(view_med_id.getText().toString());
 
             databaseHelper.open();
-            String temp_med_name, temp_med_desc, temp_med_month, temp_med_interval, temp_med_start_date, temp_med_end_date;
-            int temp_remind_me;
+            String temp_med_name, temp_med_desc, temp_med_month, temp_med_dosage, temp_med_start_date, temp_med_end_date;
+            int temp_remind_me, dosage_interval;
 
             temp_med_name = editText_med_name.getText().toString();
             temp_med_desc = editText_med_description.getText().toString();
-            temp_med_interval = spinner_daily_interval.getSelectedItem().toString();
+            temp_med_dosage = spinner_dosage.getSelectedItem().toString();
             temp_med_month = view_med_month.getText().toString();
             temp_med_start_date = view_start_date.getText().toString();
             temp_med_end_date = view_end_date.getText().toString();
             temp_remind_me = medCreationHelper.getBooleanValue(spinner_remind_me.getSelectedItem().toString());
+            dosage_interval = medCreationHelper.getIntervalFromDosage(spinner_dosage.getSelectedItemPosition());
+
             //Makes the update in database
             databaseHelper.updateMedById(id,temp_med_name,temp_med_desc,temp_med_month,
-                    temp_med_interval,temp_med_start_date,temp_med_end_date,temp_remind_me);
+                    temp_med_dosage,temp_med_start_date,temp_med_end_date,temp_remind_me);
 
 //            Cancels the reminder if user selects No
             if (temp_remind_me == 1){
 
-                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,10,0);
+                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,10,LocalData.DEFAULT_MIN,dosage_interval);
 
             }else {
                 NotificationScheduler.cancelReminder(CreateMedicationActivity.this,AlarmReceiver.class,id);
@@ -286,7 +302,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
             }
 
             databaseHelper.close();
-            Toast.makeText(CreateMedicationActivity.this, "Update Successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateMedicationActivity.this, R.string.updatedsuccessfully, Toast.LENGTH_SHORT).show();
             recyclerViewObject.medicationAdapter.notifyDataSetChanged();
 
 

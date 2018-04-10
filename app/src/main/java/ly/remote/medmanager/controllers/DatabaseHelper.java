@@ -7,7 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by Risen on 3/30/2018.
@@ -24,7 +23,7 @@ public class DatabaseHelper {
     private static final String MED_START_DATE = "MedStartDate";
     private static final String MED_END_DATE= "MedEndDate";
     private static final String MED_MONTH = "MedMonth";
-    private static final String MED_INTERVAL = "MedInterval";
+    private static final String MED_DOSAGE = "MedInterval";
     private static final String MED_REMINDER = "MedReminder";    // One signifies that Reminder is activated and zero signifies de-activated
     private SQLiteDatabase sqLiteDatabase;
     private MedDatabaseHelper medDatabaseHelper;
@@ -36,9 +35,9 @@ public class DatabaseHelper {
             + MED_NAME + " TEXT, "
             + MED_DESC + " TEXT, "
             + MED_MONTH + " TEXT, "
-            + MED_INTERVAL + " INTEGER, "
-            + MED_START_DATE + " INTEGER, "
-            + MED_END_DATE + " INTEGER, "
+            + MED_DOSAGE + " TEXT, "  //TODO Change to Strings
+            + MED_START_DATE + " TEXT, "
+            + MED_END_DATE + " TEXT, "
             + MED_REMINDER + " INTEGER);";
 
     private static final String DROP_QUERY = "DROP TABLE IF EXIST " + TABLE_NAME + ";";
@@ -88,7 +87,7 @@ public class DatabaseHelper {
                                String Med_name,
                                String Med_desc,
                                String Med_month,
-                               String Med_interval,
+                               String Med_dosage,
                                String Med_start_date,
                                String Med_end_date,
                                int Med_reminder){
@@ -99,7 +98,7 @@ public class DatabaseHelper {
         values.put(MED_NAME, Med_name);
         values.put(MED_DESC, Med_desc);
         values.put(MED_MONTH, Med_month);
-        values.put(MED_INTERVAL, Med_interval);
+        values.put(MED_DOSAGE, Med_dosage);
         values.put(MED_START_DATE,Med_start_date );
         values.put(MED_END_DATE, Med_end_date);
         values.put(MED_REMINDER, Med_reminder);
@@ -110,7 +109,7 @@ public class DatabaseHelper {
 
     public Cursor getMedication() {
         sqLiteDatabase = medDatabaseHelper.getReadableDatabase();
-        String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_INTERVAL,MED_START_DATE,MED_END_DATE,MED_REMINDER};  //TODO change interval to integer
+        String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_DOSAGE,MED_START_DATE,MED_END_DATE,MED_REMINDER};  //TODO change interval to integer
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, columns, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
@@ -121,7 +120,7 @@ public class DatabaseHelper {
     public Cursor getMedicationById(int index){
         Cursor cursor = null;
         sqLiteDatabase = medDatabaseHelper.getReadableDatabase();
-        String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_INTERVAL,MED_START_DATE,MED_END_DATE,MED_REMINDER};  //TODO change interval to integer
+        String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_DOSAGE,MED_START_DATE,MED_END_DATE,MED_REMINDER};  //TODO change interval to integer
         cursor = sqLiteDatabase.query(TABLE_NAME,columns,INDEX + "=?",new String[]{String.valueOf(index)},null,null,null,null);
         return cursor;
     }
@@ -142,7 +141,7 @@ public class DatabaseHelper {
         values.put(MED_NAME, Med_name);
         values.put(MED_DESC, Med_desc);
         values.put(MED_MONTH, Med_month);
-        values.put(MED_INTERVAL, Med_interval);
+        values.put(MED_DOSAGE, Med_interval);
         values.put(MED_START_DATE,Med_start_date );
         values.put(MED_END_DATE, Med_end_date);
         values.put(MED_REMINDER, Med_reminder);

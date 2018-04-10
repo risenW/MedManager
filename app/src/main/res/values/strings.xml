@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MedManager</string>
-    <string name="sample_medication_name">Panadol and Septrin</string>
-    <string name="sample_med_description">This is my medication for back pain and fever blah blashh dd ggdgd dgdggd ggdgdg gdgdgdg dgdggdgd gdgdg</string>
+    <string name="sample_medication_name">Paracetamol</string>
+    <string name="sample_med_description">Enter the description of your medication  to help you remember.</string>
     <string name="sample_month">March</string>
     <string name="med_title">Name of Medication</string>
     <string name="sample_start_date">April 5th</string>
@@ -18,6 +18,13 @@
     <string name="daily_intervals_header">Daily Intervals</string>
     <string name="start_date_header">Start Date</string>
     <string name="end_date_header">End Date</string>
+    <string name="Alert_Medication_title">It\'s time to take your medication</string>
+    <string name="dosage">Dosage</string>
+    <string name="sample_dosage_text">2x Daily</string>
+    <string name="updatedsuccessfully">Updated Successfully</string>
+    <string name="updating">Updating</string>
+    <string name="saved_successfully">Saved Successfully</string>
+    <string name="saving">Saving</string>
 
     <string-array name="hour_intervals">
         <item>4</item>
@@ -31,5 +38,11 @@
     <string-array name="remind_me">
         <item>No</item>
         <item>Yes</item>
+    </string-array>
+
+    <string-array name="daily_dosage">
+        <item>1x daily</item>
+        <item>2x daily</item>
+        <item>3x daily</item>
     </string-array>
 </resources>

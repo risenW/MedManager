@@ -27,14 +27,14 @@
 
         <!--//Hidden field to hold the med month and Id-->
         <TextView
-            android:layout_width="1dp"
+            android:layout_width="0dp"
             android:layout_height="1dp"
             android:text="@string/sample_month"
             android:id="@+id/view_med_month"/>
 
         <TextView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:text="@string/default_id"
             android:gravity="center"
             android:id="@+id/view_med_id"/>
@@ -57,28 +57,42 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/daily_intervals_header"
+                android:text="Daily start time"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 style="@style/CustomHeaderTextStyle" />
-            <Spinner
+
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:id="@+id/user_selected_start_time"
+                android:text="8 Am daily"/>
+
+            <Button
+                android:layout_width="@dimen/start_date_icon_width"
+                android:layout_height="@dimen/start_date_icon_height"
                 android:layout_marginStart="@dimen/create_med_icon_marginLeft"
-                android:id="@+id/user_selected_spinner_interval"
-                android:entries="@array/hour_intervals"
-                />
+                android:layout_gravity="center"
+                android:id="@+id/btn_pick_time"
+                android:background="@drawable/ic_access_time"/>
+
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+
             android:orientation="horizontal">
 
             <TextView
@@ -110,6 +124,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+
             android:orientation="horizontal">
 
             <TextView
@@ -142,6 +158,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dosage"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                style="@style/CustomHeaderTextStyle" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/create_med_icon_marginLeft"
+                android:entries="@array/daily_dosage"
+                android:id="@+id/user_selected_dosage"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
             android:orientation="horizontal">
 
             <TextView
@@ -164,8 +207,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
 

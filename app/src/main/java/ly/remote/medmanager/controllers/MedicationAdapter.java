@@ -4,9 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,7 +41,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Re
         holder.med_name.setText(medModel.getMed_name());
         holder.med_desc.setText(medModel.getMed_desc());
         holder.med_month.setText(medModel.getMed_month());
-        holder.med_interval.setText(medModel.getMed_interval());
+        holder.med_dosage.setText(medModel.getMed_dosage());
         holder.med_start_date.setText(medModel.getMed_start_date());
         holder.med_end_date.setText(medModel.getMed_end_date());
         holder.med_remind_me.setText(String.valueOf(medModel.getMed_reminder()));
@@ -71,7 +69,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Re
 
     //View Holder inner class
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        TextView med_name, med_desc, med_month, med_interval, med_start_date, med_end_date, med_remind_me;
+        TextView med_name, med_desc, med_month, med_dosage, med_start_date, med_end_date, med_remind_me;
         ImageButton med_reminder_set_icon;
         private MyItemOnClickListener itemClickListener;
         private MyItemOnLongClickListener itemLongClickListener;
@@ -82,7 +80,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Re
             med_name = (TextView)arg0.findViewById(R.id.cardView_med_name);
             med_desc = (TextView)arg0.findViewById(R.id.cardView_med_descrition);
             med_month = (TextView)arg0.findViewById(R.id.cardView_med_month);
-            med_interval = (TextView)arg0.findViewById(R.id.cardView_interval);
+            med_dosage = (TextView)arg0.findViewById(R.id.cardView_dosage);
             med_start_date = (TextView)arg0.findViewById(R.id.cardView_start_date);
             med_end_date = (TextView)arg0.findViewById(R.id.cardView_end_date);
             med_remind_me = (TextView)arg0.findViewById(R.id.cardView_remind_me);

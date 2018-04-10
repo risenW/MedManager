@@ -21,6 +21,8 @@ import ly.remote.medmanager.controllers.DatabaseHelper;
 import ly.remote.medmanager.controllers.Interfaces.MyItemOnClickListener;
 import ly.remote.medmanager.controllers.Interfaces.MyItemOnLongClickListener;
 import ly.remote.medmanager.controllers.MedicationAdapter;
+import ly.remote.medmanager.controllers.alarmManager.AlarmReceiver;
+import ly.remote.medmanager.controllers.alarmManager.NotificationScheduler;
 import ly.remote.medmanager.models.MedicationModel;
 
 public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnClickListener,MyItemOnLongClickListener {
@@ -35,7 +37,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
     public final String MED_NAME = "med_name";
     public final String MED_DESC = "med_desc";
     public final String MED_MONTH = "med_month";
-    public final String MED_INTERVAL = "med_interval";
+    public final String MED_DOSAGE = "med_dosage";
     public final String MED_START_DATE = "med_start_date";
     public final String MED_END_DATE = "med_end_date";
     public final String MED_REMINDER = "med_reminder";
@@ -91,7 +93,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
                 intent.putExtra(MED_NAME, R.string.sample_medication_name);
                 intent.putExtra(MED_DESC, R.string.sample_med_description);
                 intent.putExtra(MED_MONTH, R.string.sample_month);
-                intent.putExtra(MED_INTERVAL, 6);
+                intent.putExtra(MED_DOSAGE, 0);
                 intent.putExtra(MED_START_DATE, R.string.sample_start_date);
                 intent.putExtra(MED_END_DATE, R.string.sample_end_date);
                 intent.putExtra(MED_END_DATE, 0);
@@ -115,7 +117,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
                             cursor.getString(1), //name
                             cursor.getString(2),  //description
                             cursor.getString(3),  //month
-                            cursor.getString(4),   //interval
+                            cursor.getString(4),   //Dosage
                             cursor.getString(5),   //start date
                             cursor.getString(6),   //end date
                             cursor.getInt(7));  //remind me value
@@ -148,7 +150,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
             intent.putExtra(MED_NAME, medicationModel.getMed_name());
             intent.putExtra(MED_DESC, medicationModel.getMed_desc());
             intent.putExtra(MED_MONTH, medicationModel.getMed_month());
-            intent.putExtra(MED_INTERVAL, medicationModel.getMed_interval());
+            intent.putExtra(MED_DOSAGE, medicationModel.getMed_dosage());
             intent.putExtra(MED_START_DATE, medicationModel.getMed_start_date());
             intent.putExtra(MED_END_DATE, medicationModel.getMed_end_date());
             intent.putExtra(MED_REMINDER, medicationModel.getMed_reminder());
@@ -160,7 +162,6 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
 
     @Override
     public void OnItemLongClickListener(View view, final int position) {
-        Toast.makeText(this, "Long Clicked: " + position, Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.Delete_text);
         builder.setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
@@ -174,6 +175,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
 
                     databaseHelper.open();
                     databaseHelper.deleteMedicationByID(medicationModel.getIndex());   //Deletes from the database
+                    NotificationScheduler.cancelReminder(RecyclerViewActivity.this, AlarmReceiver.class,medicationModel.getIndex());  //Cancels the Alarm Notification
                     medicationModelArrayList.remove(position);                          //Removes deleted Item from the list
                     medicationAdapter.notifyItemRemoved(position);
                     medicationAdapter.notifyDataSetChanged();

@@ -122,7 +122,7 @@ public class DatabaseHelper {
         Cursor cursor = null;
         sqLiteDatabase = medDatabaseHelper.getReadableDatabase();
         String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_INTERVAL,MED_START_DATE,MED_END_DATE,MED_REMINDER};  //TODO change interval to integer
-        cursor = sqLiteDatabase.query(TABLE_NAME,columns,INDEX + "=?",new String[]{String.valueOf(index)},null,null,null,"LIMIT 1");
+        cursor = sqLiteDatabase.query(TABLE_NAME,columns,INDEX + "=?",new String[]{String.valueOf(index)},null,null,null,null);
         return cursor;
     }
 

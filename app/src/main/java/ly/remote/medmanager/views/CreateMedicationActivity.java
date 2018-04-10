@@ -239,7 +239,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
             //Activate reminder if user selects yes
             if (temp_remind_me == 1){
-                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,23,0);
+                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,10,0);
             }
             databaseHelper.close();
             Toast.makeText(CreateMedicationActivity.this, "Saved Successfully and Alarm started", Toast.LENGTH_LONG).show();
@@ -276,8 +276,13 @@ public class CreateMedicationActivity extends AppCompatActivity {
                     temp_med_interval,temp_med_start_date,temp_med_end_date,temp_remind_me);
 
 //            Cancels the reminder if user selects No
-            if (temp_remind_me == 0){
+            if (temp_remind_me == 1){
+
+                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,10,0);
+
+            }else {
                 NotificationScheduler.cancelReminder(CreateMedicationActivity.this,AlarmReceiver.class,id);
+
             }
 
             databaseHelper.close();

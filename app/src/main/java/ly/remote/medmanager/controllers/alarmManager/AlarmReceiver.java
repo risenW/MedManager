@@ -33,20 +33,23 @@ public class AlarmReceiver extends BroadcastReceiver{
 //        }
         Bundle extras = intent.getExtras();
         int med_id = extras.getInt(NotificationScheduler.MED_ID_EXTRA_KEY);
-//
-//        try {
-//            databaseHelper.open();
-//            Cursor cursor = databaseHelper.getMedicationById(med_id);
-//            if (cursor != null){
-//                med_title = cursor.getString(1);
-//                med_desc = cursor.getString(2);
-//                cursor.close();
-//            }
-//            databaseHelper.close();
-//
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//        }
+        databaseHelper = new DatabaseHelper(context);
+
+        //Get the medication details from the database and pass it to the notification scheduler
+        try {
+            databaseHelper.open();
+            Cursor cursor = databaseHelper.getMedicationById(med_id);
+            if (cursor != null){
+                cursor.moveToFirst();
+                med_title = cursor.getString(1);
+                med_desc = cursor.getString(2);
+                cursor.close();
+            }
+            databaseHelper.close();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
 
 
         //Trigger the notification

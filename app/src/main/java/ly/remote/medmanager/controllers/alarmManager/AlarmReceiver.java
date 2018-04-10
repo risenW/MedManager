@@ -33,21 +33,24 @@ public class AlarmReceiver extends BroadcastReceiver{
 //        }
         Bundle extras = intent.getExtras();
         int med_id = extras.getInt(NotificationScheduler.MED_ID_EXTRA_KEY);
-
+//
 //        try {
 //            databaseHelper.open();
 //            Cursor cursor = databaseHelper.getMedicationById(med_id);
 //            if (cursor != null){
 //                med_title = cursor.getString(1);
 //                med_desc = cursor.getString(2);
+//                cursor.close();
 //            }
+//            databaseHelper.close();
+//
 //        }catch (SQLException e){
 //            e.printStackTrace();
 //        }
 
 
         //Trigger the notification
-        NotificationScheduler.showNotification(context, ShowNotificationActivity.class,"TESTING", med_id, med_id + "th row");
+        NotificationScheduler.showNotification(context, ShowNotificationActivity.class,med_title, med_id,med_desc);
 
     }
 }

@@ -120,14 +120,12 @@ public class CreateMedicationActivity extends AppCompatActivity {
                 medCreationHelper = new NewMedCreationHelper();
 
                if (Update.equals("No")){
-
-                   save_in_database();    //Method to save a New Medication in database
-                   Toast.makeText(CreateMedicationActivity.this, "Saved Successfully and Alarm started", Toast.LENGTH_LONG).show();
+                   //Save a New Medication in database
+                   save_in_database();
 
                }else {
                    //Update is to be performed
                    update_medication();
-                   Toast.makeText(CreateMedicationActivity.this, "Updating", Toast.LENGTH_SHORT).show(); //TODO Make a database update
                }
 
                 //disable all views
@@ -243,8 +241,8 @@ public class CreateMedicationActivity extends AppCompatActivity {
             if (temp_remind_me == 1){
                 NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,23,0);
             }
-
             databaseHelper.close();
+            Toast.makeText(CreateMedicationActivity.this, "Saved Successfully and Alarm started", Toast.LENGTH_LONG).show();
             recyclerViewObject.medicationAdapter.notifyDataSetChanged();
 
 
@@ -259,30 +257,32 @@ public class CreateMedicationActivity extends AppCompatActivity {
 //
     private void update_medication() {
         try {
-            Toast.makeText(CreateMedicationActivity.this, "Updating Medication", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateMedicationActivity.this, "Updating", Toast.LENGTH_SHORT).show();
             int id = Integer.parseInt(view_med_id.getText().toString());
-            NotificationScheduler.cancelReminder(CreateMedicationActivity.this,AlarmReceiver.class,id);
-//            databaseHelper.open();
-//            String temp_med_name, temp_med_desc, temp_med_month, temp_med_interval, temp_med_start_date, temp_med_end_date;
-//            int temp_remind_me;
-//
-//            temp_med_name = editText_med_name.getText().toString();
-//            temp_med_desc = editText_med_description.getText().toString();
-//            temp_med_interval = spinner_daily_interval.getSelectedItem().toString();
-//            temp_med_month = view_med_month.getText().toString();
-//            temp_med_start_date = view_start_date.getText().toString();
-//            temp_med_end_date = view_end_date.getText().toString();
-//            temp_remind_me = medCreationHelper.getBooleanValue(spinner_remind_me.getSelectedItem().toString());
-//            //Makes the update in database
-//
-//
-//            //Activate reminder if user selects yes
-//            if (temp_remind_me == 0){
-//                NotificationScheduler.cancelReminder(CreateMedicationActivity.this,AlarmReceiver.class,id);
-//            }
-//
-//            databaseHelper.close();
-//            recyclerViewObject.medicationAdapter.notifyDataSetChanged();
+
+            databaseHelper.open();
+            String temp_med_name, temp_med_desc, temp_med_month, temp_med_interval, temp_med_start_date, temp_med_end_date;
+            int temp_remind_me;
+
+            temp_med_name = editText_med_name.getText().toString();
+            temp_med_desc = editText_med_description.getText().toString();
+            temp_med_interval = spinner_daily_interval.getSelectedItem().toString();
+            temp_med_month = view_med_month.getText().toString();
+            temp_med_start_date = view_start_date.getText().toString();
+            temp_med_end_date = view_end_date.getText().toString();
+            temp_remind_me = medCreationHelper.getBooleanValue(spinner_remind_me.getSelectedItem().toString());
+            //Makes the update in database
+            databaseHelper.updateMedById(id,temp_med_name,temp_med_desc,temp_med_month,
+                    temp_med_interval,temp_med_start_date,temp_med_end_date,temp_remind_me);
+
+//            Cancels the reminder if user selects No
+            if (temp_remind_me == 0){
+                NotificationScheduler.cancelReminder(CreateMedicationActivity.this,AlarmReceiver.class,id);
+            }
+
+            databaseHelper.close();
+            Toast.makeText(CreateMedicationActivity.this, "Update Successful", Toast.LENGTH_SHORT).show();
+            recyclerViewObject.medicationAdapter.notifyDataSetChanged();
 
 
         }catch (Exception e){

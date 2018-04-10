@@ -119,9 +119,10 @@ public class DatabaseHelper {
     }
 
     public Cursor getMedicationById(int index){
+        Cursor cursor = null;
         sqLiteDatabase = medDatabaseHelper.getReadableDatabase();
         String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_INTERVAL,MED_START_DATE,MED_END_DATE,MED_REMINDER};  //TODO change interval to integer
-        Cursor cursor = sqLiteDatabase.query(TABLE_NAME,columns,INDEX + "=" + index,null,null,null,null,null);
+        cursor = sqLiteDatabase.query(TABLE_NAME,columns,INDEX + "=?",new String[]{String.valueOf(index)},null,null,null,"LIMIT 1");
         return cursor;
     }
 
@@ -146,7 +147,7 @@ public class DatabaseHelper {
         values.put(MED_END_DATE, Med_end_date);
         values.put(MED_REMINDER, Med_reminder);
 
-        sqLiteDatabase.update(TABLE_NAME,values,INDEX + "=" + index,null);
+        sqLiteDatabase.update(TABLE_NAME,values,INDEX + "=?",new String[]{String.valueOf(index)});
         Log.d(DEBUG_TAG, "Updated Successfully");
 
     }

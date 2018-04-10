@@ -15,9 +15,7 @@ public class LocalData {
     private  SharedPreferences.Editor prefsEditor;
     private static final String APP_SHARED_PREFS = "MedManagerPrefs";
     public static final int DEFAULT_MIN = 0;
-
     private final String INDEX_VALUE = "indexValue";   //Key for saving recyclerList items in preference
-    private final String PENDING_INTENT_ARRAY = "Pending_intents";
 
 
     public LocalData(Context context) {

@@ -78,6 +78,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
             }
         });
 
@@ -152,7 +153,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         view_med_id = (TextView)findViewById(R.id.view_med_id);
         view_start_date = (TextView) findViewById(R.id.user_selected_start_date);
         view_end_date = (TextView) findViewById(R.id.user_selected_end_date);
-        spinner_daily_interval = (Spinner)findViewById(R.id.user_selected_spinner_interval);
+//        spinner_daily_interval = (Spinner)findViewById(R.id.use);
         spinner_remind_me = (Spinner)findViewById(R.id.user_selected_reminder_option);
         spinner_dosage = (Spinner)findViewById(R.id.user_selected_dosage);
         btn_start_date = (Button)findViewById(R.id.btn_start_date);
@@ -268,7 +269,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         localData.saveIndexInPref(index);
 
     }
-//
+
     private void update_medication() {
         try {
             Toast.makeText(CreateMedicationActivity.this, R.string.updating, Toast.LENGTH_SHORT).show();

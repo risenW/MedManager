@@ -22,6 +22,10 @@
     <string name="updating">Updating</string>
     <string name="saved_successfully">Saved Successfully</string>
     <string name="saving">Saving</string>
+    <string name="default_start_time">8 Am daily</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="signin_cancelled">Cancelled</string>
+    <string name="unknown_error">unknown error</string>
 
 
     <string-array name="hour_intervals">

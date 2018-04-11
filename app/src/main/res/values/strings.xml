@@ -15,7 +15,6 @@
     <string name="No">No</string>
     <string name="default_id">0</string>
     <string name="description_header">Description</string>
-    <string name="daily_intervals_header">Daily Intervals</string>
     <string name="start_date_header">Start Date</string>
     <string name="end_date_header">End Date</string>
     <string name="Alert_Medication_title">It\'s time to take your medication</string>
@@ -26,18 +25,9 @@
     <string name="saved_successfully">Saved Successfully</string>
     <string name="saving">Saving</string>
     <string name="default_start_time">8 Am daily</string>
-    <string name="no_internet_connection">No internet connection</string>
     <string name="signin_cancelled">Cancelled</string>
-    <string name="unknown_error">unknown error</string>
-
-    <string-array name="hour_intervals">
-        <item>4</item>
-        <item>6</item>
-        <item>8</item>
-        <item>12</item>
-        <item>15</item>
-        <item>24</item>
-    </string-array>
+    <string name="no_internet_connection">No Internet connection</string>
+    <string name="unknown_error">Unknown error</string>
 
     <string-array name="remind_me">
         <item>No</item>

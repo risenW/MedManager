@@ -1,12 +1,13 @@
 package ly.remote.medmanager.views;
 
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -19,31 +20,39 @@ import java.util.Arrays;
 import ly.remote.medmanager.R;
 
 public class SignInActivity extends AppCompatActivity {
-    private FirebaseAuth auth;
     private static final int RC_SIGN_IN = 123;
     private Button btn_sign_in;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
-        btn_sign_in = (Button)findViewById(R.id.btn_sign_in);
         auth = FirebaseAuth.getInstance();
+        btn_sign_in = (Button)findViewById(R.id.btn_sign_in);
 
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Start FirebaseUI flow for google sign in
-                startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .setAvailableProviders(
-                                        Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
-                                .build(),
-                        RC_SIGN_IN);
+                if (auth.getCurrentUser() != null) {
+                    //User is signed in
+                    Intent intent = new Intent(SignInActivity.this, RecyclerViewActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    //Not signed In
+                    startActivityForResult(
+                            AuthUI.getInstance()
+                                    .createSignInIntentBuilder()
+                                    .setAvailableProviders(
+                                            Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                                    .build(),
+                            RC_SIGN_IN);
+                }
             }
-        });
+         });
+
 
     }
 

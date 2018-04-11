@@ -1,6 +1,7 @@
 package ly.remote.medmanager.views;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import ly.remote.medmanager.R;
@@ -22,8 +24,8 @@ import ly.remote.medmanager.models.LocalData;
 public class CreateMedicationActivity extends AppCompatActivity {
 
     private EditText editText_med_name, editText_med_description;
-    private TextView view_start_date, view_end_date, view_med_month, view_med_id;
-    private Spinner spinner_daily_interval, spinner_remind_me,spinner_dosage;
+    private TextView view_start_date, view_end_date, view_med_month, view_med_id, view_med_start_time;
+    private Spinner  spinner_remind_me,spinner_dosage;
     private Button btn_start_date, btn_end_date, btn_save, btn_edit, btn_pick_time;
     private static int index;
     private static final String MY_PREF = "my_preference";
@@ -77,7 +79,16 @@ public class CreateMedicationActivity extends AppCompatActivity {
         btn_pick_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(CreateMedicationActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        hour = hourOfDay;
+                        min = minute;
+                        view_med_start_time.setText(hourOfDay + ":00"); //TODO ADD WELL FORMATED TIME
+                    }
+                },LocalData.DEFAULT_HOUR, LocalData.DEFAULT_MIN,false );
 
+                timePickerDialog.show();
             }
         });
 
@@ -155,6 +166,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         view_med_id = (TextView)findViewById(R.id.view_med_id);
         view_start_date = (TextView) findViewById(R.id.user_selected_start_date);
         view_end_date = (TextView) findViewById(R.id.user_selected_end_date);
+        view_med_start_time = (TextView)findViewById(R.id.view_med_start_time);
         spinner_remind_me = (Spinner)findViewById(R.id.user_selected_reminder_option);
         spinner_dosage = (Spinner)findViewById(R.id.user_selected_dosage);
         btn_start_date = (Button)findViewById(R.id.btn_start_date);
@@ -251,7 +263,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
             //Activate reminder if user selects yes
             if (temp_remind_me == 1){
-                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,10,LocalData.DEFAULT_MIN,dosage_interval);
+                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,hour,LocalData.DEFAULT_MIN,dosage_interval);
             }
             databaseHelper.close();
             Toast.makeText(CreateMedicationActivity.this, R.string.saved_successfully, Toast.LENGTH_LONG).show();
@@ -292,7 +304,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
 //            Cancels the reminder if user selects No
             if (temp_remind_me == 1){
 
-                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,10,LocalData.DEFAULT_MIN,dosage_interval);
+                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,hour,LocalData.DEFAULT_MIN,dosage_interval);
 
             }else {
                 NotificationScheduler.cancelReminder(CreateMedicationActivity.this,AlarmReceiver.class,id);

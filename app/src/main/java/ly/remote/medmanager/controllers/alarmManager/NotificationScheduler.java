@@ -29,6 +29,7 @@ public class NotificationScheduler {
     public static final String MED_ID_EXTRA_KEY = "MedicationIdExtraKey";
     public static final String MED_TITLE_EXTRA_KEY = "MedicationTitle";
     public static final String MED_DESCRIPTION_KEY = "MedicationDescription";
+    public static final String MED_HOUR_KEY = "Med_hour";
     public static final String TAG="NotificationScheduler";
 
     public static void setReminder(Context context,Class<?> cls,int pendingRequestID,int hour, int min,int interval) {
@@ -47,6 +48,7 @@ public class NotificationScheduler {
 
         Intent intent = new Intent(context, cls);
         intent.putExtra(MED_ID_EXTRA_KEY,pendingRequestID);   //The request ID is the medication row ID in database.
+        intent.putExtra(MED_HOUR_KEY, hour);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, pendingRequestID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, setcalendar.getTimeInMillis(),interval, pendingIntent);

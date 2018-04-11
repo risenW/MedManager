@@ -80,6 +80,7 @@
                 android:layout_gravity="center"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
+                android:id="@+id/view_med_start_time"
                 android:text="@string/default_start_time"/>
 
             <Button

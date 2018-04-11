@@ -80,13 +80,11 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
         recyclerView.setLayoutManager(layoutManager);
         fillAdapter();
         addMedication = (FloatingActionButton)findViewById(R.id.add_mediction);
-        final Intent intent =  new Intent(this,CreateMedicationActivity.class);
 
 
         addMedication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(RecyclerViewActivity.this, CreateMedicationActivity.class);
                 intent.putExtra(INDEX,0);
                 intent.putExtra(NEW_MEDICATION, "Yes");

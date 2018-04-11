@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="login_logo_height">200dp</dimen>
-    <dimen name="login_logo_width">200dp</dimen>
+    <dimen name="login_logo_height">100dp</dimen>
+    <dimen name="login_logo_width">100dp</dimen>
     <dimen name="login_app_name_padding">20dp</dimen>
     <dimen name="login_textSize">24sp</dimen>
 

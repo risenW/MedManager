@@ -34,7 +34,7 @@ public class SignInActivity extends AppCompatActivity {
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Start FirebaseUI flow for google sign in
+//                Start Firebase UI flow for google sign in
                 if (auth.getCurrentUser() != null) {
                     //User is signed in
                     Intent intent = new Intent(SignInActivity.this, RecyclerViewActivity.class);

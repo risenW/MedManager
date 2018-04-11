@@ -4,6 +4,42 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context="ly.remote.medmanager.views.ProfileActivity">
+
+    <ImageView
+        android:layout_width="@dimen/login_logo_width"
+        android:layout_height="@dimen/login_logo_height"
+        android:id="@+id/profile_pic"
+        android:src="@drawable/img_logo"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/login_textSize"
+        android:id="@+id/username"
+        android:padding="20dp"
+        android:text="@string/default_name"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:id="@+id/user_email"
+        android:padding="20dp"
+        android:text="@string/default_name"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_sign_out"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:text="Sign out"
+        android:layout_margin="@dimen/login_app_name_padding"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/common_google_signin_btn_text_light_normal"
+        />
 
 </LinearLayout>

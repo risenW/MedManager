@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    android:background="@drawable/img_pills"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <LinearLayout
@@ -12,6 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
             android:text="@string/med_title"
             style="@style/CustomHeaderTextStyle" />
 
@@ -20,6 +22,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/sample_medication_name"
             android:textSize="18sp"
+            android:textColor="@android:color/white"
             android:padding="20dp"
             android:id="@+id/user_med_name"
             android:textAlignment="center"/>
@@ -43,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/description_header"
+            android:textColor="@color/colorPrimary"
             style="@style/CustomHeaderTextStyle" />
 
         <EditText
@@ -50,6 +54,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/sample_med_description"
             android:textSize="18sp"
+            android:textColor="@android:color/white"
             android:id="@+id/user_med_description"
             android:textAlignment="center"/>
 
@@ -63,6 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Daily start time"
+                android:textColor="@color/colorPrimary"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 style="@style/CustomHeaderTextStyle" />
@@ -72,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:text="@string/default_start_time"/>
 
@@ -97,6 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/start_date_header"
+                android:textColor="@color/colorPrimary"
                 android:layout_margin="10dp"
                 android:layout_gravity="center"
                 style="@style/CustomHeaderTextStyle" />
@@ -106,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textSize="18sp"
+                android:textColor="@android:color/white"
                 android:id="@+id/user_selected_start_date"
                 android:text="@string/sample_start_date"/>
 
@@ -131,14 +140,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/end_date_header"
                 android:layout_margin="10dp"
+                android:textColor="@color/colorPrimary"
                 android:layout_gravity="center"
-
                 style="@style/CustomHeaderTextStyle" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:id="@+id/user_selected_end_date"
                 android:text="@string/sample_end_date"/>
@@ -164,6 +174,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/dosage"
+                android:textColor="@color/colorPrimary"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 style="@style/CustomHeaderTextStyle" />
@@ -182,7 +193,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-
             android:orientation="horizontal">
 
             <TextView
@@ -191,6 +201,7 @@
                 android:text="@string/remind_me"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
+                android:textColor="@color/colorPrimary"
                 style="@style/CustomHeaderTextStyle" />
 
             <Spinner
@@ -210,24 +221,26 @@
             android:orientation="horizontal">
 
             <Button
-                android:layout_width="@dimen/img_reminder_width"
-                android:layout_height="@dimen/img_reminder_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/btn_save"
                 android:visibility="gone"
                 android:textAllCaps="false"
                 android:text="@string/save"
-                android:textColor="@color/colorPrimary"
                 android:background="@android:color/white"
+                android:layout_margin="10dp"
+                android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/cardViewTextSize"
                 />
 
             <Button
-                android:layout_width="@dimen/img_reminder_width"
-                android:layout_height="@dimen/img_reminder_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/btn_edit"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
                 android:background="@android:color/white"
+                android:layout_margin="10dp"
                 android:textSize="@dimen/cardViewTextSize"
                 android:text="@string/edit"
                 />

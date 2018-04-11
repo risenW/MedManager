@@ -16,6 +16,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private ImageView splashImage;
     private FirebaseAuth auth;
     private static final int RC_SIGN_IN = 123;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +24,13 @@ public class SplashScreenActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash_screen);
 
+        firebaseAuth = FirebaseAuth.getInstance();
         splashImage = (ImageView)findViewById(R.id.splashImage);
-//        auth = FirebaseAuth.getInstance();
+
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.transition);
         splashImage.startAnimation(animation);
-        final Intent intent = new Intent(this, SignInActivity.class);
-//        final Intent signIn = new Intent(this, SignInActivity.class);
+        final Intent signInIntent = new Intent(this, SignInActivity.class);
+        final Intent recyclerViewIntent = new Intent(this, RecyclerViewActivity.class);
 
 
         Thread sleep_timer = new Thread(){
@@ -41,23 +43,17 @@ public class SplashScreenActivity extends AppCompatActivity {
                     e.printStackTrace();
 
                 }finally {
-//                    //Checks if user is signed in
-//                    if(auth.getCurrentUser() != null){
-//                        //already signed in
-//                        startActivity(mainActivity);
-//                        SplashScreenActivity.this.finish();
-//                    }else {
-//                        //not signed in
-//                          startActivityForResult(
-//                                AuthUI.getInstance()
-//                                        .createSignInIntentBuilder()
-//                                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.GoogleBuilder()))
-//                                        .build(),
-//                                RC_SIGN_IN);
+                    if (firebaseAuth.getCurrentUser() != null){
+                        //User is already signed in
+                        startActivity(recyclerViewIntent);
+                        SplashScreenActivity.this.finish();
 
-//                    }
-                    startActivity(intent);
-                    SplashScreenActivity.this.finish();
+                    }else {
+
+                        startActivity(signInIntent);
+                        SplashScreenActivity.this.finish();
+                    }
+
                 }
             }
         };

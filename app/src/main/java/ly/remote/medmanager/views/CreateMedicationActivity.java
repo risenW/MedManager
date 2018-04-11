@@ -78,14 +78,16 @@ public class CreateMedicationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
             }
         });
 
         btn_start_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    int mYear = 2016; int mMonth = 1; int mDay = 4;
+                int mYear = LocalData.DEFAULT_YEAR;
+                int mMonth = LocalData.DEFAULT_MONTH;
+                int mDay = LocalData.DEFAULT_DAY;
+
                     datePickerDialog = new DatePickerDialog(CreateMedicationActivity.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -153,7 +155,6 @@ public class CreateMedicationActivity extends AppCompatActivity {
         view_med_id = (TextView)findViewById(R.id.view_med_id);
         view_start_date = (TextView) findViewById(R.id.user_selected_start_date);
         view_end_date = (TextView) findViewById(R.id.user_selected_end_date);
-//        spinner_daily_interval = (Spinner)findViewById(R.id.use);
         spinner_remind_me = (Spinner)findViewById(R.id.user_selected_reminder_option);
         spinner_dosage = (Spinner)findViewById(R.id.user_selected_dosage);
         btn_start_date = (Button)findViewById(R.id.btn_start_date);
@@ -172,10 +173,8 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
         editText_med_name.setEnabled(true);
         editText_med_description.setEnabled(true);
-        spinner_daily_interval.setEnabled(true);
         view_start_date.setEnabled(true);
         view_end_date.setEnabled(true);
-        spinner_daily_interval.setEnabled(true);
         spinner_remind_me.setEnabled(true);
         spinner_dosage.setEnabled(true);
     }
@@ -184,10 +183,8 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
         editText_med_name.setEnabled(false);
         editText_med_description.setEnabled(false);
-        spinner_daily_interval.setEnabled(false);
         view_start_date.setEnabled(false);
         view_end_date.setEnabled(false);
-        spinner_daily_interval.setEnabled(false);
         spinner_remind_me.setEnabled(false);
         spinner_dosage.setEnabled(false);
 

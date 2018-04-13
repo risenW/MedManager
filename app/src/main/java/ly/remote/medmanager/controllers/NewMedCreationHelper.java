@@ -23,16 +23,16 @@ public class NewMedCreationHelper {
         int tempDosage = dosage;
         switch (tempDosage){
             case 0:
-                tempDosage = 86400;  // 1x daily. Alarm interval is once every 24 hours coverted to seconds
+                tempDosage = 86400000;  // 1x daily. Alarm interval is once every 24 hours coverted to seconds
                 break;
             case 1:
-                tempDosage =  43200;  // 2x daily. Alarm interval is once every 12 hours
+                tempDosage =  43200000;  // 2x daily. Alarm interval is once every 12 hours
                 break;
             case 3:
-                tempDosage = 21600;  // 3x daily. Alarm interval is once every 6 hours
+                tempDosage = 21600000;  // 3x daily. Alarm interval is once every 6 hours
                 break;
             default:
-                tempDosage = 86400;
+                tempDosage = 86400000;
                 break;
         }
         return tempDosage;

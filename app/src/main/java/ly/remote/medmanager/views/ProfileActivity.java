@@ -14,12 +14,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import ly.remote.medmanager.R;
 
 public class ProfileActivity extends AppCompatActivity {
     private TextView username, user_email;
-    private ImageView profile_pic;
+    private ImageView prof_pic;
     private Button sign_out;
     private FirebaseAuth firebaseAuth;
 
@@ -33,12 +34,18 @@ public class ProfileActivity extends AppCompatActivity {
 
         username = (TextView)findViewById(R.id.username);
         user_email = (TextView)findViewById(R.id.user_email);
-        profile_pic = (ImageView)findViewById(R.id.profile_pic);
+        prof_pic = (ImageView)findViewById(R.id.profile_pic);
         sign_out = (Button)findViewById(R.id.btn_sign_out);
 
         if (user != null){
             username.setText(user.getDisplayName());
             user_email.setText(user.getEmail());
+            String imageUri = user.getPhotoUrl().toString();
+
+            Picasso.with(this).load(imageUri).fit().centerCrop()
+                    .placeholder(R.drawable.ic_person_black)
+                    .error(R.drawable.ic_person_black)
+                    .into(prof_pic);
         }
 
         sign_out.setOnClickListener(new View.OnClickListener() {

@@ -30,6 +30,7 @@
     <string name="default_about_user">My name is John and I am a good boy that loves to cook and play with my computer</string>
     <string name="name_title">Name</string>
     <string name="about_user_title">About me</string>
+    <string name="prof_details_hint">Enter some details about ourself</string>
 
 
 </resources>

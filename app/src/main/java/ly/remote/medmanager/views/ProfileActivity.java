@@ -1,9 +1,13 @@
 package ly.remote.medmanager.views;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +31,12 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        disableViews();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
@@ -34,14 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        name = (TextView)findViewById(R.id.user_real_name);
-        user_email = (TextView)findViewById(R.id.user_email);
-        username = (EditText)findViewById(R.id.username);
-        user_about = (EditText)findViewById(R.id.user_about);
-        prof_pic = (ImageView)findViewById(R.id.profile_pic);
-        sign_out = (Button)findViewById(R.id.btn_sign_out);
-        edit_profile = (Button)findViewById(R.id.btn_edit_profile);
-        save_profile = (Button)findViewById(R.id.btn_save_profile);
+        initialize_views();
 
 
         if (user != null){
@@ -70,5 +73,103 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        save_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                disableViews();
+                edit_profile.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+
+        edit_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enableViews();
+            }
+        });
+
     }
+
+    private void initialize_views() {
+
+        name = (TextView)findViewById(R.id.user_real_name);
+        user_email = (TextView)findViewById(R.id.user_email);
+        username = (EditText)findViewById(R.id.username);
+        user_about = (EditText)findViewById(R.id.user_about);
+        prof_pic = (ImageView)findViewById(R.id.profile_pic);
+        sign_out = (Button)findViewById(R.id.btn_sign_out);
+        edit_profile = (Button)findViewById(R.id.btn_edit_profile);
+        save_profile = (Button)findViewById(R.id.btn_save_profile);
+    }
+
+    private void disableViews() {
+
+        user_about.setEnabled(false);
+        username.setEnabled(false);
+        save_profile.setVisibility(View.GONE);
+    }
+
+    private void enableViews() {
+
+        user_about.setEnabled(true);
+        username.setEnabled(true);
+        save_profile.setVisibility(View.VISIBLE);
+        edit_profile.setVisibility(View.GONE);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.profile:
+                Intent intent1 = new Intent(this,ProfileActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.about:
+                Intent intent = new Intent(this,AboutActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rate:
+                //Google play id goes here
+                break;
+            case R.id.exit:
+                //exit code
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.Exit_text);
+                builder.setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        moveTaskToBack(true);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(1);
+                    }
+                });
+
+                builder.setNegativeButton(R.string.No, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+
+        }
+        return true;
+    }
+
+
 }

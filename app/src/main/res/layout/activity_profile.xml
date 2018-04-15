@@ -56,7 +56,7 @@
                 android:padding="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                android:text="@string/name_title"/>
+                android:hint="@string/name_title"/>
 
             <EditText
                 android:layout_width="wrap_content"
@@ -115,7 +115,7 @@
                 android:id="@+id/user_about"
                 android:padding="20dp"
                 android:layout_margin="20dp"
-                android:text="@string/default_about_user"/>
+                android:text="@string/prof_details_hint"/>
 
         </LinearLayout>
 

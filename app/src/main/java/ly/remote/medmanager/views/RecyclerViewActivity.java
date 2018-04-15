@@ -156,7 +156,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
             intent.putExtra(MED_DOSAGE, medicationModel.getMed_dosage());
             intent.putExtra(MED_START_DATE, medicationModel.getMed_start_date());
             intent.putExtra(MED_END_DATE, medicationModel.getMed_end_date());
-            intent.putExtra(MED_REMINDER, medicationModel.getMed_reminder());
+            intent.putExtra(MED_REMINDER, medicationModel.getMed_reminder());   //TODO ADD selected times as extras
 
             startActivity(intent);
         }

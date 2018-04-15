@@ -33,6 +33,7 @@
     <string name="name_title">Username</string>
     <string name="sign_out">Sign out</string>
     <string name="about_user_title">About me</string>
+    <string name="prof_details_hint">Enter some details about ourself</string>
 
     <string-array name="remind_me">
         <item>No</item>

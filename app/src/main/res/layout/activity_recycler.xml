@@ -17,6 +17,7 @@
             android:layout_height="?actionBarSize"
             android:background="@color/colorPrimaryDark"
             android:layout_width="match_parent"
+            app:titleMarginStart="5dp"
             app:titleTextColor="@android:color/white"
             app:logo="@mipmap/ic_launcher"
             android:id="@+id/toolbar"

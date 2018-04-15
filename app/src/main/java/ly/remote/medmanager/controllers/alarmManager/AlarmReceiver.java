@@ -18,7 +18,6 @@ import ly.remote.medmanager.views.ShowNotificationActivity;
 
 public class AlarmReceiver extends BroadcastReceiver{
     DatabaseHelper databaseHelper;
-    String TAG = "AlarmReceiver";
     private String med_title, med_desc;
 
     @Override
@@ -26,17 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver{
 
         Bundle extras = intent.getExtras();
         int med_id = extras.getInt(NotificationScheduler.MED_ID_EXTRA_KEY);
-        int med_hour = extras.getInt(NotificationScheduler.MED_HOUR_KEY);
         databaseHelper = new DatabaseHelper(context);
-
-        if (intent.getAction() != null && context != null) {
-            if (intent.getAction().equalsIgnoreCase(Intent.ACTION_BOOT_COMPLETED)) {
-                // Reset the alarm here after phone reboot.
-                Log.d(TAG, "onReceive: BOOT_COMPLETED");
-                NotificationScheduler.setReminder(context, AlarmReceiver.class, med_id,med_hour,LocalData.DEFAULT_MIN, LocalData.DEFAULT_INTERVAL); //TODO Reset alarm on phone reboot
-                return;
-            }
-        }
 
         //Get the medication details from the database and pass it to the notification scheduler
         try {

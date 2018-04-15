@@ -37,19 +37,14 @@ public class CreateMedicationActivity extends AppCompatActivity {
     private String Update;
     private DatePickerDialog datePickerDialog;
     private Toolbar toolbar;
-    int hour, min; //Time for setting Alarm
+    int hour, min;
+    int saveBtnClickCount = 0;
 
     private DatabaseHelper databaseHelper;
     private RecyclerViewActivity recyclerViewObject;
     private NewMedCreationHelper medCreationHelper;
     private LocalData localData;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //disable all views
-        disableViews();
-    }
 
     @Override
     public void onBackPressed() {
@@ -144,19 +139,21 @@ public class CreateMedicationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 medCreationHelper = new NewMedCreationHelper();
+
                 if (TextUtils.isEmpty(view_med_start_time.getText())){
-                    Toast.makeText(CreateMedicationActivity.this, "Please, set a time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateMedicationActivity.this, "Please set a time", Toast.LENGTH_LONG).show();
+
                 }else {
 
-                    if (Update.equals("No")){
-                        //Save a New Medication in database
-                        save_in_database();
-
-                    }else {
-                        //Update is to be performed
+                    if (saveBtnClickCount == 1 || Update.equals("Yes")){
+                        //Saved already, Perform an Update
                         update_medication();
+                    }else {
+                        //New Medication. Save in database
+                        save_in_database();
                     }
                 }
+                saveBtnClickCount = 1;  //saveClickCounter is used to determine if the save button has been clicked
 
                 //disable all views
                 disableViews();
@@ -190,6 +187,9 @@ public class CreateMedicationActivity extends AppCompatActivity {
         localData = new LocalData(CreateMedicationActivity.this);
         setSupportActionBar(toolbar);
 
+        //disable all views
+        disableViews();
+
     }
 
     public void enableViews(){
@@ -201,6 +201,8 @@ public class CreateMedicationActivity extends AppCompatActivity {
         spinner_remind_me.setEnabled(true);
         spinner_dosage.setEnabled(true);
         btn_pick_time.setEnabled(true);
+        btn_start_date.setEnabled(true);
+        btn_end_date.setEnabled(true);
 
     }
 
@@ -213,6 +215,9 @@ public class CreateMedicationActivity extends AppCompatActivity {
         spinner_remind_me.setEnabled(false);
         spinner_dosage.setEnabled(false);
         btn_pick_time.setEnabled(false);
+        btn_start_date.setEnabled(false);
+        btn_end_date.setEnabled(false);
+
 
     }
 

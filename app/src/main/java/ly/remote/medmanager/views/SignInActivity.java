@@ -42,13 +42,16 @@ public class SignInActivity extends AppCompatActivity {
                     finish();
                 } else {
                     //Not signed In
-                    startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder()
-                                    .setAvailableProviders(
-                                            Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
-                                    .build(),
-                            RC_SIGN_IN);
+                    Intent intent = new Intent(SignInActivity.this,RecyclerViewActivity.class);
+                    startActivity(intent);
+                    finish();  //TODO remove automatic signin on app release
+//                    startActivityForResult(
+//                            AuthUI.getInstance()
+//                                    .createSignInIntentBuilder()
+//                                    .setAvailableProviders(
+//                                            Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+//                                    .build(),
+//                            RC_SIGN_IN);
                 }
             }
          });
@@ -79,9 +82,6 @@ public class SignInActivity extends AppCompatActivity {
 
                 if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
                     Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignInActivity.this,RecyclerViewActivity.class);
-                    startActivity(intent);
-                    finish();  //TODO Remove on app release
                     return;
                 }
 

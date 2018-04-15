@@ -9,7 +9,7 @@ public class MedicationModel {
     private int index, med_reminder;
 
     public MedicationModel(int index, String med_name, String med_desc, String med_month,
-                             String med_dosage, String med_start_date,     //TODO change interval to integer
+                             String med_dosage, String med_start_date,
                                  String med_end_date, int med_reminder) {
 
         this.med_name = med_name;

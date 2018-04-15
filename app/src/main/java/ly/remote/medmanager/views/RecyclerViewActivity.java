@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
      MedicationAdapter medicationAdapter;
      ArrayList<MedicationModel> medicationModelArrayList;
      FloatingActionButton addMedication;
+     Toolbar toolbar;
 
     //Intent Keys
     public final String INDEX = "index";
@@ -71,7 +73,10 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_recycler);
+
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         medicationModelArrayList = new ArrayList<>();
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
@@ -87,7 +92,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
             public void onClick(View v) {
                 Intent intent = new Intent(RecyclerViewActivity.this, CreateMedicationActivity.class);
                 intent.putExtra(INDEX,0);
-                intent.putExtra(NEW_MEDICATION, "Yes");
+                intent.putExtra(NEW_MEDICATION, 1); // 1 means new medication
                 intent.putExtra(MED_NAME, R.string.sample_medication_name);
                 intent.putExtra(MED_DESC, R.string.sample_med_description);
                 intent.putExtra(MED_MONTH, R.string.sample_month);
@@ -143,7 +148,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
         if (medicationModel != null){
 
             Intent intent = new Intent(RecyclerViewActivity.this, CreateMedicationActivity.class);
-            intent.putExtra(NEW_MEDICATION, "No");
+            intent.putExtra(NEW_MEDICATION, 0);  //0 means old medication
             intent.putExtra(INDEX, medicationModel.getIndex());
             intent.putExtra(MED_NAME, medicationModel.getMed_name());
             intent.putExtra(MED_DESC, medicationModel.getMed_desc());

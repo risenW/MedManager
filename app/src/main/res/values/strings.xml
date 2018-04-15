@@ -17,7 +17,6 @@
     <string name="description_header">Description</string>
     <string name="start_date_header">Start Date</string>
     <string name="end_date_header">End Date</string>
-    <string name="Alert_Medication_title">It\'s time to take your medication</string>
     <string name="dosage">Dosage</string>
     <string name="sample_dosage_text">2x Daily</string>
     <string name="updatedsuccessfully">Updated Successfully</string>
@@ -29,6 +28,7 @@
     <string name="no_internet_connection">No Internet connection</string>
     <string name="unknown_error">Unknown error</string>
     <string name="default_name">John smith</string>
+    <string name="time_zero">:00</string>
 
     <string-array name="remind_me">
         <item>No</item>

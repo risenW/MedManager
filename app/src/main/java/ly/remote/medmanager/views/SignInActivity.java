@@ -79,6 +79,9 @@ public class SignInActivity extends AppCompatActivity {
 
                 if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
                     Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignInActivity.this,RecyclerViewActivity.class);
+                    startActivity(intent);
+                    finish();  //TODO Remove on app release
                     return;
                 }
 

@@ -26,6 +26,7 @@
     <string name="no_internet_connection">No Internet connection</string>
     <string name="unknown_error">Unknown error</string>
     <string name="default_name">John smith</string>
+    <string name="time_zero">:00</string>
 
 
 </resources>

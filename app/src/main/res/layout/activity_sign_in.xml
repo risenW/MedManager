@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/img_doctor"
+    android:background="@drawable/img_doctor_bg"
 android:gravity="center"    style="@style/Theme.Design.NoActionBar"
     tools:context=".views.SplashScreenActivity">
 

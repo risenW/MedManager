@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -28,11 +29,9 @@ public class CreateMedicationActivity extends AppCompatActivity {
     private Spinner  spinner_remind_me,spinner_dosage;
     private Button btn_start_date, btn_end_date, btn_save, btn_edit, btn_pick_time;
     private static int index;
-    private static final String MY_PREF = "my_preference";
-    private final String INDEX_VALUE = "indexValue";   //Key for saving in preference
     private String Update;
-    private static final int PENDING_REQUEST_CODE = 100;
     private DatePickerDialog datePickerDialog;
+    private Toolbar toolbar;
     int hour, min; //Time for setting Alarm
 
     private DatabaseHelper databaseHelper;
@@ -59,9 +58,10 @@ public class CreateMedicationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_medication);
-
         //Initializes all views and disables editing.
         initializeViewsAndObjects();
+        setSupportActionBar(toolbar);
+
         get_extras_and_populate_views();
 
 
@@ -84,7 +84,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         hour = hourOfDay;
                         min = minute;
-                        view_med_start_time.setText(hourOfDay + ":00"); //TODO ADD WELL FORMATED TIME
+                        view_med_start_time.setText(hourOfDay + getString(R.string.time_zero));
                     }
                 },LocalData.DEFAULT_HOUR, LocalData.DEFAULT_MIN,false );
 
@@ -118,7 +118,9 @@ public class CreateMedicationActivity extends AppCompatActivity {
         btn_end_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int mYear = 2016; int mMonth = 1; int mDay = 4;
+                int mYear = LocalData.DEFAULT_YEAR;
+                int mMonth = LocalData.DEFAULT_MONTH;
+                int mDay = LocalData.DEFAULT_DAY;
                 datePickerDialog = new DatePickerDialog(CreateMedicationActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -174,6 +176,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         btn_save = (Button)findViewById(R.id.btn_save);
         btn_edit = (Button)findViewById(R.id.btn_edit);
         btn_pick_time = (Button)findViewById(R.id.btn_pick_time);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
         recyclerViewObject = new RecyclerViewActivity();
         databaseHelper = new DatabaseHelper(this);
         medCreationHelper = new NewMedCreationHelper();
@@ -205,11 +208,11 @@ public class CreateMedicationActivity extends AppCompatActivity {
     //Method to get the extras from the RecyclerView list Intent and populate the Create new Medication view
     public void get_extras_and_populate_views(){
         Bundle extras = getIntent().getExtras();
-        String new_medication, med_name, med_desc, med_month, med_dosage, med_start_date, med_end_date;
-        int med_id, med_remind_me;
+        String  med_name, med_desc, med_month, med_dosage, med_start_date, med_end_date;
+        int med_id, med_remind_me, new_medication;
 
         med_id = extras.getInt(recyclerViewObject.INDEX);
-        new_medication = extras.getString(recyclerViewObject.NEW_MEDICATION);
+        new_medication = extras.getInt(recyclerViewObject.NEW_MEDICATION);
         med_name = extras.getString(recyclerViewObject.MED_NAME);
         med_desc = extras.getString(recyclerViewObject.MED_DESC);
         med_month = extras.getString(recyclerViewObject.MED_MONTH);
@@ -218,9 +221,10 @@ public class CreateMedicationActivity extends AppCompatActivity {
         med_end_date = extras.getString(recyclerViewObject.MED_END_DATE);
         med_remind_me = extras.getInt(recyclerViewObject.MED_REMINDER);
 
-        if (new_medication.equals("No")){
+        if (new_medication == 0){
+            //Old medication
             Update = "Yes";
-            view_med_id.setText(med_id + "");
+            view_med_id.setText(med_id);
             editText_med_name.setText(med_name);
             editText_med_description.setText(med_desc);
             view_med_month.setText(med_month);
@@ -230,6 +234,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
             spinner_dosage.setSelection(medCreationHelper.getDosageSpinnerIdFromText(med_dosage));
 
         }else {
+            //New medication
             Update = "No";
 
         }

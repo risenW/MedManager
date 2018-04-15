@@ -89,7 +89,7 @@ public class NotificationScheduler {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-        Notification notification = builder.setContentTitle(title)
+        Notification notification = builder.setContentTitle("It's time to take your medication")
                 .setContentText(content)
                 .setAutoCancel(true)
                 .setSound(alarmSound)

@@ -20,6 +20,7 @@ public class DatabaseHelper {
     private static final String INDEX = "id";
     private static final String MED_NAME = "MedicationName";
     private static final String MED_DESC = "MedicationDescription";
+    private static final String MED_START_TIME = "MedStartTime";
     private static final String MED_START_DATE = "MedStartDate";
     private static final String MED_END_DATE= "MedEndDate";
     private static final String MED_MONTH = "MedMonth";
@@ -35,10 +36,11 @@ public class DatabaseHelper {
             + MED_NAME + " TEXT, "
             + MED_DESC + " TEXT, "
             + MED_MONTH + " TEXT, "
-            + MED_DOSAGE + " TEXT, "  //TODO Change to Strings
+            + MED_DOSAGE + " TEXT, "
             + MED_START_DATE + " TEXT, "
             + MED_END_DATE + " TEXT, "
-            + MED_REMINDER + " INTEGER);";
+            + MED_REMINDER + " INTEGER, "
+            + MED_START_TIME + " INTEGER);";
 
     private static final String DROP_QUERY = "DROP TABLE IF EXIST " + TABLE_NAME + ";";
     private static final String DEBUG_TAG = "Database Debug";
@@ -90,7 +92,8 @@ public class DatabaseHelper {
                                String Med_dosage,
                                String Med_start_date,
                                String Med_end_date,
-                               int Med_reminder){
+                               int Med_reminder,
+                               int Med_start_time){
 
         sqLiteDatabase = medDatabaseHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -102,6 +105,7 @@ public class DatabaseHelper {
         values.put(MED_START_DATE,Med_start_date );
         values.put(MED_END_DATE, Med_end_date);
         values.put(MED_REMINDER, Med_reminder);
+        values.put(MED_START_TIME, Med_start_time);
 
         sqLiteDatabase.insert(TABLE_NAME, null, values);
         Log.d(DEBUG_TAG, "One Row Inserted");
@@ -109,7 +113,7 @@ public class DatabaseHelper {
 
     public Cursor getMedication() {
         sqLiteDatabase = medDatabaseHelper.getReadableDatabase();
-        String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_DOSAGE,MED_START_DATE,MED_END_DATE,MED_REMINDER};  //TODO change interval to integer
+        String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_DOSAGE,MED_START_DATE,MED_END_DATE,MED_REMINDER,MED_START_TIME};
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, columns, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
@@ -120,7 +124,7 @@ public class DatabaseHelper {
     public Cursor getMedicationById(int index){
         Cursor cursor = null;
         sqLiteDatabase = medDatabaseHelper.getReadableDatabase();
-        String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_DOSAGE,MED_START_DATE,MED_END_DATE,MED_REMINDER};  //TODO change interval to integer
+        String[] columns = {INDEX,MED_NAME,MED_DESC,MED_MONTH, MED_DOSAGE,MED_START_DATE,MED_END_DATE,MED_REMINDER,MED_START_TIME};
         cursor = sqLiteDatabase.query(TABLE_NAME,columns,INDEX + "=?",new String[]{String.valueOf(index)},null,null,null,null);
         return cursor;
     }
@@ -133,7 +137,8 @@ public class DatabaseHelper {
             String Med_interval,
             String Med_start_date,
             String Med_end_date,
-            int Med_reminder
+            int Med_reminder,
+            int Med_start_time
     ){
 
         sqLiteDatabase = medDatabaseHelper.getWritableDatabase();
@@ -145,6 +150,7 @@ public class DatabaseHelper {
         values.put(MED_START_DATE,Med_start_date );
         values.put(MED_END_DATE, Med_end_date);
         values.put(MED_REMINDER, Med_reminder);
+        values.put(MED_START_TIME, Med_start_time);
 
         sqLiteDatabase.update(TABLE_NAME,values,INDEX + "=?",new String[]{String.valueOf(index)});
         Log.d(DEBUG_TAG, "Updated Successfully");

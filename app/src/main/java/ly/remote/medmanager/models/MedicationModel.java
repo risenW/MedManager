@@ -6,11 +6,12 @@ package ly.remote.medmanager.models;
 
 public class MedicationModel {
     private String med_name, med_desc, med_month, med_dosage, med_start_date, med_end_date;
-    private int index, med_reminder;
+    private int index, med_reminder, med_start_time;
+
 
     public MedicationModel(int index, String med_name, String med_desc, String med_month,
-                             String med_dosage, String med_start_date,
-                                 String med_end_date, int med_reminder) {
+                           String med_dosage, String med_start_date,
+                           String med_end_date, int med_reminder, int med_start_time) {
 
         this.med_name = med_name;
         this.med_desc = med_desc;
@@ -20,6 +21,7 @@ public class MedicationModel {
         this.med_end_date = med_end_date;
         this.index = index;
         this.med_reminder = med_reminder;
+        this.med_start_time = med_start_time;
     }
 
     public String getMed_name() {
@@ -84,5 +86,13 @@ public class MedicationModel {
 
     public void setMed_reminder(int med_reminder) {
         this.med_reminder = med_reminder;
+    }
+
+    public int getMed_start_time() {
+        return med_start_time;
+    }
+
+    public void setMed_start_time(int med_start_time) {
+        this.med_start_time = med_start_time;
     }
 }

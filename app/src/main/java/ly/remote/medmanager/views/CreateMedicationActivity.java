@@ -225,7 +225,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
     public void get_extras_and_populate_views(){
         Bundle extras = getIntent().getExtras();
         String  med_name, med_desc, med_month, med_dosage, med_start_date, med_end_date;
-        int med_id, med_remind_me, new_medication;
+        int med_id, med_remind_me, new_medication, med_start_time;
 
         med_id = extras.getInt(recyclerViewObject.INDEX);
         new_medication = extras.getInt(recyclerViewObject.NEW_MEDICATION);
@@ -236,16 +236,18 @@ public class CreateMedicationActivity extends AppCompatActivity {
         med_start_date = extras.getString(recyclerViewObject.MED_START_DATE);
         med_end_date = extras.getString(recyclerViewObject.MED_END_DATE);
         med_remind_me = extras.getInt(recyclerViewObject.MED_REMINDER);
+        med_start_time = extras.getInt(recyclerViewObject.MED_START_TIME);
 
         if (new_medication == 0){
             //Old medication
             Update = "Yes";
-            view_med_id.setText(med_id + "");
+            view_med_id.setText(String.valueOf(med_id));
             editText_med_name.setText(med_name);
             editText_med_description.setText(med_desc);
             view_med_month.setText(med_month);
             view_start_date.setText(med_start_date);
             view_end_date.setText(med_end_date);
+            view_med_start_time.setText(String.valueOf(med_start_time));
             spinner_remind_me.setSelection(med_remind_me);
             spinner_dosage.setSelection(medCreationHelper.getDosageSpinnerIdFromText(med_dosage));
 
@@ -266,7 +268,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
             //Saves to database
             databaseHelper.open();
             String temp_med_name, temp_med_desc, temp_med_month,temp_med_start_date, temp_med_end_date,temp_med_dosage;
-            int temp_remind_me,dosage_interval;
+            int temp_remind_me,dosage_interval, temp_med_start_time;
 
             temp_med_name = editText_med_name.getText().toString();
             temp_med_desc = editText_med_description.getText().toString();
@@ -275,12 +277,13 @@ public class CreateMedicationActivity extends AppCompatActivity {
             temp_med_start_date = view_start_date.getText().toString();
             temp_med_end_date = view_end_date.getText().toString();
             temp_remind_me = medCreationHelper.getBooleanValue(spinner_remind_me.getSelectedItem().toString());
+            temp_med_start_time = hour;
 
             dosage_interval = medCreationHelper.getIntervalFromDosage(spinner_dosage.getSelectedItemPosition());
             //Makes the insertion in database
             databaseHelper.saveMedication(index,temp_med_name,temp_med_desc,temp_med_month,
                     temp_med_dosage,temp_med_start_date,
-                    temp_med_end_date,temp_remind_me);
+                    temp_med_end_date,temp_remind_me,temp_med_start_time);
 
             //Activate reminder if user selects yes
             if (temp_remind_me == 1){
@@ -307,7 +310,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
             databaseHelper.open();
             String temp_med_name, temp_med_desc, temp_med_month, temp_med_dosage, temp_med_start_date, temp_med_end_date;
-            int temp_remind_me, dosage_interval;
+            int temp_remind_me, dosage_interval,temp_med_start_time ;
 
             temp_med_name = editText_med_name.getText().toString();
             temp_med_desc = editText_med_description.getText().toString();
@@ -315,12 +318,13 @@ public class CreateMedicationActivity extends AppCompatActivity {
             temp_med_month = view_med_month.getText().toString();
             temp_med_start_date = view_start_date.getText().toString();
             temp_med_end_date = view_end_date.getText().toString();
+            temp_med_start_time = hour;  //TODO remove hour, may cause null exception on update
             temp_remind_me = medCreationHelper.getBooleanValue(spinner_remind_me.getSelectedItem().toString());
             dosage_interval = medCreationHelper.getIntervalFromDosage(spinner_dosage.getSelectedItemPosition());
 
             //Makes the update in database
             databaseHelper.updateMedById(id,temp_med_name,temp_med_desc,temp_med_month,
-                    temp_med_dosage,temp_med_start_date,temp_med_end_date,temp_remind_me);
+                    temp_med_dosage,temp_med_start_date,temp_med_end_date,temp_remind_me,temp_med_start_time);
 
 //            Cancels the reminder if user selects No
             if (temp_remind_me == 1){

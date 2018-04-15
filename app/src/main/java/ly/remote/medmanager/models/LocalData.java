@@ -19,7 +19,6 @@ public class LocalData {
     public static final int DEFAULT_YEAR = 2018;
     public static final int DEFAULT_MONTH = 0;
     public static final int DEFAULT_DAY = 1;
-    public static final int DEFAULT_INTERVAL = 86400;
     private final String INDEX_VALUE = "indexValue";   //Key for saving recyclerList items in preference
 
 

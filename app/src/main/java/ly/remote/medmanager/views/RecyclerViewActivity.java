@@ -44,6 +44,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
     public final String MED_END_DATE = "med_end_date";
     public final String MED_REMINDER = "med_reminder";
     public final String NEW_MEDICATION = "new_medication";
+    public final String MED_START_TIME = "start_time";
 
 
 
@@ -99,7 +100,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
                 intent.putExtra(MED_DOSAGE, 0);
                 intent.putExtra(MED_START_DATE, R.string.sample_start_date);
                 intent.putExtra(MED_END_DATE, R.string.sample_end_date);
-//                intent.putExtra(MED_END_DATE, 0);
+                intent.putExtra(MED_START_TIME, 8);
 
                 startActivity(intent);
             }
@@ -123,7 +124,8 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
                             cursor.getString(4),   //Dosage
                             cursor.getString(5),   //start date
                             cursor.getString(6),   //end date
-                            cursor.getInt(7));  //remind me value
+                            cursor.getInt(7),      //remind me value
+                            cursor.getInt(8));   //Start time
                     medicationModelArrayList.add(medicationModel);
                 } while (cursor.moveToNext());
             }
@@ -156,7 +158,8 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
             intent.putExtra(MED_DOSAGE, medicationModel.getMed_dosage());
             intent.putExtra(MED_START_DATE, medicationModel.getMed_start_date());
             intent.putExtra(MED_END_DATE, medicationModel.getMed_end_date());
-            intent.putExtra(MED_REMINDER, medicationModel.getMed_reminder());   //TODO ADD selected times as extras
+            intent.putExtra(MED_REMINDER, medicationModel.getMed_reminder());
+            intent.putExtra(MED_START_TIME, medicationModel.getMed_start_time());
 
             startActivity(intent);
         }

@@ -37,14 +37,6 @@ public class NotificationScheduler {
         setCalendar.set(Calendar.MINUTE, min);
         setCalendar.set(Calendar.SECOND, 0);
 
-//        // Enable a receiver
-//        ComponentName receiver = new ComponentName(context, cls);
-//        PackageManager pm = context.getPackageManager();
-//
-//        pm.setComponentEnabledSetting(receiver,
-//                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-//                PackageManager.DONT_KILL_APP);
-
         Intent intent = new Intent(context, cls);
         intent.putExtra(MED_ID_EXTRA_KEY,pendingRequestID);   //The request ID is the medication row ID in database.
         intent.putExtra(MED_HOUR_KEY, hour);
@@ -52,17 +44,11 @@ public class NotificationScheduler {
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, setCalendar.getTimeInMillis(),interval, pendingIntent);
 
+
+
     }
 
     public static void cancelReminder(Context context,Class<?> cls, int pendingRequestID) {
-//         Disable a receiver
-//
-//        ComponentName receiver = new ComponentName(context, cls);
-//        PackageManager pm = context.getPackageManager();
-//
-//        pm.setComponentEnabledSetting(receiver,
-//                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-//                PackageManager.DONT_KILL_APP);
 
         Intent intent = new Intent(context, cls);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, pendingRequestID, intent, PendingIntent.FLAG_UPDATE_CURRENT);

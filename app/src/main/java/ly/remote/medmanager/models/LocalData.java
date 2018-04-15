@@ -36,4 +36,5 @@ public class LocalData {
         prefsEditor.apply();
         Log.d("Saved Index", "" + index);
     }
+
 }

@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -143,15 +144,19 @@ public class CreateMedicationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 medCreationHelper = new NewMedCreationHelper();
+                if (TextUtils.isEmpty(view_med_start_time.getText())){
+                    Toast.makeText(CreateMedicationActivity.this, "Please, set a time", Toast.LENGTH_SHORT).show();
+                }else {
 
-               if (Update.equals("No")){
-                   //Save a New Medication in database
-                   save_in_database();
+                    if (Update.equals("No")){
+                        //Save a New Medication in database
+                        save_in_database();
 
-               }else {
-                   //Update is to be performed
-                   update_medication();
-               }
+                    }else {
+                        //Update is to be performed
+                        update_medication();
+                    }
+                }
 
                 //disable all views
                 disableViews();

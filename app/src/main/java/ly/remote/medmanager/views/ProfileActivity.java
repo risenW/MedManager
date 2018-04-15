@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView prof_pic;
     Button sign_out, edit_profile, save_profile;
     FirebaseAuth firebaseAuth;
+    Toolbar toolbar;
 
     @Override
     protected void onStart() {
@@ -102,6 +104,8 @@ public class ProfileActivity extends AppCompatActivity {
         sign_out = (Button)findViewById(R.id.btn_sign_out);
         edit_profile = (Button)findViewById(R.id.btn_edit_profile);
         save_profile = (Button)findViewById(R.id.btn_save_profile);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     private void disableViews() {

@@ -98,8 +98,9 @@
                 android:layout_gravity="center"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
+                android:textColorHint="@android:color/white"
                 android:id="@+id/view_med_start_time"
-                android:text="@string/default_start_time"/>
+                android:hint="@string/default_start_time"/>
 
             <Button
                 android:layout_width="@dimen/start_date_icon_width"

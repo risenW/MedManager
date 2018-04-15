@@ -1,45 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     tools:context="ly.remote.medmanager.views.ProfileActivity">
 
-    <ImageView
-        android:layout_width="@dimen/login_logo_width"
-        android:layout_height="@dimen/login_logo_height"
-        android:id="@+id/profile_pic"
-        android:src="@drawable/img_logo"/>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:id="@+id/appbar"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/login_textSize"
-        android:id="@+id/username"
-        android:padding="20dp"
-        android:text="@string/default_name"/>
+        <android.support.v7.widget.Toolbar
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            android:layout_width="match_parent"
+            app:titleTextColor="@android:color/white"
+            app:logo="@mipmap/ic_launcher"
+            android:id="@+id/toolbar"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:id="@+id/user_email"
-        android:padding="20dp"
-        android:text="@string/default_name"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/login_logo_width"
+            android:layout_height="@dimen/login_logo_height"
+            android:id="@+id/profile_pic"
+            android:src="@drawable/ic_person_black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/login_textSize"
+            android:id="@+id/user_real_name"
+            android:padding="20dp"
+            android:text="@string/default_name"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/profile_text_title"
+                android:padding="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/name_title"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/login_textSize"
+                android:id="@+id/username"
+                android:padding="20dp"
+                android:text="@string/default_name"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/profile_text_title"
+                android:padding="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/email_hint"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/user_email"
+                android:padding="20dp"
+                android:text="@string/default_name"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/profile_text_title"
+                android:padding="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/about_user_title"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/user_about"
+                android:padding="20dp"
+                android:layout_margin="20dp"
+                android:text="@string/default_about_user"/>
+
+        </LinearLayout>
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_sign_out"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:text="Sign out"
-        android:layout_margin="@dimen/login_app_name_padding"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/common_google_signin_btn_text_light_normal"
-        />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_save_profile"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:background="@android:color/white"
+                android:text="@string/save"
+                android:layout_margin="@dimen/login_app_name_padding"
+                android:layout_gravity="center_horizontal"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_edit_profile"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:background="@android:color/white"
+                android:text="@string/edit"
+                android:layout_margin="@dimen/login_app_name_padding"
+                android:layout_gravity="center_horizontal"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_sign_out"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:text="@string/sign_out"
+                android:layout_margin="@dimen/login_app_name_padding"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/common_google_signin_btn_text_light_normal"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

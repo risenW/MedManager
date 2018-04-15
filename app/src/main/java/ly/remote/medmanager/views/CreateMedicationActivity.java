@@ -60,8 +60,6 @@ public class CreateMedicationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_medication);
         //Initializes all views and disables editing.
         initializeViewsAndObjects();
-        setSupportActionBar(toolbar);
-
         get_extras_and_populate_views();
 
 
@@ -181,6 +179,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         medCreationHelper = new NewMedCreationHelper();
         localData = new LocalData(CreateMedicationActivity.this);
+        setSupportActionBar(toolbar);
 
     }
 
@@ -192,6 +191,8 @@ public class CreateMedicationActivity extends AppCompatActivity {
         view_end_date.setEnabled(true);
         spinner_remind_me.setEnabled(true);
         spinner_dosage.setEnabled(true);
+        btn_pick_time.setEnabled(true);
+
     }
 
     public void disableViews(){
@@ -202,6 +203,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         view_end_date.setEnabled(false);
         spinner_remind_me.setEnabled(false);
         spinner_dosage.setEnabled(false);
+        btn_pick_time.setEnabled(false);
 
     }
 
@@ -224,7 +226,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
         if (new_medication == 0){
             //Old medication
             Update = "Yes";
-            view_med_id.setText(med_id);
+            view_med_id.setText(med_id + "");
             editText_med_name.setText(med_name);
             editText_med_description.setText(med_desc);
             view_med_month.setText(med_month);

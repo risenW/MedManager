@@ -3,7 +3,7 @@
     <dimen name="login_logo_height">100dp</dimen>
     <dimen name="login_logo_width">100dp</dimen>
     <dimen name="login_app_name_padding">20dp</dimen>
-    <dimen name="login_textSize">24sp</dimen>
+    <dimen name="login_textSize">30sp</dimen>
 
     <dimen name="max_desc_height">100dp</dimen>
     <dimen name="max_desc_width">350dp</dimen>
@@ -16,6 +16,8 @@
 
     <dimen name="create_med_icon_marginLeft">50dp</dimen>
     <dimen name="cardViewTextSize">18sp</dimen>
+
+    <dimen name="profile_text_title">22sp</dimen>
 
 
 

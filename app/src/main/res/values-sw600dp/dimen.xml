@@ -18,6 +18,9 @@
 
     <dimen name="cardViewTextSize">20sp</dimen>
 
+    <dimen name="profile_text_title">24sp</dimen>
+
+
 
 
 

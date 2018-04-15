@@ -29,6 +29,10 @@
     <string name="unknown_error">Unknown error</string>
     <string name="default_name">John smith</string>
     <string name="time_zero">:00</string>
+    <string name="default_about_user">My name is John and I am a good boy that loves to cook and play with my computer</string>
+    <string name="name_title">Username</string>
+    <string name="sign_out">Sign out</string>
+    <string name="about_user_title">About me</string>
 
     <string-array name="remind_me">
         <item>No</item>

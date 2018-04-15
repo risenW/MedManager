@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,10 +20,11 @@ import com.squareup.picasso.Picasso;
 import ly.remote.medmanager.R;
 
 public class ProfileActivity extends AppCompatActivity {
-    private TextView username, user_email;
-    private ImageView prof_pic;
-    private Button sign_out;
-    private FirebaseAuth firebaseAuth;
+    TextView name, user_email;
+    EditText username, user_about;
+    ImageView prof_pic;
+    Button sign_out, edit_profile, save_profile;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +34,18 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        username = (TextView)findViewById(R.id.username);
+        name = (TextView)findViewById(R.id.user_real_name);
         user_email = (TextView)findViewById(R.id.user_email);
+        username = (EditText)findViewById(R.id.username);
+        user_about = (EditText)findViewById(R.id.user_about);
         prof_pic = (ImageView)findViewById(R.id.profile_pic);
         sign_out = (Button)findViewById(R.id.btn_sign_out);
+        edit_profile = (Button)findViewById(R.id.btn_edit_profile);
+        save_profile = (Button)findViewById(R.id.btn_save_profile);
+
 
         if (user != null){
-            username.setText(user.getDisplayName());
+            name.setText(user.getDisplayName());
             user_email.setText(user.getEmail());
             String imageUri = user.getPhotoUrl().toString();
 

@@ -31,9 +31,9 @@ public class AlarmReceiver extends BroadcastReceiver{
 
         if (intent.getAction() != null && context != null) {
             if (intent.getAction().equalsIgnoreCase(Intent.ACTION_BOOT_COMPLETED)) {
-                // Reset the alarm here after phoe reboot.
+                // Reset the alarm here after phone reboot.
                 Log.d(TAG, "onReceive: BOOT_COMPLETED");
-                NotificationScheduler.setReminder(context, AlarmReceiver.class, med_id,med_hour,LocalData.DEFAULT_MIN, LocalData.DEFAULT_INTERVAL);
+                NotificationScheduler.setReminder(context, AlarmReceiver.class, med_id,med_hour,LocalData.DEFAULT_MIN, LocalData.DEFAULT_INTERVAL); //TODO Reset alarm on phone reboot
                 return;
             }
         }

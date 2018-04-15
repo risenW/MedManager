@@ -74,7 +74,6 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
-
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -83,6 +82,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
         fillAdapter();
         addMedication = (FloatingActionButton)findViewById(R.id.add_mediction);
 
@@ -99,7 +99,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
                 intent.putExtra(MED_DOSAGE, 0);
                 intent.putExtra(MED_START_DATE, R.string.sample_start_date);
                 intent.putExtra(MED_END_DATE, R.string.sample_end_date);
-                intent.putExtra(MED_END_DATE, 0);
+//                intent.putExtra(MED_END_DATE, 0);
 
                 startActivity(intent);
             }
@@ -148,8 +148,8 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
         if (medicationModel != null){
 
             Intent intent = new Intent(RecyclerViewActivity.this, CreateMedicationActivity.class);
-            intent.putExtra(NEW_MEDICATION, 0);  //0 means old medication
             intent.putExtra(INDEX, medicationModel.getIndex());
+            intent.putExtra(NEW_MEDICATION, 0);  //0 means it is an old medication
             intent.putExtra(MED_NAME, medicationModel.getMed_name());
             intent.putExtra(MED_DESC, medicationModel.getMed_desc());
             intent.putExtra(MED_MONTH, medicationModel.getMed_month());

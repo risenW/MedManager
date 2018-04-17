@@ -25,8 +25,8 @@
         <activity android:name=".views.AboutActivity" />
         <activity android:name=".views.CreateMedicationActivity" />
         <activity android:name=".views.ShowNotificationActivity"/>
-
-        <receiver android:name=".controllers.alarmManager.AlarmReceiver">
+        <receiver android:name=".controllers.alarmManager.AlarmReceiver"/>
+        <receiver android:name=".controllers.alarmManager.OnAlarmRebootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>

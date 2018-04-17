@@ -33,27 +33,6 @@ public class AlarmReceiver extends BroadcastReceiver{
         AlarmModel alarmModel;
         alarmModelArrayList = new ArrayList<>();
 
-
-        //Reset Alarms on BOOT receive
-        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")){
-          try {
-              databaseHelper.open();
-              Cursor cursor = databaseHelper.getAlarms();
-              if (cursor != null){
-                  do {
-                      alarmModel = new AlarmModel(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2));
-                      //Resets alarm
-                      NotificationScheduler.setReminder(context,AlarmReceiver.class,alarmModel.getPendingRequestId(),alarmModel.getHour(), LocalData.DEFAULT_MIN, alarmModel.getInterval());
-                      Toast.makeText(context, "Alarm " + alarmModel.getPendingRequestId() + " set", Toast.LENGTH_SHORT).show();
-                  }while (cursor.moveToNext());
-              }
-
-          }catch (Exception e){
-              e.printStackTrace();
-          }
-        }
-
-
 //        Get the medication details from the database and pass it to the notification scheduler
         try {
             databaseHelper.open();
@@ -65,11 +44,11 @@ public class AlarmReceiver extends BroadcastReceiver{
                 cursor.close();
             }
             databaseHelper.close();
-            NotificationScheduler.showNotification(context, ShowNotificationActivity.class,med_title, med_id,med_desc);
 
         }catch (Exception e){
             e.printStackTrace();
         }
         //Trigger the notification
+        NotificationScheduler.showNotification(context, ShowNotificationActivity.class,med_title, med_id,med_desc);
     }
 }

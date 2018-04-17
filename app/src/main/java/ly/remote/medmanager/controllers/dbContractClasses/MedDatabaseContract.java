@@ -1,4 +1,4 @@
-package ly.remote.medmanager.controllers;
+package ly.remote.medmanager.controllers.dbContractClasses;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -22,8 +22,8 @@ import android.widget.Toast;
 
 import ly.remote.medmanager.R;
 import ly.remote.medmanager.controllers.alarmManager.AlarmReceiver;
-import ly.remote.medmanager.controllers.DatabaseHelper;
-import ly.remote.medmanager.controllers.NewMedCreationHelper;
+import ly.remote.medmanager.controllers.helperClasses.DatabaseHelper;
+import ly.remote.medmanager.controllers.helperClasses.NewMedCreationHelper;
 import ly.remote.medmanager.controllers.alarmManager.NotificationScheduler;
 import ly.remote.medmanager.models.LocalData;
 

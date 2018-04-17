@@ -18,7 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ly.remote.medmanager.R;
-import ly.remote.medmanager.controllers.DatabaseHelper;
+import ly.remote.medmanager.controllers.helperClasses.DatabaseHelper;
 import ly.remote.medmanager.controllers.Interfaces.MyItemOnClickListener;
 import ly.remote.medmanager.controllers.Interfaces.MyItemOnLongClickListener;
 import ly.remote.medmanager.controllers.MedicationAdapter;

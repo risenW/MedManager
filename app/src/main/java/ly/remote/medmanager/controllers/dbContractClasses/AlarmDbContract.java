@@ -1,4 +1,4 @@
-package ly.remote.medmanager.controllers;
+package ly.remote.medmanager.controllers.dbContractClasses;
 
 /**
  * Created by Risen on 4/15/2018.

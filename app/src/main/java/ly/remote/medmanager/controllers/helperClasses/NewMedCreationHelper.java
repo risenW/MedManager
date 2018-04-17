@@ -1,6 +1,5 @@
-package ly.remote.medmanager.controllers;
+package ly.remote.medmanager.controllers.helperClasses;
 
-import ly.remote.medmanager.R;
 
 /**
  * Created by Risen on 4/1/2018.

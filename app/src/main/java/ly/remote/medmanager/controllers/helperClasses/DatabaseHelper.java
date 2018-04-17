@@ -1,4 +1,4 @@
-package ly.remote.medmanager.controllers;
+package ly.remote.medmanager.controllers.helperClasses;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,18 +8,21 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import static ly.remote.medmanager.controllers.MedDatabaseContract.CREATE_QUERY;
-import static ly.remote.medmanager.controllers.MedDatabaseContract.INDEX;
-import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_DEBUG_TAG;
-import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_DESC;
-import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_DOSAGE;
-import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_END_DATE;
-import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_MONTH;
-import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_NAME;
-import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_REMINDER;
-import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_START_DATE;
-import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_START_TIME;
-import static ly.remote.medmanager.controllers.MedDatabaseContract.TABLE_NAME;
+import ly.remote.medmanager.controllers.dbContractClasses.AlarmDbContract;
+import ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract;
+
+import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.CREATE_QUERY;
+import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.INDEX;
+import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.MED_DEBUG_TAG;
+import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.MED_DESC;
+import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.MED_DOSAGE;
+import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.MED_END_DATE;
+import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.MED_MONTH;
+import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.MED_NAME;
+import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.MED_REMINDER;
+import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.MED_START_DATE;
+import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.MED_START_TIME;
+import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.TABLE_NAME;
 
 /**
  * Created by Risen on 3/30/2018.
@@ -51,7 +54,7 @@ public class DatabaseHelper {
     private static class MedDatabaseHelper extends SQLiteOpenHelper{
         //Constructor
         private MedDatabaseHelper(Context context) {
-            super(context,MedDatabaseContract.DB_NAME, null, MedDatabaseContract.DB_VERSION);
+            super(context, MedDatabaseContract.DB_NAME, null, MedDatabaseContract.DB_VERSION);
             Log.d(MedDatabaseContract.MED_DEBUG_TAG, "database created...");
 
         }

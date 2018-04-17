@@ -4,16 +4,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import ly.remote.medmanager.controllers.DatabaseHelper;
+import ly.remote.medmanager.controllers.helperClasses.DatabaseHelper;
 import ly.remote.medmanager.models.AlarmModel;
-import ly.remote.medmanager.models.LocalData;
 import ly.remote.medmanager.views.ShowNotificationActivity;
 
 /**
@@ -56,9 +52,9 @@ public class AlarmReceiver extends BroadcastReceiver{
                 do {
 
                     alarmModel = new AlarmModel(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2));
-//                    alarmModelArrayList.add(alarmModel);
+                    alarmModelArrayList.add(alarmModel);
                 }while (cursor.moveToNext());
-                NotificationScheduler.showNotification(context, ShowNotificationActivity.class,alarmModel.getHour() + " ", med_id,alarmModel.getPendingRequestId() + "");
+                NotificationScheduler.showNotification(context, ShowNotificationActivity.class,alarmModelArrayList.get(1).getHour() + " ", med_id,alarmModelArrayList.get(1).getPendingRequestId() + "");
             }
             databaseHelper.close();
         }catch (Exception e){

@@ -3,6 +3,7 @@
     package="ly.remote.medmanager">
 
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
@@ -24,7 +25,12 @@
         <activity android:name=".views.AboutActivity" />
         <activity android:name=".views.CreateMedicationActivity" />
         <activity android:name=".views.ShowNotificationActivity"/>
-        <receiver android:name=".controllers.alarmManager.AlarmReceiver"/>
+
+        <receiver android:name=".controllers.alarmManager.AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

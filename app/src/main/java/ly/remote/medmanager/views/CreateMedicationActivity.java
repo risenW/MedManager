@@ -332,10 +332,11 @@ public class CreateMedicationActivity extends AppCompatActivity {
 //            Cancels the reminder if user selects No
             if (temp_remind_me == 1){
 
-                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,hour,LocalData.DEFAULT_MIN,dosage_interval);
+                NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,id,hour,LocalData.DEFAULT_MIN,dosage_interval);
 
             }else {
                 NotificationScheduler.cancelReminder(CreateMedicationActivity.this,AlarmReceiver.class,id);
+                databaseHelper.deleteAlarmByID(id); //Deletes the alarm from database
 
             }
 

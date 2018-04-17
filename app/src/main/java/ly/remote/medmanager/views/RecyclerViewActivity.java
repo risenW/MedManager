@@ -182,7 +182,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements MyItemOnC
                     databaseHelper.open();
                     databaseHelper.deleteMedicationByID(medicationModel.getIndex());   //Deletes from the database
                     NotificationScheduler.cancelReminder(RecyclerViewActivity.this, AlarmReceiver.class,medicationModel.getIndex());  //Cancels the Alarm Notification
-                    databaseHelper.deleteAlarmByID(medicationModel.getIndex()); //Deletes the alarm from database
+//                    databaseHelper.deleteAlarmByID(medicationModel.getIndex()); //Deletes the alarm from database
 
                     medicationModelArrayList.remove(position);                          //Removes deleted Item from the list
                     medicationAdapter.notifyItemRemoved(position);

@@ -30,8 +30,6 @@ public class AlarmReceiver extends BroadcastReceiver{
         Bundle extras = intent.getExtras();
         int med_id = extras.getInt(NotificationScheduler.MED_ID_EXTRA_KEY);
         databaseHelper = new DatabaseHelper(context);
-        AlarmModel alarmModel;
-        alarmModelArrayList = new ArrayList<>();
 
 //        Get the medication details from the database and pass it to the notification scheduler
         try {

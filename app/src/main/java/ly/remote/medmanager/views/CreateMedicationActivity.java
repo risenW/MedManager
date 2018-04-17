@@ -336,7 +336,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
             }else {
                 NotificationScheduler.cancelReminder(CreateMedicationActivity.this,AlarmReceiver.class,id);
-                databaseHelper.deleteAlarmByID(id); //Deletes the alarm from database
+//                databaseHelper.deleteAlarmByID(id); //Deletes the alarm from database //TODO
 
             }
 

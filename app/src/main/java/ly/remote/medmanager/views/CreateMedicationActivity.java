@@ -151,9 +151,10 @@ public class CreateMedicationActivity extends AppCompatActivity {
                     }else {
                         //New Medication. Save in database
                         save_in_database();
+                        saveBtnClickCount = 1;  //saveClickCounter is used to determine if the save button has been clicked
+
                     }
                 }
-                saveBtnClickCount = 1;  //saveClickCounter is used to determine if the save button has been clicked
 
                 //disable all views
                 disableViews();

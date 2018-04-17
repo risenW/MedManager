@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import ly.remote.medmanager.R;
+import ly.remote.medmanager.controllers.DatabaseHelper;
 
 import static android.content.Context.ALARM_SERVICE;
 

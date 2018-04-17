@@ -285,9 +285,11 @@ public class CreateMedicationActivity extends AppCompatActivity {
                     temp_med_dosage,temp_med_start_date,
                     temp_med_end_date,temp_remind_me,temp_med_start_time);
 
-            //Activate reminder if user selects yes
+            //Sets Alarm when user selects yes
             if (temp_remind_me == 1){
                 NotificationScheduler.setReminder(CreateMedicationActivity.this,AlarmReceiver.class,index,hour,LocalData.DEFAULT_MIN,dosage_interval);
+                //Save Alarm in Alarm database
+                databaseHelper.saveAlarm(index,hour,LocalData.DEFAULT_MIN);
             }
             databaseHelper.close();
             Toast.makeText(CreateMedicationActivity.this, R.string.saved_successfully, Toast.LENGTH_LONG).show();

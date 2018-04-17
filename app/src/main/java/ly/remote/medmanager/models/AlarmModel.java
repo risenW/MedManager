@@ -5,12 +5,11 @@ package ly.remote.medmanager.models;
  */
 
 public class AlarmModel {
-    private int pendingRequestId, hour, min,interval;   //pendingRequestId is the item database index
+    private int pendingRequestId, hour,interval;   //pendingRequestId is the item database index
 
-    public AlarmModel(int pendingRequestId, int hour, int min, int interval) {
+    public AlarmModel(int pendingRequestId, int hour, int interval) {
         this.pendingRequestId = pendingRequestId;
         this.hour = hour;
-        this.min = min;
         this.interval = interval;
     }
 
@@ -30,13 +29,6 @@ public class AlarmModel {
         this.hour = hour;
     }
 
-    public int getMin() {
-        return min;
-    }
-
-    public void setMin(int min) {
-        this.min = min;
-    }
 
     public int getInterval() {
         return interval;

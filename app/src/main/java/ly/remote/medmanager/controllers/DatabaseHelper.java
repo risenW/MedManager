@@ -8,42 +8,29 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import static ly.remote.medmanager.controllers.MedDatabaseContract.CREATE_QUERY;
+import static ly.remote.medmanager.controllers.MedDatabaseContract.INDEX;
+import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_DEBUG_TAG;
+import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_DESC;
+import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_DOSAGE;
+import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_END_DATE;
+import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_MONTH;
+import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_NAME;
+import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_REMINDER;
+import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_START_DATE;
+import static ly.remote.medmanager.controllers.MedDatabaseContract.MED_START_TIME;
+import static ly.remote.medmanager.controllers.MedDatabaseContract.TABLE_NAME;
+
 /**
  * Created by Risen on 3/30/2018.
  * Database helper methods goes here
  */
 
 public class DatabaseHelper {
-    private static final String DB_NAME = "MedicationDatabase";
-    private static final int DB_VERSION = 1;
-    private static final String TABLE_NAME = "MedicationTable";
-    private static final String INDEX = "id";
-    private static final String MED_NAME = "MedicationName";
-    private static final String MED_DESC = "MedicationDescription";
-    private static final String MED_START_TIME = "MedStartTime";
-    private static final String MED_START_DATE = "MedStartDate";
-    private static final String MED_END_DATE= "MedEndDate";
-    private static final String MED_MONTH = "MedMonth";
-    private static final String MED_DOSAGE = "MedInterval";
-    private static final String MED_REMINDER = "MedReminder";    // One signifies that Reminder is activated and zero signifies de-activated
+
     private SQLiteDatabase sqLiteDatabase;
     private MedDatabaseHelper medDatabaseHelper;
     private Context context;
-
-
-    private static final String CREATE_QUERY = "CREATE TABLE " + TABLE_NAME + "( "
-            + INDEX + " INTEGER, "
-            + MED_NAME + " TEXT, "
-            + MED_DESC + " TEXT, "
-            + MED_MONTH + " TEXT, "
-            + MED_DOSAGE + " TEXT, "
-            + MED_START_DATE + " TEXT, "
-            + MED_END_DATE + " TEXT, "
-            + MED_REMINDER + " INTEGER, "
-            + MED_START_TIME + " INTEGER);";
-
-    private static final String DROP_QUERY = "DROP TABLE IF EXIST " + TABLE_NAME + ";";
-    private static final String DEBUG_TAG = "Database Debug";
 
     public DatabaseHelper(Context context){
         this.context = context;
@@ -64,23 +51,26 @@ public class DatabaseHelper {
     private static class MedDatabaseHelper extends SQLiteOpenHelper{
         //Constructor
         private MedDatabaseHelper(Context context) {
-            super(context,DB_NAME, null, DB_VERSION);
-            Log.d(DEBUG_TAG, "database created...");
+            super(context,MedDatabaseContract.DB_NAME, null, MedDatabaseContract.DB_VERSION);
+            Log.d(MedDatabaseContract.MED_DEBUG_TAG, "database created...");
 
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            Log.d(DEBUG_TAG, CREATE_QUERY);
+            Log.d(MedDatabaseContract.MED_DEBUG_TAG, CREATE_QUERY);
+            Log.d(MedDatabaseContract.MED_DEBUG_TAG, AlarmDbContract.ALARM_DB_CREATE_QUERY);
             db.execSQL(CREATE_QUERY);
-            Log.d(DEBUG_TAG, "Table created...");
+            db.execSQL(AlarmDbContract.ALARM_DB_CREATE_QUERY);
+            Log.d(MedDatabaseContract.MED_DEBUG_TAG, "Tables created...");
 
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL(DROP_QUERY);
-            Log.d(DEBUG_TAG, "database dropped...");
+            db.execSQL(MedDatabaseContract.MED_DROP_QUERY);
+            db.execSQL(AlarmDbContract.ALARM_DB_DROP_QUERY);
+            Log.d(MedDatabaseContract.MED_DEBUG_TAG, "database dropped...");
             onCreate(db);
         }
     }
@@ -108,7 +98,7 @@ public class DatabaseHelper {
         values.put(MED_START_TIME, Med_start_time);
 
         sqLiteDatabase.insert(TABLE_NAME, null, values);
-        Log.d(DEBUG_TAG, "One Row Inserted");
+        Log.d(MedDatabaseContract.MED_DEBUG_TAG, "One Row Inserted");
     }
 
     public Cursor getMedication() {
@@ -153,7 +143,7 @@ public class DatabaseHelper {
         values.put(MED_START_TIME, Med_start_time);
 
         sqLiteDatabase.update(TABLE_NAME,values,INDEX + "=?",new String[]{String.valueOf(index)});
-        Log.d(DEBUG_TAG, "Updated Successfully");
+        Log.d(MedDatabaseContract.MED_DEBUG_TAG, "Updated Successfully");
 
     }
 
@@ -161,6 +151,37 @@ public class DatabaseHelper {
         sqLiteDatabase = medDatabaseHelper.getWritableDatabase();
         sqLiteDatabase.delete(TABLE_NAME,INDEX + "=?",new String[]{String.valueOf(index)});
         Log.d("DBHELPER","Deletion successful");
+
+    }
+
+
+
+    public void saveAlarm(int pendingIntentId, int alarmHour, int alarmInterval){
+
+        sqLiteDatabase = medDatabaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(AlarmDbContract.PENDING_INTENT_ID,pendingIntentId);
+        values.put(AlarmDbContract.ALARM_HOUR,alarmHour);
+        values.put(AlarmDbContract.ALARM_INTERVAL,alarmInterval);
+
+        sqLiteDatabase.insert(AlarmDbContract.TABLE_NAME, null, values);
+        Log.d(MedDatabaseContract.MED_DEBUG_TAG, "One Row Inserted in Alarm Db");
+    }
+
+    public Cursor getAlarms() {
+        sqLiteDatabase = medDatabaseHelper.getReadableDatabase();
+        String[] columns = {AlarmDbContract.PENDING_INTENT_ID, AlarmDbContract.ALARM_HOUR, AlarmDbContract.ALARM_INTERVAL};
+        Cursor cursor = sqLiteDatabase.query(AlarmDbContract.TABLE_NAME, columns, null, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
+    public void deleteAlarmByID(int pendingIntentId){
+        sqLiteDatabase = medDatabaseHelper.getWritableDatabase();
+        sqLiteDatabase.delete(AlarmDbContract.TABLE_NAME,INDEX + "=?",new String[]{String.valueOf(pendingIntentId)});
+        Log.d(MED_DEBUG_TAG,"Deletion successful");
 
     }
 

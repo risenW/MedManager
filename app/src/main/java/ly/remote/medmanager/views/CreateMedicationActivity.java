@@ -321,7 +321,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
             temp_med_month = view_med_month.getText().toString();
             temp_med_start_date = view_start_date.getText().toString();
             temp_med_end_date = view_end_date.getText().toString();
-            temp_med_start_time = hour;  //TODO remove hour, may cause null exception on update
+            temp_med_start_time = hour;
             temp_remind_me = medCreationHelper.getBooleanValue(spinner_remind_me.getSelectedItem().toString());
             dosage_interval = medCreationHelper.getIntervalFromDosage(spinner_dosage.getSelectedItemPosition());
 
@@ -336,7 +336,7 @@ public class CreateMedicationActivity extends AppCompatActivity {
 
             }else {
                 NotificationScheduler.cancelReminder(CreateMedicationActivity.this,AlarmReceiver.class,id);
-//                databaseHelper.deleteAlarmByID(id); //Deletes the alarm from database //TODO
+//                databaseHelper.deleteAlarmByID(id); //Deletes the alarm from database  //TODO Fix deletion
 
             }
 

@@ -14,15 +14,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import ly.remote.medmanager.R;
+import ly.remote.medmanager.models.UserModel;
 
 public class ProfileActivity extends AppCompatActivity {
     TextView name, user_email;
@@ -30,6 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView prof_pic;
     Button sign_out, edit_profile, save_profile;
     FirebaseAuth firebaseAuth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
     Toolbar toolbar;
 
     @Override
@@ -45,6 +52,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("UserProfile");
 
         initialize_views();
 
@@ -80,7 +89,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 disableViews();
                 edit_profile.setVisibility(View.VISIBLE);
-
+                save_fireBase_db();
 
             }
         });
@@ -122,6 +131,18 @@ public class ProfileActivity extends AppCompatActivity {
         save_profile.setVisibility(View.VISIBLE);
         edit_profile.setVisibility(View.GONE);
     }
+
+    private void save_fireBase_db() {
+        UserModel userModel = new UserModel(username.getText().toString(),user_about.getText().toString());
+        save_profile.setText(R.string.saveState);
+        myRef.setValue(userModel, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                Toast.makeText(ProfileActivity.this, "Profile updated Successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

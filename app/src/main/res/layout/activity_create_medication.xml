@@ -49,13 +49,11 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:text="@string/sample_month"
             android:id="@+id/view_med_month"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:text="@string/default_id"
             android:gravity="center"
             android:id="@+id/view_med_id"/>
         <!--//End of Hidden field to hold the med month-->

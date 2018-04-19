@@ -7,9 +7,11 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import ly.remote.medmanager.controllers.dbContractClasses.AlarmDbContract;
 import ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract;
+import ly.remote.medmanager.views.CreateMedicationActivity;
 
 import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.CREATE_QUERY;
 import static ly.remote.medmanager.controllers.dbContractClasses.MedDatabaseContract.INDEX;
@@ -184,8 +186,7 @@ public class DatabaseHelper {
     public void deleteAlarmByID(int pendingIntentId){
         sqLiteDatabase = medDatabaseHelper.getWritableDatabase();
         sqLiteDatabase.delete(AlarmDbContract.TABLE_NAME,INDEX + "=?",new String[]{String.valueOf(pendingIntentId)});
-        Log.d(MED_DEBUG_TAG,"Deletion successful");
-
+        Toast.makeText(context, "Deleted Alarm", Toast.LENGTH_SHORT).show();
     }
 
 }

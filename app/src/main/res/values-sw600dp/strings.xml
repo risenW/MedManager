@@ -31,6 +31,7 @@
     <string name="name_title">Name</string>
     <string name="about_user_title">About me</string>
     <string name="prof_details_hint">Enter some details about ourself</string>
+    <string name="saveState">Saving...</string>
 
 
 </resources>

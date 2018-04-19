@@ -63,7 +63,7 @@
                 android:textSize="@dimen/login_textSize"
                 android:id="@+id/username"
                 android:padding="20dp"
-                android:text="@string/default_name"/>
+                android:hint="@string/default_name"/>
 
         </LinearLayout>
 
@@ -114,7 +114,7 @@
                 android:id="@+id/user_about"
                 android:padding="20dp"
                 android:layout_margin="20dp"
-                android:text="@string/prof_details_hint"/>
+                android:hint="@string/prof_details_hint"/>
 
         </LinearLayout>
 

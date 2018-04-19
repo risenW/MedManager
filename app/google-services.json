@@ -8,6 +8,50 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:140900975256:android:479754142accc408",
+        "android_client_info": {
+          "package_name": "ly.remote.med_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140900975256-fq7ccd46v1brno56lltm5r0ubaffqgap.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ly.remote.med_manager",
+            "certificate_hash": "706be983707b3e7410fa8f1f694abdbbc3c8513a"
+          }
+        },
+        {
+          "client_id": "140900975256-9fhjrhghonanfenva36jjgrk2q4u0k1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvXWyfYkjk5TZdxatOzz12gxUkBObcUfM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140900975256-9fhjrhghonanfenva36jjgrk2q4u0k1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:140900975256:android:20187eecdf238e2a",
         "android_client_info": {
           "package_name": "ly.remote.medmanager"
